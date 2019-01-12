@@ -1,5 +1,6 @@
 package frc.autonomous.commands;
 
+import frc.robot.Robot;
 import frc.autonomous.AutoCommand;
 import frc.utils.Constants;
 import frc.utils.SimLib;
@@ -7,12 +8,17 @@ import frc.utils.SimPID;
 import frc.robot.DriveTrain;
 //import frc.robot.Subsystems;
 
-public class DriveStraight implements AutoCommand {
+public class DriveStraight extends Command {
 	
 	private final double distance;
 	private SimPID drivePID;
 	private double maxSpeed;
 	private DriveTrain driveTrain = DriveTrain.getInstance();
+
+	public DriveStraight(){
+		requires(Robot.DriveTrain);
+		setTimeout(1);
+	}
 
 	public DriveStraight(double distance) {
 		this(distance, Constants.getConstantAsDouble(Constants.ENCODER_PID_MAX));

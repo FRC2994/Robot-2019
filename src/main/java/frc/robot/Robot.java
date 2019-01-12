@@ -22,6 +22,7 @@ import org.opencv.imgproc.Imgproc;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.commands.Command;
 
 import frc.utils.Constants;
 import frc.utils.DriveTrainCharacterizer;
@@ -35,12 +36,14 @@ import frc.utils.ArduinoI2C;
  * directory.
  */
 public class Robot extends TimedRobot {
-	private DriveTrain driveTrain;
-	private Elevator elevator;
+	public static DriveTrain driveTrain;
+	// private Elevator elevator;
 //	private Climber climber;
-	private CubePickup cubePickup;
+	// private CubePickup cubePickup;
 	//private Ramp ramp;
 	
+	Command autonomousCommand;
+
 	private String gameSpecificData = "%NOT POLLED";
 	private static int autoSelectSwitchPosition;
 	
@@ -79,18 +82,21 @@ public class Robot extends TimedRobot {
 		this.driveTrain = new DriveTrain();
 		subsystems.add(driveTrain);
 
-		this.elevator = new Elevator();
-		subsystems.add(elevator);
+		// this.elevator = new Elevator();
+		// subsystems.add(elevator);
 
 //		this.climber = new Climber();
 //		subsystems.add(climber);
 		
-		this.cubePickup = new CubePickup();
-		subsystems.add(cubePickup);
+		// this.cubePickup = new CubePickup();
+		// subsystems.add(cubePickup);
 //		
 //		this.ramp = new Ramp();
 //		subsystems.add(ramp);
 		
+		autonomousCommand = new Autonomous();
+		SmartDashboard.putData(driveTrain);
+
 	CameraServer.getInstance().startAutomaticCapture();
 		
 	}
@@ -112,7 +118,6 @@ public class Robot extends TimedRobot {
 		autoSelectSwitchPosition = Subsystems.calcAutoSelectSwitch();
 	}
 
-	AutoMode mode;
 	
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
@@ -134,12 +139,15 @@ public class Robot extends TimedRobot {
 //		mode = new CentreAndPickSwitchMode();
 //		mode = new SideToScaleMode();
 //		mode = new SideToSwitchMode();
-		mode = new FollowMotionProfileMode();
+		// mode = new FollowMotionProfileMode();
 //		mode = new AutonomousMasterMode();
+
+		autonomousCommand.start();
+
 		driveTrain.robotDrive.setSafetyEnabled(false);
 		driveTrain.setLowGear();
 		driveTrain.zero();
-		elevator.zero();
+		// elevator.zero();
 		// pickAModeFromTheAutoSwitch();
 		mode.initialize();
 	}
@@ -209,6 +217,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		mode.tick();
+		Scheduler.getInstance().run();
+		log();
 //		Subsystems.btMain.doRecordingTick();
 	}
 
@@ -218,6 +228,8 @@ public class Robot extends TimedRobot {
 			subsystem.initTeleop();
 		}
 		
+		autonomousCommand.cancel();
+
 		Subsystems.driveJoystick.enableButton(3);
 	}
 
@@ -232,6 +244,9 @@ public class Robot extends TimedRobot {
 		for (Subsystem subsystem : subsystems) {
 			subsystem.tickTeleop();
 		}
+
+		Scheduler.getInstance().run();
+		log();
 		
 //		Subsystems.btMain.doRecordingTick();
 	}
@@ -241,6 +256,7 @@ public class Robot extends TimedRobot {
 		for (Subsystem subsystem : subsystems) {
 			subsystem.initTesting();
 		}
+		LiveWindow.run();
 //		dtCharaterizer = new DriveTrainCharacterizer(QUASI_STATIC, Forward);
 		autoSelectSwitchPosition = Subsystems.calcAutoSelectSwitch();
 		System.out.println("autoSelectSwitchPosition : " + autoSelectSwitchPosition + " Raw Value " + Subsystems.autoSelectSwitch.getValue() );
