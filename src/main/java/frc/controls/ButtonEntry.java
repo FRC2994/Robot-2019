@@ -1,4 +1,4 @@
-package main.java.frc.controls;
+package frc.controls;
 
 public class ButtonEntry 
 {

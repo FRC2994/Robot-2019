@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package main.java.frc.controls;
+package frc.controls;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;

@@ -1,4 +1,4 @@
-package main.java.frc.utils;
+package frc.utils;
 
 import edu.wpi.first.wpilibj.I2C;
 

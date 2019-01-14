@@ -1,6 +1,6 @@
-package frc.robot.subsystems;
+package frc.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+// import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PWM;
@@ -8,24 +8,30 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-import static main.java.frc.utils.Constants.CAN_LEFT_FRONT_DRIVE;
-import static main.java.frc.utils.Constants.CAN_LEFT_REAR_DRIVE;
-import static main.java.frc.utils.Constants.CAN_RIGHT_FRONT_DRIVE;
-import static main.java.frc.utils.Constants.CAN_RIGHT_REAR_DRIVE;
-import static main.java.frc.utils.Constants.ENCODER_PID_D;
-import static main.java.frc.utils.Constants.ENCODER_PID_E;
-import static main.java.frc.utils.Constants.ENCODER_PID_I;
-import static main.java.frc.utils.Constants.ENCODER_PID_P;
-import static main.java.frc.utils.Constants.GYRO_PID_D;
-import static main.java.frc.utils.Constants.GYRO_PID_E;
-import static main.java.frc.utils.Constants.GYRO_PID_I;
-import static main.java.frc.utils.Constants.GYRO_PID_P;
-import static main.java.frc.utils.Constants.PCM_CAN;
-import static main.java.frc.utils.Constants.SOLENOID_SHIFTER_CHANNEL1;
-import static main.java.frc.utils.Constants.JOYSTICK_SHIFTER;
-import static main.java.frc.utils.Constants.JOYSTICK_INVERSE;
-import static main.java.frc.utils.Constants.getConstantAsDouble;
-import static main.java.frc.utils.Constants.getConstantAsInt;
+import static frc.utils.Constants.CAN_LEFT_FRONT_DRIVE;
+import static frc.utils.Constants.CAN_LEFT_REAR_DRIVE;
+import static frc.utils.Constants.CAN_RIGHT_FRONT_DRIVE;
+import static frc.utils.Constants.CAN_RIGHT_REAR_DRIVE;
+import static frc.utils.Constants.ENCODER_PID_D;
+import static frc.utils.Constants.ENCODER_PID_E;
+import static frc.utils.Constants.ENCODER_PID_I;
+import static frc.utils.Constants.ENCODER_PID_P;
+import static frc.utils.Constants.GYRO_PID_D;
+import static frc.utils.Constants.GYRO_PID_E;
+import static frc.utils.Constants.GYRO_PID_I;
+import static frc.utils.Constants.GYRO_PID_P;
+import static frc.utils.Constants.PCM_CAN;
+import static frc.utils.Constants.SOLENOID_SHIFTER_CHANNEL1;
+import static frc.utils.Constants.JOYSTICK_SHIFTER;
+import static frc.utils.Constants.JOYSTICK_INVERSE;
+import static frc.utils.Constants.getConstantAsDouble;
+import static frc.utils.Constants.getConstantAsInt;
+import frc.subsystems.Subsystem;
+import frc.controls.EJoystick;
+import frc.controls.ButtonEntry;
+import static frc.subsystems.Subsystems.driveJoystick;
+import frc.subsystems.Subsystems;
+
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -33,10 +39,10 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import main.java.frc.controls.ButtonEntry;
-import main.java.frc.controls.EJoystick;
-import main.java.frc.utils.Constants;
-import main.java.frc.utils.SimPID;
+import frc.controls.ButtonEntry;
+import frc.controls.EJoystick;
+import frc.utils.Constants;
+import frc.utils.SimPID;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -50,7 +56,7 @@ public class DriveTrain extends Subsystem{
 
     
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-	RobotDrive robotDrive;
+	public RobotDrive robotDrive;
 	SimPID gyroPID = new SimPID(
 						getConstantAsDouble(GYRO_PID_P),
 						getConstantAsDouble(GYRO_PID_I),
@@ -379,4 +385,5 @@ public class DriveTrain extends Subsystem{
 	public void zero() {
 		startPosition = getLeftEncoderValue();
 	}
+
 }

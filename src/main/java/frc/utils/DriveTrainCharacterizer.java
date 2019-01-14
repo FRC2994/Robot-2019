@@ -1,4 +1,4 @@
-package main.java.frc.utils;
+package frc.utils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import main.java.frc.robot.DriveTrain;
+import frc.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.CircularBuffer;
 import edu.wpi.first.wpilibj.Timer;

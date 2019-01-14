@@ -1,4 +1,4 @@
-package main.java.frc.controls;
+package frc.controls;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;

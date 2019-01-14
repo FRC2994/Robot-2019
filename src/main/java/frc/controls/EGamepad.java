@@ -1,4 +1,4 @@
-package main.java.frc.controls;
+package frc.controls;
 
 
 //This class extends the Gamepad class to provide button event detection
