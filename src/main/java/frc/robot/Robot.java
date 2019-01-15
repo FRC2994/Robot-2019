@@ -1,18 +1,9 @@
 
 package frc.robot;
 
-import java.util.ArrayList;
-
-import java.util.List;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-//import frc.utils.BTMain;
-import frc.utils.Constants;
-import frc.utils.DriveTrainCharacterizer;
-import frc.utils.ArduinoI2C;
-import frc.subsystems.DriveTrain;
-import frc.subsystems.Subsystem;
+
 import frc.subsystems.Subsystems;
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,12 +13,7 @@ import frc.subsystems.Subsystems;
  * directory.
  */
 public class Robot extends TimedRobot {
-	private DriveTrain driveTrain;
 	
-	private String gameSpecificData = "%NOT POLLED";
-	
-	private List<Subsystem> subsystems;
-
 	private static Robot instance;
 	
 	public Robot() {
@@ -38,11 +24,6 @@ public class Robot extends TimedRobot {
 		return instance;
 	}
 	
-	public String getGameSpecificData() {
-		return gameSpecificData;
-	}
-	
-	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -51,14 +32,6 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		// this.setPeriod(Constants.TIMED_ROBOT_PERIOD);
 		Subsystems.initialize();
-		
-		subsystems = new ArrayList<Subsystem>();
-
-		this.driveTrain = new DriveTrain();
-		subsystems.add(driveTrain);
-
-
-
 	}
 
 	/**
@@ -68,12 +41,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-	   ArduinoI2C A_I2C = new ArduinoI2C();
+	   Subsystems.disabledInit();
 	}
 
 	@Override
 	public void disabledPeriodic() {
-		gameSpecificData = DriverStation.getInstance().getGameSpecificMessage();
+		Subsystems.disabledPeriodic();
 	}
 
 	/**
@@ -89,11 +62,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-//		Subsystems.btMain.enableRecording(true);
-		gameSpecificData = DriverStation.getInstance().getGameSpecificMessage();
-		driveTrain.robotDrive.setSafetyEnabled(false);
-		driveTrain.setLowGear();
-		driveTrain.zero();
+		Subsystems.autonomousInit();
 	}   
 
 	/**
@@ -101,17 +70,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		// mode.tick();
-//		Subsystems.btMain.doRecordingTick();
+		Subsystems.autonomousPeriodic();
 	}
 
 	@Override
 	public void teleopInit() {
-		for (Subsystem subsystem : subsystems) {
-			subsystem.initTeleop();
-		}
-		
-		Subsystems.driveJoystick.enableButton(3);
+		Subsystems.teleopInit();
 	}
 
 	/**
@@ -119,22 +83,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		Subsystems.driveJoystick.update();
-		Subsystems.controlGamepad.update();
-
-		for (Subsystem subsystem : subsystems) {
-			subsystem.tickTeleop();
-		}
-		
-//		Subsystems.btMain.doRecordingTick();
+		Subsystems.teleopPeriodic();
 	}
 
 	@Override
 	public void testInit() {
-		for (Subsystem subsystem : subsystems) {
-			subsystem.initTesting();
-		}
-//		dtCharaterizer = new DriveTrainCharacterizer(QUASI_STATIC, Forward);
+		Subsystems.testInit();
 	}
 
 	/**
@@ -142,13 +96,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		Subsystems.compressor.start();
-		Subsystems.driveJoystick.update();
-		Subsystems.controlGamepad.update();
-
-		for (Subsystem subsystem : subsystems) {
-			subsystem.tickTesting();
-		}
-	    // Subsystems.Logger.addRecord();  // Add the line of accumulated records
+		Subsystems.testPeriodic();
 	}
 }

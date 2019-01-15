@@ -30,7 +30,8 @@ import frc.subsystems.Subsystem;
 import frc.controls.EJoystick;
 import frc.controls.ButtonEntry;
 import static frc.subsystems.Subsystems.driveJoystick;
-import frc.subsystems.Subsystems;
+// import frc.subsystems.Subsystems;
+import frc.subsystems.DriveTrain;
 
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -314,8 +315,18 @@ public class DriveTrain extends Subsystem{
 		//TODO: Get encoder position from Talons and average it
 	}
 	
+	public void setMotors(double leftMotors, double rightMotors) {
+		//		differentialDrive.drive(leftMotors, rightMotors);
+				robotDrive.setLeftRightMotorOutputs(leftMotors, rightMotors);
+			}
+		
+			public void zero() {
+				startPosition = getLeftEncoderValue();
+			}
+
 	@Override
 	public void initTeleop() {
+		driveJoystick.enableButton(3);
 		zero();
 		rightRearDrive.setInverted(false);
 		rightFrontDrive.setInverted(false);
@@ -329,7 +340,21 @@ public class DriveTrain extends Subsystem{
 		driveJoystick.enableButton(Constants.getConstantAsInt(JOYSTICK_INVERSE));
 
         // Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro");
-}
+    }
+
+    @Override
+    public void initAutonomous() {
+    	robotDrive.setSafetyEnabled(false);
+    	setLowGear();
+    	zero();
+    }   
+    
+    /**
+     * This function is called periodically during autonomous
+     */
+    @Override
+    public void tickAutonomous() {
+    }
 
 	@Override
 	public void tickTeleop() {
@@ -369,21 +394,11 @@ public class DriveTrain extends Subsystem{
 
 	@Override
 	public void tickTesting() {
-		
 	}
 
 	@Override
 	public void initTesting() {
 		
-	}
-
-	public void setMotors(double leftMotors, double rightMotors) {
-//		differentialDrive.drive(leftMotors, rightMotors);
-		robotDrive.setLeftRightMotorOutputs(leftMotors, rightMotors);
-	}
-
-	public void zero() {
-		startPosition = getLeftEncoderValue();
 	}
 
 }
