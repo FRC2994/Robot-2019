@@ -14,6 +14,8 @@ import frc.utils.ArduinoI2C;
 import frc.subsystems.DriveTrain;
 import frc.subsystems.Subsystem;
 import frc.subsystems.Subsystems;
+
+import edu.wpi.first.wpilibj.CameraServer;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -57,7 +59,7 @@ public class Robot extends TimedRobot {
 		this.driveTrain = new DriveTrain();
 		subsystems.add(driveTrain);
 
-
+		CameraServer.getInstance().startAutomaticCapture();
 
 	}
 
