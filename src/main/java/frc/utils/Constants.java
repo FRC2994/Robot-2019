@@ -12,7 +12,7 @@ public class Constants
 	private static Properties defaults = new Properties();
 	private static Properties constants = new Properties();
 	
-    public static final double TIMED_ROBOT_PERIOD = 0.050;
+    public static final double TIMED_ROBOT_PERIOD = 0.020;
 
     // Elevator Increment constants
 	public final static int ELEVATOR_ENCODER_TICKS_PER_REV = 4096;

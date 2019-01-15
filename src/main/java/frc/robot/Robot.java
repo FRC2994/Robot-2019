@@ -5,6 +5,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 import frc.subsystems.Subsystems;
+import frc.utils.Constants;
+
+import edu.wpi.first.wpilibj.CameraServer;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -30,9 +33,9 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		// this.setPeriod(Constants.TIMED_ROBOT_PERIOD);
+		this.kDefaultPeriod = Constants.TIMED_ROBOT_PERIOD;
+		CameraServer.getInstance().startAutomaticCapture();	}
 		Subsystems.initialize();
-	}
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
