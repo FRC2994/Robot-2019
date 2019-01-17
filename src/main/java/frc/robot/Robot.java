@@ -8,6 +8,7 @@ import frc.subsystems.Subsystems;
 import frc.utils.Constants;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DigitalInput;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -18,7 +19,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 public class Robot extends TimedRobot {
 	
 	private static Robot instance;
-	
+	DigitalInput colorSensor = new DigitalInput(1);
 	public Robot() {
 		instance = this;
 	}
@@ -101,5 +102,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testPeriodic() {
 		Subsystems.testPeriodic();
+		System.out.println(colorSensor.get());
 	}
 }
