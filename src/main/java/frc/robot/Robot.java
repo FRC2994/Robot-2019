@@ -33,9 +33,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		this.kDefaultPeriod = Constants.TIMED_ROBOT_PERIOD;
-		CameraServer.getInstance().startAutomaticCapture();	}
+		// this.kDefaultPeriod = Constants.TIMED_ROBOT_PERIOD;
+		CameraServer.getInstance().startAutomaticCapture();	
 		Subsystems.initialize();
+	}
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
