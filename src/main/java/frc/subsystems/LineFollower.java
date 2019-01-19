@@ -6,13 +6,14 @@ import frc.subsystems.DriveTrain;
 public class LineFollower extends Subsystems {
     DigitalInput rightColorSensor = new DigitalInput(1);
     DigitalInput leftColorSensor = new DigitalInput(2);
-    boolean rightColorSensorValue = rightColorSensor.get();
-    boolean leftColorSensorValue = leftColorSensor.get(); 
     String direction;
 
     DriveTrain dT = new DriveTrain();
-    
+
     public void startFollow() {
+        boolean rightColorSensorValue = rightColorSensor.get();
+        boolean leftColorSensorValue = leftColorSensor.get(); 
+        
         if(leftColorSensorValue == false && rightColorSensorValue == true) {
             //Right sensor only sees white so it should go left
             direction = "R";
