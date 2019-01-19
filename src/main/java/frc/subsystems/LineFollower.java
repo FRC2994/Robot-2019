@@ -1,6 +1,7 @@
 package frc.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import frc.subsystems.DriveTrain;
 
 public class LineFollower extends Subsystems {
     DigitalInput rightColorSensor = new DigitalInput(1);
@@ -8,6 +9,9 @@ public class LineFollower extends Subsystems {
     boolean rightColorSensorValue = rightColorSensor.get();
     boolean leftColorSensorValue = leftColorSensor.get(); 
     String direction;
+
+    DriveTrain dT = new DriveTrain();
+    
     public void startFollow() {
         if(leftColorSensorValue == false && rightColorSensorValue == true) {
             //Right sensor only sees white so it should go left
