@@ -2,12 +2,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
-
+import frc.subsystems.DriveTrain;
 import frc.subsystems.Subsystems;
 import frc.utils.Constants;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -17,8 +24,12 @@ import edu.wpi.first.wpilibj.CameraServer;
  */
 public class Robot extends TimedRobot {
 	
+	Command autonomousCommand;
+
 	private static Robot instance;
-	
+	public static DriveTrain drivetrain;
+	oi = new OI();
+
 	public Robot() {
 		instance = this;
 	}
@@ -36,6 +47,9 @@ public class Robot extends TimedRobot {
 		// this.kDefaultPeriod = Constants.TIMED_ROBOT_PERIOD;
 		CameraServer.getInstance().startAutomaticCapture();	
 		Subsystems.initialize();
+		drivetrain = new DriveTrain();
+		// autonomousCommand = new Autonomous();
+		SmartDashboard.putData((Sendable) drivetrain);
 	}
 
 	/**
@@ -67,6 +81,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		Subsystems.autonomousInit();
+		autonomousCommand.start();
 	}   
 
 	/**
@@ -75,11 +90,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Subsystems.autonomousPeriodic();
+		Scheduler.getInstance().run();
 	}
 
 	@Override
 	public void teleopInit() {
 		Subsystems.teleopInit();
+		autonomousCommand.cancel();
 	}
 
 	/**
@@ -88,6 +105,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Subsystems.teleopPeriodic();
+		Scheduler.getInstance().run();
 	}
 
 	@Override
@@ -101,5 +119,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testPeriodic() {
 		Subsystems.testPeriodic();
+		LiveWindow.run();
 	}
 }
