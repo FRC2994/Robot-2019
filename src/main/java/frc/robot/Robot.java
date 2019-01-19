@@ -9,16 +9,13 @@ import frc.subsystems.Subsystems;
 import frc.utils.Constants;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
@@ -28,7 +25,6 @@ public class Robot extends TimedRobot {
 
 	private static Robot instance;
 	public static DriveTrain drivetrain;
-	oi = new OI();
 
 	public Robot() {
 		instance = this;
