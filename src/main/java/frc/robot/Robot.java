@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.subsystems.DriveTrain;
 import frc.subsystems.Subsystems;
 import frc.utils.Constants;
+import frc.subsystems.LineFollower;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -15,6 +16,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.command.Command;
 
+
 /**
  * creating this project, you must also update the manifest file in the resource
  * directory.
@@ -22,7 +24,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Robot extends TimedRobot {
 	
 	Command autonomousCommand;
-
+	LineFollower lineFollower = new LineFollower();
 	private static Robot instance;
 	public static DriveTrain drivetrain;
 
@@ -116,5 +118,6 @@ public class Robot extends TimedRobot {
 	public void testPeriodic() {
 		Subsystems.testPeriodic();
 		LiveWindow.run();
+		lineFollower.startFollow();
 	}
 }
