@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.subsystems.DriveTrain;
 
 public class LineFollower extends Subsystems {
-    DigitalInput rightColorSensor = new DigitalInput(1);
-    DigitalInput leftColorSensor = new DigitalInput(2);
+    DigitalInput rightColorSensor = new DigitalInput(27);
+    DigitalInput leftColorSensor = new DigitalInput(26);
     String direction;
 
     DriveTrain dT = new DriveTrain();
