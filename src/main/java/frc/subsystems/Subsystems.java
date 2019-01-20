@@ -13,6 +13,7 @@ import frc.utils.DriveTrainCharacterizer;
 import frc.utils.ArduinoI2C;
 
 import frc.subsystems.Logger;
+import frc.subsystems.LineFollower;
 import frc.controls.EGamepad;
 import frc.controls.EJoystick;
 import frc.utils.Constants;
@@ -25,7 +26,7 @@ public class Subsystems {
 
 	private static List<Subsystem> subsystemsArray;
 
-	public static Logger Logger = new Logger();
+	public static Logger logger = new Logger();
 
 	public static EJoystick	driveJoystick;
 	public static EGamepad controlGamepad;
@@ -33,6 +34,7 @@ public class Subsystems {
 	public static PowerDistributionPanel powerPanel;
 	public static Compressor compressor;
 	public static AnalogInput autoSelectSwitch;
+	public static LineFollower lineFollower;
 
 	private static String gameSpecificData = "%NOT POLLED";
 
@@ -52,11 +54,14 @@ public class Subsystems {
 
 	    autoSelectSwitch = new AnalogInput(Constants.getConstantAsInt(AIO_AUTO_SELECT));
 
-		Logger.println("Hello World");
-		Logger.println("Goodbye Aliens");
+		logger.println("Hello World");
+		logger.println("Goodbye Aliens");
+
+		lineFollower = new LineFollower();
 
 		subsystemsArray = new ArrayList<Subsystem>();
 		subsystemsArray.add(DriveTrain.getInstance());
+		subsystemsArray.add(lineFollower);
 	}
 
 	public String getGameSpecificData() {
@@ -89,6 +94,7 @@ public class Subsystems {
 		for (Subsystem subsystem : subsystemsArray) {
 			subsystem.tickAutonomous();
 		}
+	    logger.addRecord();  // Add the line of accumulated records
 	}
 
 	public static void teleopInit() {
@@ -106,6 +112,7 @@ public class Subsystems {
 		for (Subsystem subsystem : subsystemsArray) {
 			subsystem.tickTeleop();
 		}
+	    logger.addRecord();  // Add the line of accumulated records
 	}
 
 	public static void testInit() {
@@ -126,7 +133,7 @@ public class Subsystems {
 		for (Subsystem subsystem : subsystemsArray) {
 			subsystem.tickTesting();
 		}
-	    Logger.addRecord();  // Add the line of accumulated records
+	    logger.addRecord();  // Add the line of accumulated records
 	}
 
 }
