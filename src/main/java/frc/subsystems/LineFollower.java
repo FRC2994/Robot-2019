@@ -9,6 +9,10 @@ package frc.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 
+import static frc.utils.Constants.DIO_RIGHT_COLOUR_SENSOR;
+import static frc.utils.Constants.DIO_LEFT_COLOUR_SENSOR;
+import static frc.utils.Constants.getConstantAsInt;
+
 /**
  * Add your docs here.
  */
@@ -22,41 +26,66 @@ public class LineFollower extends Subsystem {
     instance = this;
   }
 
-  DigitalInput rightColorSensor = new DigitalInput(27);  // TODO: use a constant
-  DigitalInput leftColorSensor = new DigitalInput(26);   // TODO: use a constant
-  String direction;  // TODO:Use an Enum state = rightState, leftState, bothState, noneState
+  DigitalInput rightColorSensor = new DigitalInput(getConstantAsInt(DIO_RIGHT_COLOUR_SENSOR));  // TODO: use a constant
+  DigitalInput leftColorSensor = new DigitalInput(getConstantAsInt(DIO_LEFT_COLOUR_SENSOR));   // TODO: use a constant
+ // String direction;  // TODO:Use an Enum state = rightState, leftState, bothState, noneState
+  
+  public enum State {
+    rightState ('R'),
+    leftState ('L'),
+    centreState ('C'),
+    noneState ('N'),
+    finishedState ('F'),
+    invalidState ('I')
+    ;
+
+    private final char stateCode;
+
+    private State(char stateCode) {
+        this.stateCode = stateCode;
+    }
+  
+  }
 
   public static LineFollower getInstance() {
       return instance;
   }
 
-  public void startFollow() {
+  public State getState() {
       boolean rightColorSensorValue = rightColorSensor.get();
       boolean leftColorSensorValue = leftColorSensor.get(); 
+      State state;
       
       if(leftColorSensorValue == false && rightColorSensorValue == true) {
           //Only right sensor sees white so it should go left
-          direction = "R";
+          state = State.leftState;
+
       } else if(leftColorSensorValue == true && rightColorSensorValue == false) {
           //Only Left sensor sees white so it should go right
-          direction = "L";
+          state = State.rightState;
+
         } else if(leftColorSensorValue == true && rightColorSensorValue == true) {
           //Both sensors see the white line therefore should go straight
-          direction = "C";
+          state = State.centreState;
+
         } else {
           //None of sensors sees the white line therefore if should stop
-          direction = "S";
+          state = State.noneState;
+
       }
-      switch(direction){
-          case "L":   System.out.println("Move Right");
-                      break;
-          case "R":   System.out.println("Move Left"); 
-                      break;
-          case "C":   System.out.println("Move Straight");
-                      break;
-          default:    System.out.println("Invalid");
-                      break;
-      }
+
+      return state;
+      /* switch(state){
+          case rightState:    System.out.println("Move Right");
+                              return 'R';
+                              break;
+          case leftState:     System.out.println("Move Left"); 
+                              break;
+          case centreState:   System.out.println("Move Straight");
+                              break;
+          default:            System.out.println("Invalid");
+                              break;
+      } */
   }
 
   @Override

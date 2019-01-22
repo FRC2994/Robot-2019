@@ -118,6 +118,5 @@ public class Robot extends TimedRobot {
 	public void testPeriodic() {
 		Subsystems.testPeriodic();
 		LiveWindow.run();
-		lineFollower.startFollow();
 	}
 }

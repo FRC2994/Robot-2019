@@ -70,6 +70,9 @@ public class Constants
 	public static final String DIO_ELEVATOR_LIMIT_TOP =         "DIO_ELEVATOR_LIMIT_TOP";
 
 	public static final String SHOOTER_ENCODER_CALIBRATION = 	"SHOOTER_ENCODER_CALIBRATION";
+
+	public static final String DIO_RIGHT_COLOUR_SENSOR = 			"DIO_RIGHT_COLOUR_SENSOR";
+	public static final String DIO_LEFT_COLOUR_SENSOR =				"DIO_LEFT_COLOUR_SENSOR";
 	
 	// Analog IO
 //	public static final String AIO_GYRO_SENSOR =				"AIO_GYRO_SENSOR";
@@ -173,6 +176,9 @@ public class Constants
 		defaults.put(DIO_ELEVATOR_LIMIT_TOP, "1");
 
 		defaults.put(SHOOTER_ENCODER_CALIBRATION, "0.0078125");
+
+		defaults.put(DIO_RIGHT_COLOUR_SENSOR, "18");
+		defaults.put(DIO_LEFT_COLOUR_SENSOR, "23");
 
 		// Analog IO
 //		defaults.put(AIO_GYRO_SENSOR, "0");
