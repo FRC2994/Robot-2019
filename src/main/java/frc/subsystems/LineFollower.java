@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 import static frc.utils.Constants.DIO_RIGHT_COLOUR_SENSOR;
 import static frc.utils.Constants.DIO_LEFT_COLOUR_SENSOR;
+import static frc.utils.Constants.AIO_LEFT_ULTRASONIC_SENSOR;
+import static frc.utils.Constants.AIO_RIGHT_ULTRASONIC_SENSOR;
 import static frc.utils.Constants.getConstantAsInt;
 
 /**

@@ -78,6 +78,9 @@ public class Constants
 //	public static final String AIO_GYRO_SENSOR =				"AIO_GYRO_SENSOR";
 	public static final String AIO_AUTO_SELECT =				"AIO_AUTO_SELECT";
 
+	public static final String AIO_LEFT_ULTRASONIC_SENSOR = 	"AIO_LEFT_ULTRASONIC_SENSOR";
+	public static final String AIO_RIGHT_ULTRASONIC_SENSOR = 	"AIO_RIGHT_ULTRASONIC_SENSOR";
+
 	// USB
 	public static final String USB_DRIVE_STICK =				"USB_RIGHT_STICK";
 	public static final String USB_CONTROL_GAMEPAD =			"USB_CONTROL_GAMEPAD";
@@ -183,6 +186,8 @@ public class Constants
 		// Analog IO
 //		defaults.put(AIO_GYRO_SENSOR, "0");
 		defaults.put(AIO_AUTO_SELECT, "0");
+		defaults.put(AIO_LEFT_ULTRASONIC_SENSOR, "25");
+		defaults.put(AIO_RIGHT_ULTRASONIC_SENSOR, "20");
 
 		// USB
 		defaults.put(USB_DRIVE_STICK, "0");
