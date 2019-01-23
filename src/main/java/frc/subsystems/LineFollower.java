@@ -8,12 +8,9 @@
 package frc.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import frc.utils.Constants;
 
-import static frc.utils.Constants.DIO_RIGHT_COLOUR_SENSOR;
-import static frc.utils.Constants.DIO_LEFT_COLOUR_SENSOR;
-import static frc.utils.Constants.AIO_LEFT_ULTRASONIC_SENSOR;
-import static frc.utils.Constants.AIO_RIGHT_ULTRASONIC_SENSOR;
-import static frc.utils.Constants.getConstantAsInt;
+import static frc.utils.Constants.*;
 
 /**
  * Add your docs here.
@@ -28,8 +25,8 @@ public class LineFollower extends Subsystem {
     instance = this;
   }
 
-  DigitalInput rightColorSensor = new DigitalInput(getConstantAsInt(DIO_RIGHT_COLOUR_SENSOR));  // TODO: use a constant
-  DigitalInput leftColorSensor = new DigitalInput(getConstantAsInt(DIO_LEFT_COLOUR_SENSOR));   // TODO: use a constant
+  DigitalInput rightColorSensor = new DigitalInput(Constants.DIO_RIGHT_COLOUR_SENSOR);  // TODO: use a constant
+  DigitalInput leftColorSensor = new DigitalInput(Constants.DIO_LEFT_COLOUR_SENSOR);   // TODO: use a constant
  // String direction;  // TODO:Use an Enum state = rightState, leftState, bothState, noneState
   
   public enum State {

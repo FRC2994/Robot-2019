@@ -7,24 +7,7 @@ import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-import static frc.utils.Constants.CAN_LEFT_FRONT_DRIVE;
-import static frc.utils.Constants.CAN_LEFT_REAR_DRIVE;
-import static frc.utils.Constants.CAN_RIGHT_FRONT_DRIVE;
-import static frc.utils.Constants.CAN_RIGHT_REAR_DRIVE;
-import static frc.utils.Constants.ENCODER_PID_D;
-import static frc.utils.Constants.ENCODER_PID_E;
-import static frc.utils.Constants.ENCODER_PID_I;
-import static frc.utils.Constants.ENCODER_PID_P;
-import static frc.utils.Constants.GYRO_PID_D;
-import static frc.utils.Constants.GYRO_PID_E;
-import static frc.utils.Constants.GYRO_PID_I;
-import static frc.utils.Constants.GYRO_PID_P;
-import static frc.utils.Constants.PCM_CAN;
-import static frc.utils.Constants.SOLENOID_SHIFTER_CHANNEL1;
-import static frc.utils.Constants.JOYSTICK_SHIFTER;
-import static frc.utils.Constants.JOYSTICK_INVERSE;
-import static frc.utils.Constants.getConstantAsDouble;
-import static frc.utils.Constants.getConstantAsInt;
+import static frc.utils.Constants.*;
 import frc.subsystems.Subsystem;
 import frc.controls.EJoystick;
 import frc.controls.ButtonEntry;
@@ -49,28 +32,20 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 
 public class DriveTrain extends Subsystem{
-    TalonSRX leftFrontDrive = new TalonSRX(getConstantAsInt(CAN_LEFT_FRONT_DRIVE));
-	TalonSRX leftRearDrive = new TalonSRX(getConstantAsInt(CAN_LEFT_REAR_DRIVE));
-	TalonSRX rightFrontDrive = new TalonSRX(getConstantAsInt(CAN_RIGHT_FRONT_DRIVE));
-	VictorSPX rightRearDrive = new VictorSPX(getConstantAsInt(CAN_RIGHT_REAR_DRIVE));
+    TalonSRX leftFrontDrive = new TalonSRX(Constants.CAN_LEFT_FRONT_DRIVE);
+	TalonSRX leftRearDrive = new TalonSRX(Constants.CAN_LEFT_REAR_DRIVE);
+	TalonSRX rightFrontDrive = new TalonSRX(Constants.CAN_RIGHT_FRONT_DRIVE);
+	VictorSPX rightRearDrive = new VictorSPX(Constants.CAN_RIGHT_REAR_DRIVE);
 
     
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	public RobotDrive robotDrive;
-	SimPID gyroPID = new SimPID(
-						getConstantAsDouble(GYRO_PID_P),
-						getConstantAsDouble(GYRO_PID_I),
-						getConstantAsDouble(GYRO_PID_D),
-						getConstantAsDouble(GYRO_PID_E));
+	SimPID gyroPID = new SimPID(Constants.GYRO_PID_P, Constants.GYRO_PID_I, Constants.GYRO_PID_D, Constants.GYRO_PID_E);
 
-	SimPID autoDrivePID = new SimPID(
-						getConstantAsDouble(ENCODER_PID_P),
-						getConstantAsDouble(ENCODER_PID_I),
-						getConstantAsDouble(ENCODER_PID_D),
-						getConstantAsDouble(ENCODER_PID_E));
+	SimPID autoDrivePID = new SimPID(Constants.ENCODER_PID_P,Constants.ENCODER_PID_I,Constants.ENCODER_PID_D,Constants.ENCODER_PID_E);
 	
-	Solenoid gearShiftSolenoid = new Solenoid(getConstantAsInt(PCM_CAN), 
-											getConstantAsInt(SOLENOID_SHIFTER_CHANNEL1));
+	Solenoid gearShiftSolenoid = new Solenoid(Constants.PCM_CAN, 
+											Constants.SOLENOID_SHIFTER_CHANNEL1);
 	private int startPosition;
 	private int desiredPosition = 0;
 
@@ -204,11 +179,7 @@ public class DriveTrain extends Subsystem{
 		// above reset).
 		autoDrivePID.calcPID(0);
 
-		gyroPID = new SimPID(
-				getConstantAsDouble(GYRO_PID_P),
-				getConstantAsDouble(GYRO_PID_I),
-				getConstantAsDouble(GYRO_PID_D),
-				getConstantAsDouble(GYRO_PID_E));
+		gyroPID = new SimPID(Constants.GYRO_PID_P,Constants.GYRO_PID_I,Constants.GYRO_PID_D,Constants.GYRO_PID_E);
 		
 		this.resetEncoders();
 		this.resetGyro();
@@ -335,8 +306,8 @@ public class DriveTrain extends Subsystem{
 		reset();
 
 		robotDrive.setSafetyEnabled(false);
-		driveJoystick.enableButton(Constants.getConstantAsInt(JOYSTICK_SHIFTER));
-		driveJoystick.enableButton(Constants.getConstantAsInt(JOYSTICK_INVERSE));
+		driveJoystick.enableButton(Constants.JOYSTICK_SHIFTER);
+		driveJoystick.enableButton(Constants.JOYSTICK_INVERSE);
 
         // Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro");
     }
@@ -357,14 +328,14 @@ public class DriveTrain extends Subsystem{
 
 	@Override
 	public void tickTeleop() {
-		if (driveJoystick.getEvent(Constants.getConstantAsInt(JOYSTICK_SHIFTER)) == ButtonEntry.EVENT_CLOSED) {
+		if (driveJoystick.getEvent(Constants.JOYSTICK_SHIFTER) == ButtonEntry.EVENT_CLOSED) {
 			setHighGear();
 		}
-		if (driveJoystick.getEvent(Constants.getConstantAsInt(JOYSTICK_SHIFTER)) == ButtonEntry.EVENT_OPENED) {
+		if (driveJoystick.getEvent(Constants.JOYSTICK_SHIFTER) == ButtonEntry.EVENT_OPENED) {
 			setLowGear();
 		}
 		
-		if (driveJoystick.getEvent(Constants.getConstantAsInt(JOYSTICK_INVERSE)) == ButtonEntry.EVENT_CLOSED) {
+		if (driveJoystick.getEvent(Constants.JOYSTICK_INVERSE) == ButtonEntry.EVENT_CLOSED) {
 //			rightRearDrive.setInverted(false);
 //			rightFrontDrive.setInverted(false);
 //			leftRearDrive.setInverted(true);
@@ -374,7 +345,7 @@ public class DriveTrain extends Subsystem{
 //			rightRearDrive.follow(rightFrontDrive);
 		}
 		
-		if (driveJoystick.getEvent(Constants.getConstantAsInt(JOYSTICK_INVERSE)) == ButtonEntry.EVENT_OPENED) {
+		if (driveJoystick.getEvent(Constants.JOYSTICK_INVERSE) == ButtonEntry.EVENT_OPENED) {
 //			rightRearDrive.setInverted(true);
 //			rightFrontDrive.setInverted(true);
 //			leftRearDrive.setInverted(false);

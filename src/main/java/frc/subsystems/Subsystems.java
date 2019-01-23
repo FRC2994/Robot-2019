@@ -8,7 +8,6 @@ import static frc.utils.Constants.DIO_ELEVATOR_LIMIT_BOTTOM;
 import static frc.utils.Constants.USB_CONTROL_GAMEPAD;
 import static frc.utils.Constants.USB_DRIVE_STICK;
 import static frc.utils.Constants.AIO_AUTO_SELECT;
-import static frc.utils.Constants.getConstantAsInt;
 import frc.utils.DriveTrainCharacterizer;
 import frc.utils.ArduinoI2C;
 
@@ -44,15 +43,15 @@ public class Subsystems {
 	public static void initialize()
 	{
 		// USB
-		driveJoystick = new EJoystick(getConstantAsInt(USB_DRIVE_STICK));
-		controlGamepad = new EGamepad(getConstantAsInt(USB_CONTROL_GAMEPAD));
+		driveJoystick = new EJoystick(Constants.USB_DRIVE_STICK);
+		controlGamepad = new EGamepad(Constants.USB_CONTROL_GAMEPAD);
 
 		powerPanel = new PowerDistributionPanel(9);
 
-		compressor = new Compressor(Constants.getConstantAsInt(Constants.PCM_CAN));
+		compressor = new Compressor(Constants.PCM_CAN);
 		compressor.start();
 
-	    autoSelectSwitch = new AnalogInput(Constants.getConstantAsInt(AIO_AUTO_SELECT));
+	    autoSelectSwitch = new AnalogInput(Constants.AIO_AUTO_SELECT);
 
 		logger.println("Hello World");
 		logger.println("Goodbye Aliens");
