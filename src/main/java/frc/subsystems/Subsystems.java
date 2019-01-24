@@ -15,6 +15,7 @@ import frc.subsystems.Logger;
 import frc.subsystems.LineFollower;
 import frc.controls.EGamepad;
 import frc.controls.EJoystick;
+import frc.robot.Robot;
 import frc.utils.Constants;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -59,7 +60,7 @@ public class Subsystems {
 		lineFollower = new LineFollower();
 
 		subsystemsArray = new ArrayList<Subsystem>();
-		subsystemsArray.add(DriveTrain.getInstance());
+		subsystemsArray.add(Robot.drivetrain);
 		subsystemsArray.add(lineFollower);
 	}
 

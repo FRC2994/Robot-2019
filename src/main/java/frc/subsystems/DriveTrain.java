@@ -28,6 +28,7 @@ import frc.utils.Constants;
 import frc.utils.SimPID;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
+//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 
@@ -40,6 +41,7 @@ public class DriveTrain extends Subsystem{
     
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	public RobotDrive robotDrive;
+	public DifferentialDrive differentialDrive;
 	SimPID gyroPID = new SimPID(Constants.GYRO_PID_P, Constants.GYRO_PID_I, Constants.GYRO_PID_D, Constants.GYRO_PID_E);
 
 	SimPID autoDrivePID = new SimPID(Constants.ENCODER_PID_P,Constants.ENCODER_PID_I,Constants.ENCODER_PID_D,Constants.ENCODER_PID_E);
@@ -48,7 +50,8 @@ public class DriveTrain extends Subsystem{
 											Constants.SOLENOID_SHIFTER_CHANNEL1);
 	private int startPosition;
 	private int desiredPosition = 0;
-
+	private boolean stopArcadeDrive;
+	
 	public static DriveTrain instance;
 	
 	public class TalonWrapperSpeedController implements SpeedController {
@@ -149,7 +152,8 @@ public class DriveTrain extends Subsystem{
 
 //		rightFrontDrive.config_kP(0, 0.3, 0);
 
-		robotDrive = new RobotDrive(new TalonWrapperSpeedController(leftFrontDrive), new TalonWrapperSpeedController(rightFrontDrive));
+        robotDrive = new RobotDrive(new TalonWrapperSpeedController(leftFrontDrive), new TalonWrapperSpeedController(rightFrontDrive));
+        //differentialDrive = new DifferentialDrive(new TalonWrapperSpeedController(leftFrontDrive), new TalonWrapperSpeedController(rightFrontDrive));
 
 //		rightDriveEncoder.setDistancePerPulse(0.026);
 //		leftDriveEncoder.setDistancePerPulse(0.001);
@@ -183,19 +187,25 @@ public class DriveTrain extends Subsystem{
 		
 		this.resetEncoders();
 		this.resetGyro();
+		stopArcadeDrive = false;
 	}
 	
+	//public void driveWithCurve(double speed, double turn, boolean isQuickTurn) {
 	public void driveWithCurve(double speed, double turn) {
+		//differentialDrive.curvatureDrive(speed, turn, isQuickTurn);
 		robotDrive.drive(speed, turn);
 	}
 	
 	public void arcadeDrive(EJoystick driveJoystick) {
-		//differentiaDrive.arcadeDrive(driveJoystick.getMagnitude(), driveJoystick.getDirectionRadians());
-		robotDrive.arcadeDrive(driveJoystick);
+        if (!stopArcadeDrive) {
+			//differentialDrive.arcadeDrive(driveJoystick.getY(),driveJoystick.getX());
+			robotDrive.arcadeDrive(driveJoystick);
+		}
 	}
 	
-	public void tankDrive(double leftValue, double rightValue) {
-		robotDrive.tankDrive(leftValue, rightValue);
+	public void tankDrive(double leftSpeed, double rightSpeed) {
+		//differentialDrive.tankDrive(leftSpeed, rightSpeed);
+		robotDrive.tankDrive(leftSpeed, rightSpeed);
 	}
 	
 	
@@ -285,14 +295,13 @@ public class DriveTrain extends Subsystem{
 		//TODO: Get encoder position from Talons and average it
 	}
 	
-	public void setMotors(double leftMotors, double rightMotors) {
-		//		differentialDrive.drive(leftMotors, rightMotors);
-				robotDrive.setLeftRightMotorOutputs(leftMotors, rightMotors);
-			}
-		
-			public void zero() {
-				startPosition = getLeftEncoderValue();
-			}
+	public void zero() {
+		startPosition = getLeftEncoderValue();
+	}
+
+    public void	setStopArcadeDrive(boolean value) {
+		stopArcadeDrive = value;
+	}
 
 	@Override
 	public void initTeleop() {
@@ -306,6 +315,7 @@ public class DriveTrain extends Subsystem{
 		reset();
 
 		robotDrive.setSafetyEnabled(false);
+		//differentialDrive.setSafetyEnabled(false);
 		driveJoystick.enableButton(Constants.JOYSTICK_SHIFTER);
 		driveJoystick.enableButton(Constants.JOYSTICK_INVERSE);
 
@@ -314,9 +324,11 @@ public class DriveTrain extends Subsystem{
 
     @Override
     public void initAutonomous() {
-    	robotDrive.setSafetyEnabled(false);
+		robotDrive.setSafetyEnabled(false);
+		//differentialDrive.setSafetyEnabled(false);
     	setLowGear();
-    	zero();
+		zero();
+		stopArcadeDrive = false;
     }   
     
     /**
@@ -356,10 +368,10 @@ public class DriveTrain extends Subsystem{
 		}
 		
 //		System.out.println("Left Encoder: " + getLeftEncoderValue() +" Right Encoder: " + getRightEncoderValue());
-		robotDrive.arcadeDrive(driveJoystick);
-		// Logger.appendRecord(
-		// 		getFrontLeftMotor().getMotorOutputVoltage() + "\t" + getFrontRightMotor().getMotorOutputVoltage() + 
-		// 		"\t" + getLeftEncoderValue() + "\t" + getRightEncoderValue() + "\t" + getHeading());
+		arcadeDrive(driveJoystick);
+		Logger.appendRecord(
+		 		getFrontLeftMotor().getMotorOutputVoltage() + "\t" + getFrontRightMotor().getMotorOutputVoltage() + 
+		 		"\t" + getLeftEncoderValue() + "\t" + getRightEncoderValue() + "\t" + getHeading());
 	}
 
 	@Override

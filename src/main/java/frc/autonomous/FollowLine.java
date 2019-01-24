@@ -11,6 +11,7 @@ import javax.lang.model.util.ElementScanner6;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.subsystems.Subsystems;
+import frc.subsystems.DriveTrain;
 import frc.subsystems.LineFollower;
 import frc.subsystems.LineFollower.State;
 import frc.robot.Robot;
@@ -18,9 +19,12 @@ import frc.robot.Robot;
 public class FollowLine extends Command {
   private static final double averageSpeed = 50;
   private static final double correctionSpeed = 10;
+  private static final DriveTrain drivetrain = Robot.drivetrain;
+  private static final LineFollower lineFollower = Subsystems.lineFollower;
+
   public FollowLine() {
     // Use requires() here to declare subsystem dependencies
-    // requires(Subsystems.lineFollower);  // TODO uncomment
+    //requires(lineFollower);  // TODO uncomment
   }
 
   // Called just before this Command runs the first time
@@ -34,30 +38,38 @@ public class FollowLine extends Command {
   protected void execute() {
     State direction = Subsystems.lineFollower.getState();
     if(direction == State.noneState) {
-      //
+      //return control to joystick
+      drivetrain.setStopArcadeDrive(false);
     } 
 
     else if (direction == State.leftState)
     {
-      //Robot Goes Left
-      Robot.drivetrain.setMotors(averageSpeed,correctionSpeed);
+      //disable control from joystick
+      drivetrain.setStopArcadeDrive(true);
+      //Make robot go Right by increasing left motor speed and decreasing right motor speed
+      drivetrain.tankDrive(averageSpeed+correctionSpeed, averageSpeed-correctionSpeed);
     }
 
     else if (direction == State.rightState)
     {
-      //Robot Goes Right
-      Robot.drivetrain.setMotors(correctionSpeed,averageSpeed);
+      //disable control from joystick
+      drivetrain.setStopArcadeDrive(true);
+      //Make robot go Left by decreasing left motor speed and increasing right motor speed
+      drivetrain.tankDrive(averageSpeed-correctionSpeed, averageSpeed+correctionSpeed);
     }
 
     else if (direction == State.centreState)
     {
-      //Robot Goes Straight
-      Robot.drivetrain.setMotors(averageSpeed,averageSpeed);
+      //disable control from joystick
+      drivetrain.setStopArcadeDrive(true);
+      //Keep robot going straight with same speed on both motors
+      drivetrain.tankDrive(averageSpeed, averageSpeed);
     }
 
     else 
     {
-
+      //return control to joystick
+      drivetrain.setStopArcadeDrive(false);
     }
 
   }
@@ -71,6 +83,8 @@ public class FollowLine extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+      //return control to joystick
+      drivetrain.setStopArcadeDrive(false);
   }
 
   // Called when another command which requires one or more of the same
