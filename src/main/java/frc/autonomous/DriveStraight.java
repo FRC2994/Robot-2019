@@ -19,7 +19,7 @@ public class DriveStraight extends Command {
 
     //Gets the constant distance
 	public DriveStraight(double distance) {
-		this(distance, Constants.getConstantAsDouble(Constants.ENCODER_PID_MAX));
+		this(distance, Constants.ENCODER_PID_MAX);
     }
 
     //Gets the total distance at a certain speed.
@@ -30,6 +30,7 @@ public class DriveStraight extends Command {
     
     // Drives straight using drivetrain
     public DriveStraight(){
+		this.distance = 0;
         requires(Robot.drivetrain);
         setTimeout(1);
     }
@@ -58,12 +59,9 @@ public class DriveStraight extends Command {
 			double limitVal = SimLib.limitValue(driveVal, maxSpeed);
 
 			System.out.println("Limitval: " + limitVal + ", encoder dist: " + driveTrain.getDistance());
-			driveTrain.setMotors(limitVal, limitVal); 
-
-			return true;
+			driveTrain.tankDrive(limitVal, limitVal); 
 		}
 		System.out.println("Drive PID Done");
-		return false;
     }
 
     @Override
@@ -74,13 +72,13 @@ public class DriveStraight extends Command {
     //Resets the motors
     @Override
     protected void end(){
-        driveTrain.setMotors(0.0, 0.0);	
+        driveTrain.tankDrive(0.0, 0.0);	
         // Stop
     }
 
-    @Override
-    protected void interupted(){
-        end();
-    }
+    // @Override
+    // protected void interupted(){
+    //     end();
+    // }
 
 }
