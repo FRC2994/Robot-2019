@@ -62,7 +62,7 @@ public class Subsystems {
 		subsystemsArray = new ArrayList<Subsystem>();
 		subsystemsArray.add(Robot.drivetrain);
 		subsystemsArray.add(lineFollower);
-	}
+}
 
 	public String getGameSpecificData() {
 		return gameSpecificData;

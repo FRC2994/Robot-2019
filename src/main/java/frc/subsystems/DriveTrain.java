@@ -319,7 +319,7 @@ public class DriveTrain extends Subsystem{
 		driveJoystick.enableButton(Constants.JOYSTICK_SHIFTER);
 		driveJoystick.enableButton(Constants.JOYSTICK_INVERSE);
 
-        Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
+//        Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
     }
 
     @Override

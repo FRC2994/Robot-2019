@@ -41,11 +41,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		// this.kDefaultPeriod = Constants.TIMED_ROBOT_PERIOD;
+		drivetrain = new DriveTrain();
 		CameraServer.getInstance().startAutomaticCapture();	
 		Subsystems.initialize();
-		drivetrain = new DriveTrain();
 		// autonomousCommand = new Autonomous();
-		SmartDashboard.putData((Sendable) drivetrain);
 	}
 
 	/**
@@ -92,7 +91,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopInit() {
 		Subsystems.teleopInit();
-		autonomousCommand.cancel();
+		//autonomousCommand.cancel();
 	}
 
 	/**
