@@ -47,7 +47,7 @@ public class DriveTrain extends Subsystem{
 	SimPID autoDrivePID = new SimPID(Constants.ENCODER_PID_P,Constants.ENCODER_PID_I,Constants.ENCODER_PID_D,Constants.ENCODER_PID_E);
 	
 	Solenoid gearShiftSolenoid = new Solenoid(Constants.PCM_CAN, 
-											Constants.SOLENOID_SHIFTER_CHANNEL1);
+											Constants.PCM_SHIFTER_B);
 	private int startPosition;
 	private int desiredPosition = 0;
 	private boolean stopArcadeDrive;

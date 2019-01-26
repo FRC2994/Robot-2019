@@ -90,6 +90,12 @@ public class Constants
 		// Solenoid
 		public static final int PCM_SHIFTER_A = 0;
 		public static final int PCM_SHIFTER_B = 1;
+		public static final int PCM_LED_R = 5;
+		public static final int PCM_LED_G = 6;
+		public static final int PCM_LED_B = 7;
+		
+		//Compressor Channel
+		public static final int PCM_CAN = 8;
 
 
 		public static final String CALIBRATION_FILE_LOC ="/home/lvuser/calibration.txt";
@@ -117,16 +123,7 @@ public class Constants
 		public static final int GAMEPAD_CLIMBER_DOWN = 1; 
 		public static final int GAMEPAD_CLIMBER_THROTTLE = 4; // Axis... Not a button! 
 
-		//Compressor Channel
-		public static final int PCM_CAN = 8;
 		
-		// Double Solenoid Channels
-		public static final int SOLENOID_SHIFTER_CHANNEL1 = 0;
-		public static final int SOLENOID_PICKUP_1_CHANNEL1 = 1;
-		public static final int SOLENOID_PICKUP_1_CHANNEL2 = 2;
-		public static final int SOLENOID_PICKUP_2_CHANNEL1 = 3;
-		public static final int SOLENOID_PICKUP_2_CHANNEL2 = 4;
-
 		// Shooter
 		public static final double INDEXER_SPEED = 0.5;
 		public static final double CLIMBER_SPEED = 0.5;

@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Solenoid;
+
 
 
 /**
@@ -25,6 +27,8 @@ public class Robot extends TimedRobot {
 	Command autonomousCommand;
 	private static Robot instance;
 	public static DriveTrain drivetrain;
+
+	public static Solenoid LEDR, LEDG, LEDB;
 
 	public Robot() {
 		instance = this;
@@ -42,7 +46,10 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		// this.kDefaultPeriod = Constants.TIMED_ROBOT_PERIOD;
 		drivetrain = new DriveTrain();
-		CameraServer.getInstance().startAutomaticCapture();	
+		LEDR = new Solenoid(Constants.PCM_CAN,Constants.PCM_LED_R);
+		LEDG = new Solenoid(Constants.PCM_CAN,Constants.PCM_LED_G);
+		LEDB = new Solenoid(Constants.PCM_CAN,Constants.PCM_LED_B);
+			CameraServer.getInstance().startAutomaticCapture();	
 		Subsystems.initialize();
 		// autonomousCommand = new Autonomous();
 	}
@@ -106,6 +113,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testInit() {
 		Subsystems.testInit();
+		LEDR.set(true);
+		LEDG.set(true);
+		LEDB.set(true);
 	}
 
 	/**
