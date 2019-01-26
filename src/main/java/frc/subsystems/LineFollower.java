@@ -30,8 +30,8 @@ public class LineFollower extends Subsystem {
   DigitalInput rightColorSensor = new DigitalInput(Constants.DIO_RIGHT_COLOUR_SENSOR);  // TODO: use a constant
   DigitalInput leftColorSensor = new DigitalInput(Constants.DIO_LEFT_COLOUR_SENSOR);   // TODO: use a constant
  // String direction;  // TODO:Use an Enum state = rightState, leftState, bothState, noneState
-  AnalogInput rightUltrasonicSensor = new AnalogInput(Constants.AIO_RIGHT_ULTRASONIC_SENSOR);
-  AnalogInput leftUltrasonicSensor = new AnalogInput(Constants.AIO_LEFT_ULTRASONIC_SENSOR);
+  // AnalogInput rightUltrasonicSensor = new AnalogInput(Constants.AIO_RIGHT_ULTRASONIC_SENSOR);
+  // AnalogInput leftUltrasonicSensor = new AnalogInput(Constants.AIO_LEFT_ULTRASONIC_SENSOR);
   public static final double closeDistance = 5; // 5 inches
   private static boolean rightColorSensorValue;
   private static boolean leftColorSensorValue; 
@@ -64,12 +64,13 @@ public class LineFollower extends Subsystem {
       rightColorSensorValue = rightColorSensor.get();
       leftColorSensorValue = leftColorSensor.get(); 
       //DISTANCES ARE IN INCHES
-      rightDistance = (rightUltrasonicSensor.getValue()*5)/25.4; //Gets the value of the sensor, turns the bits into mm, the turns it into inches
-      leftDistance = (leftUltrasonicSensor.getValue()*5)/25.4;
+      // rightDistance = (rightUltrasonicSensor.getValue()*5)/25.4; //Gets the value of the sensor, turns the bits into mm, the turns it into inches
+      // leftDistance = (leftUltrasonicSensor.getValue()*5)/25.4;
 
-      if (leftDistance <= closeDistance && rightDistance <= closeDistance){
-        state = State.finishedState;   
-      } else if(leftColorSensorValue == false && rightColorSensorValue == true) {
+      // if (leftDistance <= closeDistance && rightDistance <= closeDistance){
+        // state = State.finishedState;   
+      //} else 
+      if(leftColorSensorValue == false && rightColorSensorValue == true) {
           //Only right sensor sees white so it should go left
           state = State.leftState;
 
