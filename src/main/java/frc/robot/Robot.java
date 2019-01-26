@@ -15,12 +15,22 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.command.Command;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.DigitalSource;
 
 /**
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
 public class Robot extends TimedRobot {
+
+	AnalogInput sensor = new AnalogInput(2);
+	// DigitalInput sensorDIO = new DigitalInput(3);
+	int mVintoV = 1000;
+	double scalingFactor = 0.009766 * mVintoV;
+	// Counter sensor = new Counter(sensorDIO);
 	
 	Command autonomousCommand;
 	private static Robot instance;
@@ -93,14 +103,21 @@ public class Robot extends TimedRobot {
 		Subsystems.teleopInit();
 		//autonomousCommand.cancel();
 	}
-
+private int loopcounter;
 	/**
 	 * This function is called periodically during operator control
 	 */
 	@Override
 	public void teleopPeriodic() {
+		double sensorValue = (sensor.getVoltage()*mVintoV) / scalingFactor;
+
 		Subsystems.teleopPeriodic();
 		Scheduler.getInstance().run();
+//loopcounter = ( loopcounter +1) % 100;
+		System.out.println("Distance: " + sensorValue + " inches");
+//if(loopcounter == 0){		
+	//	System.out.println(sensor.getPeriod());
+//}
 	}
 
 	@Override
