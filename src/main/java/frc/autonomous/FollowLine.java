@@ -7,7 +7,7 @@
 
 package frc.autonomous;
 
-import javax.lang.model.util.ElementScanner6;
+// import javax.lang.model.util.ElementScanner6;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.subsystems.Subsystems;
@@ -21,6 +21,7 @@ public class FollowLine extends Command {
   private static final double correctionSpeed = 10;
   private static final DriveTrain drivetrain = Robot.drivetrain;
   private static final LineFollower lineFollower = Subsystems.lineFollower;
+  private static boolean isFinished = false;
 
   public FollowLine() {
     // Use requires() here to declare subsystem dependencies
@@ -30,7 +31,7 @@ public class FollowLine extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
+    isFinished = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -40,7 +41,15 @@ public class FollowLine extends Command {
     if(direction == State.noneState) {
       //return control to joystick
       drivetrain.setStopArcadeDrive(false);
+      isFinished = true;
     } 
+
+    else if (direction == State.finishedState)
+    {
+      //disable control from joystick
+      drivetrain.setStopArcadeDrive(true);
+      isFinished = true;
+    }
 
     else if (direction == State.leftState)
     {
@@ -48,6 +57,7 @@ public class FollowLine extends Command {
       drivetrain.setStopArcadeDrive(true);
       //Make robot go Right by increasing left motor speed and decreasing right motor speed
       drivetrain.tankDrive(averageSpeed+correctionSpeed, averageSpeed-correctionSpeed);
+      isFinished = false;
     }
 
     else if (direction == State.rightState)
@@ -56,6 +66,7 @@ public class FollowLine extends Command {
       drivetrain.setStopArcadeDrive(true);
       //Make robot go Left by decreasing left motor speed and increasing right motor speed
       drivetrain.tankDrive(averageSpeed-correctionSpeed, averageSpeed+correctionSpeed);
+      isFinished = false;
     }
 
     else if (direction == State.centreState)
@@ -64,12 +75,14 @@ public class FollowLine extends Command {
       drivetrain.setStopArcadeDrive(true);
       //Keep robot going straight with same speed on both motors
       drivetrain.tankDrive(averageSpeed, averageSpeed);
+      isFinished = false;
     }
 
     else 
     {
       //return control to joystick
       drivetrain.setStopArcadeDrive(false);
+      isFinished = true;
     }
 
   }
@@ -77,7 +90,7 @@ public class FollowLine extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return isFinished;
   }
 
   // Called once after isFinished returns true
@@ -91,5 +104,6 @@ public class FollowLine extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    drivetrain.setStopArcadeDrive(false);
   }
 }

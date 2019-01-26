@@ -9,8 +9,9 @@ package frc.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.AnalogInput;
-import frc.utils.Constants;
 
+import frc.subsystems.Logger;
+import frc.utils.Constants;
 import static frc.utils.Constants.*;
 
 /**
@@ -32,7 +33,12 @@ public class LineFollower extends Subsystem {
   AnalogInput rightUltrasonicSensor = new AnalogInput(Constants.AIO_RIGHT_ULTRASONIC_SENSOR);
   AnalogInput leftUltrasonicSensor = new AnalogInput(Constants.AIO_LEFT_ULTRASONIC_SENSOR);
   public static final double closeDistance = 5; // 5 inches
-  
+  private static boolean rightColorSensorValue;
+  private static boolean leftColorSensorValue; 
+  private static double rightDistance;
+  private static double leftDistance;
+  private static State state;
+
   public enum State {
     rightState ('R'),
     leftState ('L'),
@@ -55,13 +61,12 @@ public class LineFollower extends Subsystem {
   }
 
   public State getState() {
-      boolean rightColorSensorValue = rightColorSensor.get();
-      boolean leftColorSensorValue = leftColorSensor.get(); 
+      rightColorSensorValue = rightColorSensor.get();
+      leftColorSensorValue = leftColorSensor.get(); 
       //DISTANCES ARE IN INCHES
-      double rightDistance = (rightUltrasonicSensor.getValue()*5)/25.4; //Gets the value of the sensor, turns the bits into mm, the turns it into inches
-      double leftDistance = (leftUltrasonicSensor.getValue()*5)/25.4;
+      rightDistance = (rightUltrasonicSensor.getValue()*5)/25.4; //Gets the value of the sensor, turns the bits into mm, the turns it into inches
+      leftDistance = (leftUltrasonicSensor.getValue()*5)/25.4;
 
-      State state;
       if (leftDistance <= closeDistance && rightDistance <= closeDistance){
         state = State.finishedState;   
       } else if(leftColorSensorValue == false && rightColorSensorValue == true) {
@@ -97,15 +102,22 @@ public class LineFollower extends Subsystem {
   }
 
   @Override
-	public void initTeleop() {}
+	public void initTeleop() {
+    Logger.appendRecord("lfS\tlfLD\tlfRD\t");
+  }
   @Override
-	public void tickTeleop() {}
-	
+	public void tickTeleop() {
+    Logger.appendRecord("\t"+state+"\t"+leftDistance+"\t"+rightDistance+"\t");
+  }	
   @Override
-	public void initAutonomous() {}
+	public void initAutonomous() {
+    Logger.appendRecord("lfS\tlfLD\tlfRD\t");
+  }
   @Override
-	public void tickAutonomous() {}
-	
+	public void tickAutonomous() {
+    Logger.appendRecord("\t"+state+"\t"+leftDistance+"\t"+rightDistance+"\t");
+  }	
+
   @Override
 	public void initTesting() {}
   @Override

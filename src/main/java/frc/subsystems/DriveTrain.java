@@ -319,7 +319,7 @@ public class DriveTrain extends Subsystem{
 		driveJoystick.enableButton(Constants.JOYSTICK_SHIFTER);
 		driveJoystick.enableButton(Constants.JOYSTICK_INVERSE);
 
-        // Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro");
+        Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
     }
 
     @Override
@@ -329,6 +329,7 @@ public class DriveTrain extends Subsystem{
     	setLowGear();
 		zero();
 		stopArcadeDrive = false;
+        Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
     }   
     
     /**
@@ -336,6 +337,7 @@ public class DriveTrain extends Subsystem{
      */
     @Override
     public void tickAutonomous() {
+        Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
     }
 
 	@Override
@@ -371,7 +373,7 @@ public class DriveTrain extends Subsystem{
 		arcadeDrive(driveJoystick);
 		Logger.appendRecord(
 		 		getFrontLeftMotor().getMotorOutputVoltage() + "\t" + getFrontRightMotor().getMotorOutputVoltage() + 
-		 		"\t" + getLeftEncoderValue() + "\t" + getRightEncoderValue() + "\t" + getHeading());
+		 		"\t" + getLeftEncoderValue() + "\t" + getRightEncoderValue() + "\t" + getHeading() + "\t");
 	}
 
 	@Override
