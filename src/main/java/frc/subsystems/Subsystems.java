@@ -1,8 +1,9 @@
 package frc.subsystems;
 
-import java.util.ArrayList;
-import java.util.List;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import static frc.utils.Constants.DIO_ELEVATOR_LIMIT_BOTTOM;
 import static frc.utils.Constants.USB_CONTROL_GAMEPAD;
@@ -17,14 +18,8 @@ import frc.controls.EGamepad;
 import frc.controls.EJoystick;
 import frc.robot.Robot;
 import frc.utils.Constants;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-
 
 public class Subsystems {	
-
-	private static List<Subsystem> subsystemsArray;
 
 	public static Logger logger = new Logger();
 
@@ -58,10 +53,6 @@ public class Subsystems {
 		logger.println("Goodbye Aliens");
 
 		lineFollower = new LineFollower();
-
-		subsystemsArray = new ArrayList<Subsystem>();
-		subsystemsArray.add(Robot.drivetrain);
-		subsystemsArray.add(lineFollower);
 }
 
 	public String getGameSpecificData() {
@@ -82,25 +73,16 @@ public class Subsystems {
 
 	public static void autonomousInit() {
 		gameSpecificData = DriverStation.getInstance().getGameSpecificMessage();
-		for (Subsystem subsystem : subsystemsArray) {
-			subsystem.initAutonomous();
-		}
 	}   
 
 	/**
 	 * This function is called periodically during autonomous
 	 */
 	public static void autonomousPeriodic() {
-		for (Subsystem subsystem : subsystemsArray) {
-			subsystem.tickAutonomous();
-		}
 	    logger.addRecord();  // Add the line of accumulated records
 	}
 
 	public static void teleopInit() {
-		for (Subsystem subsystem : subsystemsArray) {
-			subsystem.initTeleop();
-		}
 	}
 
 	/**
@@ -109,17 +91,11 @@ public class Subsystems {
 	public static void teleopPeriodic() {
 		driveJoystick.update();
 		controlGamepad.update();
-		for (Subsystem subsystem : subsystemsArray) {
-			subsystem.tickTeleop();
-		}
 	    logger.addRecord();  // Add the line of accumulated records
 	}
 
 	public static void testInit() {
 		compressor.start();
-		for (Subsystem subsystem : subsystemsArray) {
-			subsystem.initTesting();
-		}
 //		dtCharaterizer = new DriveTrainCharacterizer(QUASI_STATIC, Forward);
 	}
 
@@ -129,10 +105,6 @@ public class Subsystems {
 	public static void testPeriodic() {
 		driveJoystick.update();
 		controlGamepad.update();
-
-		for (Subsystem subsystem : subsystemsArray) {
-			subsystem.tickTesting();
-		}
 	    logger.addRecord();  // Add the line of accumulated records
 	}
 

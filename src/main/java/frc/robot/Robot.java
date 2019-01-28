@@ -1,14 +1,19 @@
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.controls.EGamepad;
+import frc.controls.EJoystick;
 import frc.subsystems.DriveTrain;
+import frc.subsystems.LineFollower;
+import frc.subsystems.Logger;
 import frc.subsystems.Subsystems;
 import frc.utils.Constants;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -35,6 +40,17 @@ public class Robot extends TimedRobot {
 	Command autonomousCommand;
 	private static Robot instance;
 	public static DriveTrain drivetrain;
+	public static Logger logger;
+
+	public static EJoystick	driveJoystick;
+	public static EGamepad controlGamepad;
+	
+	public static PowerDistributionPanel powerPanel;
+	public static Compressor compressor;
+	public static AnalogInput autoSelectSwitch;
+	public static LineFollower lineFollower;
+
+	private static String gameSpecificData = "%NOT POLLED";
 
 	public Robot() {
 		instance = this;
@@ -50,13 +66,36 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		// this.kDefaultPeriod = Constants.TIMED_ROBOT_PERIOD;
-		drivetrain = new DriveTrain();
 		CameraServer.getInstance().startAutomaticCapture();	
-		Subsystems.initialize();
-		// autonomousCommand = new Autonomous();
+		// USB
+		driveJoystick = new EJoystick(Constants.USB_DRIVE_STICK);
+		controlGamepad = new EGamepad(Constants.USB_CONTROL_GAMEPAD);
+	
+		powerPanel = new PowerDistributionPanel(9);
+	
+		compressor = new Compressor(Constants.PCM_CAN);
+		compressor.start();
+	
+		autoSelectSwitch = new AnalogInput(Constants.AIO_AUTO_SELECT);
+
+		logger = new Logger();
+		logger.println("Hello World");
+		logger.println("Goodbye Aliens");
+	
+        // subsysems
+		drivetrain = new DriveTrain();
+		lineFollower = new LineFollower();
 	}
 
+	public String getGameSpecificData() {
+		return gameSpecificData;
+	}
+	
+	public static int calcAutoSelectSwitch() {
+		return (int)Math.round(autoSelectSwitch.getValue()/(double)360);
+	}
+	
+	
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
 	 * You can use it to reset any subsystem information you want to clear when
@@ -85,7 +124,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		Subsystems.autonomousInit();
 		autonomousCommand.start();
 	}   
 
@@ -94,25 +132,23 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		Subsystems.autonomousPeriodic();
 		Scheduler.getInstance().run();
 	}
 
 	@Override
 	public void teleopInit() {
-		Subsystems.teleopInit();
-		//autonomousCommand.cancel();
+		autonomousCommand.cancel();
 	}
-private int loopcounter;
+// private int loopcounter;
 	/**
 	 * This function is called periodically during operator control
 	 */
 	@Override
 	public void teleopPeriodic() {
-		double sensorValue = (sensor.getVoltage()*mVintoV) / scalingFactor;
-
-		Subsystems.teleopPeriodic();
+		driveJoystick.update();
+		controlGamepad.update();
 		Scheduler.getInstance().run();
+		double sensorValue = (sensor.getVoltage()*mVintoV) / scalingFactor;
 //loopcounter = ( loopcounter +1) % 100;
 		System.out.println("Distance: " + sensorValue + " inches");
 //if(loopcounter == 0){		
@@ -122,7 +158,6 @@ private int loopcounter;
 
 	@Override
 	public void testInit() {
-		Subsystems.testInit();
 	}
 
 	/**
@@ -130,7 +165,6 @@ private int loopcounter;
 	 */
 	@Override
 	public void testPeriodic() {
-		Subsystems.testPeriodic();
 		LiveWindow.run();
 	}
 }

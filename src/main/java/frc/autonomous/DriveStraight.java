@@ -36,9 +36,6 @@ public class DriveStraight extends Command {
     }
 
     
-    private void requires(DriveTrain drivetrain) {
-    }
-
     @Override
     protected void initialize(){
         driveTrain.reset();

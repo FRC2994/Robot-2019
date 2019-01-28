@@ -25,7 +25,7 @@ public class FollowLine extends Command {
 
   public FollowLine() {
     // Use requires() here to declare subsystem dependencies
-    //requires(lineFollower);  // TODO uncomment
+    requires(lineFollower);
   }
 
   // Called just before this Command runs the first time

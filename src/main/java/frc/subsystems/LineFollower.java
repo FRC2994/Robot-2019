@@ -8,6 +8,7 @@
 package frc.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.AnalogInput;
 
 import frc.subsystems.Logger;
@@ -103,25 +104,13 @@ public class LineFollower extends Subsystem {
   }
 
   @Override
-	public void initTeleop() {
-    Logger.appendRecord("lfS\tlfLD\tlfRD\t");
-  }
-  @Override
-	public void tickTeleop() {
-    Logger.appendRecord("\t"+state+"\t"+leftDistance+"\t"+rightDistance+"\t");
-  }	
-  @Override
-	public void initAutonomous() {
-    Logger.appendRecord("lfS\tlfLD\tlfRD\t");
-  }
-  @Override
-	public void tickAutonomous() {
+	public void periodic() {
     Logger.appendRecord("\t"+state+"\t"+leftDistance+"\t"+rightDistance+"\t");
   }	
 
   @Override
-	public void initTesting() {}
-  @Override
-	public void tickTesting() {}
+  protected void initDefaultCommand() {
+    Logger.appendRecord("lfS\tlfLD\tlfRD\t");
+  }
 
 }

@@ -12,9 +12,6 @@ public class DriveCurve extends Command{
         setTimeout(1);
     }
 
-    private void requires(DriveTrain drivetrain) {
-    }
-
     protected void initialize(){
         Robot.drivetrain.driveWithCurve(1, 30);
     }

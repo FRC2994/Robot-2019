@@ -5,10 +5,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 import static frc.utils.Constants.*;
-import frc.subsystems.Subsystem;
 import frc.controls.EJoystick;
 import frc.controls.ButtonEntry;
 import static frc.subsystems.Subsystems.driveJoystick;
@@ -303,45 +303,12 @@ public class DriveTrain extends Subsystem{
 		stopArcadeDrive = value;
 	}
 
-	@Override
-	public void initTeleop() {
-		driveJoystick.enableButton(3);
-		zero();
-		rightRearDrive.setInverted(false);
-		rightFrontDrive.setInverted(false);
-		// Set low gear & coast mode by default
-		setBrakeCoast(BrakeCoastStatus.BRAKE);
-		setLowGear();
-		reset();
 
-		robotDrive.setSafetyEnabled(false);
-		//differentialDrive.setSafetyEnabled(false);
-		driveJoystick.enableButton(Constants.JOYSTICK_SHIFTER);
-		driveJoystick.enableButton(Constants.JOYSTICK_INVERSE);
-
-//        Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
-    }
-
-    @Override
-    public void initAutonomous() {
-		robotDrive.setSafetyEnabled(false);
-		//differentialDrive.setSafetyEnabled(false);
-    	setLowGear();
-		zero();
-		stopArcadeDrive = false;
-        Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
-    }   
-    
     /**
-     * This function is called periodically during autonomous
+     * This function is called periodically by Scheduler.run
      */
-    @Override
-    public void tickAutonomous() {
-        Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
-    }
-
 	@Override
-	public void tickTeleop() {
+	public void periodic() {
 		if (driveJoystick.getEvent(Constants.JOYSTICK_SHIFTER) == ButtonEntry.EVENT_CLOSED) {
 			setHighGear();
 		}
@@ -377,12 +344,16 @@ public class DriveTrain extends Subsystem{
 	}
 
 	@Override
-	public void tickTesting() {
-	}
-
-	@Override
-	public void initTesting() {
-		
+	protected void initDefaultCommand() {
+		driveJoystick.enableButton(3);
+		rightRearDrive.setInverted(false);
+		rightFrontDrive.setInverted(false);
+		setBrakeCoast(BrakeCoastStatus.BRAKE);
+		setLowGear();
+		zero();
+		reset();
+		stopArcadeDrive = false;
+        Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
 	}
 
 }
