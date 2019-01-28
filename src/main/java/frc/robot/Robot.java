@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.subsystems.DriveTrain;
 import frc.subsystems.Subsystems;
 import frc.utils.Constants;
+import frc.subsystems.LineFollower;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -25,6 +26,7 @@ public class Robot extends TimedRobot {
 	Command autonomousCommand;
 	private static Robot instance;
 	public static DriveTrain drivetrain;
+	public static LineFollower lf;
 
 	public Robot() {
 		instance = this;
@@ -102,7 +104,7 @@ private int loopcounter;
 
 		Subsystems.teleopPeriodic();
 		Scheduler.getInstance().run();
-
+		System.out.println(lf.getState());
 	}
 
 	@Override
