@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.subsystems.DriveTrain;
 import frc.subsystems.Subsystems;
 import frc.utils.Constants;
+import frc.subsystems.LineFollower;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -17,16 +18,17 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.Solenoid;
 
 
-
 /**
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
 public class Robot extends TimedRobot {
+
 	
 	Command autonomousCommand;
 	private static Robot instance;
 	public static DriveTrain drivetrain;
+	public static LineFollower lf;
 
 	public static Solenoid LEDR, LEDG, LEDB;
 
@@ -100,14 +102,16 @@ public class Robot extends TimedRobot {
 		Subsystems.teleopInit();
 		//autonomousCommand.cancel();
 	}
-
+private int loopcounter;
 	/**
 	 * This function is called periodically during operator control
 	 */
 	@Override
 	public void teleopPeriodic() {
+
 		Subsystems.teleopPeriodic();
 		Scheduler.getInstance().run();
+		System.out.println(lf.getState());
 	}
 
 	@Override

@@ -22,6 +22,7 @@ public class FollowLine extends Command {
   private static final DriveTrain drivetrain = Robot.drivetrain;
   private static final LineFollower lineFollower = Subsystems.lineFollower;
   private static boolean isFinished = false;
+  State direction;
 
   public FollowLine() {
     // Use requires() here to declare subsystem dependencies
@@ -37,11 +38,12 @@ public class FollowLine extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    State direction = Subsystems.lineFollower.getState();
+    direction = Subsystems.lineFollower.getState();
     if(direction == State.noneState) {
       //return control to joystick
       drivetrain.setStopArcadeDrive(false);
       isFinished = true;
+      System.out.println("Going Nowhere");
     } 
 
     else if (direction == State.finishedState)
@@ -49,6 +51,7 @@ public class FollowLine extends Command {
       //disable control from joystick
       drivetrain.setStopArcadeDrive(true);
       isFinished = true;
+      System.out.println("Finished");
     }
 
     else if (direction == State.leftState)
@@ -58,6 +61,7 @@ public class FollowLine extends Command {
       //Make robot go Right by increasing left motor speed and decreasing right motor speed
       drivetrain.tankDrive(averageSpeed+correctionSpeed, averageSpeed-correctionSpeed);
       isFinished = false;
+      System.out.println("Going Left");
     }
 
     else if (direction == State.rightState)
@@ -67,6 +71,7 @@ public class FollowLine extends Command {
       //Make robot go Left by decreasing left motor speed and increasing right motor speed
       drivetrain.tankDrive(averageSpeed-correctionSpeed, averageSpeed+correctionSpeed);
       isFinished = false;
+      System.out.println("Going Right");
     }
 
     else if (direction == State.centreState)
@@ -76,6 +81,7 @@ public class FollowLine extends Command {
       //Keep robot going straight with same speed on both motors
       drivetrain.tankDrive(averageSpeed, averageSpeed);
       isFinished = false;
+      System.out.println("Going Straight");
     }
 
     else 
