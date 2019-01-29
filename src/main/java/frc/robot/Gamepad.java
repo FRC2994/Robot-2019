@@ -1,4 +1,4 @@
-package frc.controls;
+package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;

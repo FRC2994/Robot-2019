@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.autonomous;
+package frc.commands;
 
 // import javax.lang.model.util.ElementScanner6;
 
@@ -19,8 +19,8 @@ import frc.robot.Robot;
 public class FollowLine extends Command {
   private static final double averageSpeed = 50;
   private static final double correctionSpeed = 10;
-  private static final DriveTrain drivetrain = Robot.drivetrain;
-  private static final LineFollower lineFollower = Subsystems.lineFollower;
+  private static final DriveTrain drivetrain = Robot.m_drivetrain;
+  private static final LineFollower lineFollower = Robot.m_lineFollower;
   private static boolean isFinished = false;
 
   public FollowLine() {
@@ -37,7 +37,7 @@ public class FollowLine extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    State direction = Subsystems.lineFollower.getState();
+    State direction = Robot.m_lineFollower.getState();
     if(direction == State.noneState) {
       //return control to joystick
       drivetrain.setStopArcadeDrive(false);

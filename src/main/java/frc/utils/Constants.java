@@ -93,17 +93,6 @@ public class Constants
 
 
 		public static final String CALIBRATION_FILE_LOC ="/home/lvuser/calibration.txt";
-		public static final int JOYSTICK_CALIBRATE = 11;
-		public static final int JOYSTICK_RECORD = 4;
-		public static final int JOYSTICK_SHIFTER = 1;
-		public static final int JOYSTICK_INVERSE = 2;
-//		public static final int JOYSTICK_PICKUP_IN = 6;
-//		public static final int JOYSTICK_PICKUP_OUT = 7;
-		public static final int JOYSTICK_PICKUP_DOWN = 6;
-		public static final int JOYSTICK_PICKUP_UP = 7;
-		public static final int JOYSTICK_PICKUP_MID = 5;
-//		public static final int JOYSTICK_ELEVATOR_DOWN = 2;
-//		public static final int JOYSTICK_ELEVATOR_UP = 3;
 		
         // Gamepad
 		public static final int GAMEPAD_PICKUP_IN = 5; 

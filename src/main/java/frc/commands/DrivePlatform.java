@@ -1,9 +1,9 @@
-// package frc.autonomous;
+// package frc.commands;
 
 // import edu.wpi.first.wpilibj.command.Command;
 // import edu.wpi.first.wpilibj.command.CommandGroup;
 // import frc.subsystems.DriveTrain;
-// import frc.autonomous.DriveStaight;
+// import frc.commands.DriveStaight;
 // import frc.robot.Robot; 
 
 // public class DrivePlatform extends CommandGroup

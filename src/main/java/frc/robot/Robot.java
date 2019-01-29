@@ -1,11 +1,8 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
-import frc.controls.EGamepad;
-import frc.controls.EJoystick;
 import frc.subsystems.DriveTrain;
 import frc.subsystems.LineFollower;
 import frc.subsystems.Logger;
@@ -39,16 +36,15 @@ public class Robot extends TimedRobot {
 	
 	Command autonomousCommand;
 	private static Robot instance;
-	public static DriveTrain drivetrain;
+	public static DriveTrain m_drivetrain;
 	public static Logger logger;
 
-	public static EJoystick	driveJoystick;
-	public static EGamepad controlGamepad;
+	public static OI m_oi;
 	
-	public static PowerDistributionPanel powerPanel;
-	public static Compressor compressor;
-	public static AnalogInput autoSelectSwitch;
-	public static LineFollower lineFollower;
+	public static PowerDistributionPanel m_powerPanel;
+	public static Compressor m_compressor;
+	public static AnalogInput m_autoSelectSwitch;
+	public static LineFollower m_lineFollower;
 
 	private static String gameSpecificData = "%NOT POLLED";
 
@@ -67,24 +63,18 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		CameraServer.getInstance().startAutomaticCapture();	
-		// USB
-		driveJoystick = new EJoystick(Constants.USB_DRIVE_STICK);
-		controlGamepad = new EGamepad(Constants.USB_CONTROL_GAMEPAD);
-	
-		powerPanel = new PowerDistributionPanel(9);
-	
-		compressor = new Compressor(Constants.PCM_CAN);
-		compressor.start();
-	
-		autoSelectSwitch = new AnalogInput(Constants.AIO_AUTO_SELECT);
+		m_powerPanel = new PowerDistributionPanel(9);
+		m_compressor = new Compressor(Constants.PCM_CAN);
+		m_compressor.start();
+		m_autoSelectSwitch = new AnalogInput(Constants.AIO_AUTO_SELECT);
 
 		logger = new Logger();
 		logger.println("Hello World");
 		logger.println("Goodbye Aliens");
 	
         // subsysems
-		drivetrain = new DriveTrain();
-		lineFollower = new LineFollower();
+		m_drivetrain = new DriveTrain();
+		m_lineFollower = new LineFollower();
 	}
 
 	public String getGameSpecificData() {
@@ -92,7 +82,7 @@ public class Robot extends TimedRobot {
 	}
 	
 	public static int calcAutoSelectSwitch() {
-		return (int)Math.round(autoSelectSwitch.getValue()/(double)360);
+		return (int)Math.round(m_autoSelectSwitch.getValue()/(double)360);
 	}
 	
 	
@@ -145,8 +135,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		driveJoystick.update();
-		controlGamepad.update();
 		Scheduler.getInstance().run();
 		double sensorValue = (sensor.getVoltage()*mVintoV) / scalingFactor;
 //loopcounter = ( loopcounter +1) % 100;
