@@ -29,13 +29,11 @@ public class DriveTrain extends Subsystem{
 	TalonSRX leftRearDrive = new TalonSRX(Constants.CAN_LEFT_REAR_DRIVE);
 	TalonSRX rightFrontDrive = new TalonSRX(Constants.CAN_RIGHT_FRONT_DRIVE);
 	VictorSPX rightRearDrive = new VictorSPX(Constants.CAN_RIGHT_REAR_DRIVE);
-
-	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-	// public RobotDrive robotDrive;
-	public DifferentialDrive differentialDrive;
+	DifferentialDrive differentialDrive;
 
 	Solenoid gearShiftSolenoid = new Solenoid(Constants.PCM_CAN, 
 											Constants.SOLENOID_SHIFTER_CHANNEL1);
+	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	private int startPosition;
 	private int desiredPosition = 0;
 	private boolean stopArcadeDrive;
@@ -144,9 +142,6 @@ public class DriveTrain extends Subsystem{
 		leftRearDrive.follow(leftFrontDrive);
 		rightRearDrive.follow(rightFrontDrive);
 
-//		rightFrontDrive.config_kP(0, 0.3, 0);
-
-        // robotDrive = new RobotDrive(new TalonWrapperSpeedController(leftFrontDrive), new TalonWrapperSpeedController(rightFrontDrive));
         differentialDrive = new DifferentialDrive(new TalonWrapperSpeedController(leftFrontDrive), new TalonWrapperSpeedController(rightFrontDrive));
 
 		gyro.calibrate();

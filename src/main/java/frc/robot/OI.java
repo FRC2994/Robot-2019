@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.commands.Autonomous;
 import frc.commands.ShiftGear;
+import frc.robot.Gamepad;
 // import frc.robot.commands.CloseClaw;
 // import frc.robot.commands.OpenClaw;
 // import frc.robot.commands.Pickup;
@@ -20,8 +21,6 @@ import frc.commands.ShiftGear;
 // import frc.robot.commands.PrepareToPickup;
 // import frc.robot.commands.SetElevatorSetpoint;
 // import frc.robot.commands.SetWristSetpoint;
-//import frc.controls.Gamepad;
-import frc.controls.Gamepad;
 
 /**
  * This class is the glue that binds the controls on the physical operator
