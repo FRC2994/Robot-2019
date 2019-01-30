@@ -136,11 +136,11 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		double sensorValue = (sensor.getVoltage()*mVintoV) / scalingFactor;
-//loopcounter = ( loopcounter +1) % 100;
 		System.out.println("Distance: " + sensorValue + " inches");
-//if(loopcounter == 0){		
-	//	System.out.println(sensor.getPeriod());
-//}
+        //loopcounter = ( loopcounter +1) % 100;
+        //if(loopcounter == 0){		
+	    //	System.out.println(sensor.getPeriod());
+        //}
 	}
 
 	@Override
