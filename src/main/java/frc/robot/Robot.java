@@ -40,8 +40,6 @@ public class Robot extends TimedRobot {
 
 	public static OI m_oi;
 	
-	public static PowerDistributionPanel m_powerPanel;
-	public static Compressor m_compressor;
 	public static AnalogInput m_autoSelectSwitch;
 	public static LineFollower m_lineFollower;
 
@@ -62,9 +60,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		CameraServer.getInstance().startAutomaticCapture();	
-		m_powerPanel = new PowerDistributionPanel(9);
-		m_compressor = new Compressor(Constants.PCM_CAN);
-		m_compressor.start();
 		m_autoSelectSwitch = new AnalogInput(Constants.AIO_AUTO_SELECT);
 
 		logger = new Logger();

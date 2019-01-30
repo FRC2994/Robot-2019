@@ -27,8 +27,8 @@ public class DriveTrain extends Subsystem{
 	VictorSPX rightRearDrive = new VictorSPX(Constants.CAN_RIGHT_REAR_DRIVE);
 	DifferentialDrive differentialDrive;
 
-	Solenoid gearShiftSolenoid = new Solenoid(Constants.PCM_CAN, 
-											Constants.SOLENOID_SHIFTER_CHANNEL1);
+	Solenoid gearShiftSolenoid = new Solenoid(Constants.CAN_PCM, 
+											Constants.PCM_SHIFTER_A);
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	private int startPosition;
 	private int desiredPosition = 0;
