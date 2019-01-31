@@ -21,7 +21,7 @@ public class FollowLine extends Command {
   private static final double correctionSpeed = 10;
   private static final DriveTrain drivetrain = Robot.drivetrain;
   // private static final LineFollower lineFollower = Subsystems.lineFollower;
-//  private static final LineFollower lineFollower = Robot.lf;
+  private static final LineFollower lineFollower = Robot.lf;
   private static boolean isFinished = false;
   // State direction;
 

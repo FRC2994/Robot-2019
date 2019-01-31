@@ -26,15 +26,12 @@ import edu.wpi.first.wpilibj.DigitalInput;
  * directory.
  */
 public class Robot extends TimedRobot {
-
-	DigitalInput rightColorSensor = new DigitalInput(18);
-	DigitalInput leftColorSensor = new DigitalInput(23);
 	
 
 	Command autonomousCommand;
 	private static Robot instance;
 	public static DriveTrain drivetrain;
-	// public static LineFollower lf;
+	public static LineFollower lf;
 
 	public static Solenoid LEDR, LEDG, LEDB;
 
@@ -119,8 +116,7 @@ private int loopcounter;
 		Subsystems.teleopPeriodic();
 		Scheduler.getInstance().run();
 		// lf.run();
-		System.out.println("Right Sensor: " + rightColorSensor.get());
-		System.out.println("Left Sensor: " + leftColorSensor.get());
+		lf.debug();
 	}
 
 	@Override
