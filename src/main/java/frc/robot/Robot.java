@@ -16,6 +16,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.Solenoid;
+import frc.subsystems.LineFollower.State;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 
 
 /**
@@ -24,11 +27,14 @@ import edu.wpi.first.wpilibj.Solenoid;
  */
 public class Robot extends TimedRobot {
 
+	DigitalInput rightColorSensor = new DigitalInput(18);
+	DigitalInput leftColorSensor = new DigitalInput(23);
 	
+
 	Command autonomousCommand;
 	private static Robot instance;
 	public static DriveTrain drivetrain;
-	public static LineFollower lf;
+	// public static LineFollower lf;
 
 	public static Solenoid LEDR, LEDG, LEDB;
 
@@ -48,6 +54,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		// this.kDefaultPeriod = Constants.TIMED_ROBOT_PERIOD;
 		drivetrain = new DriveTrain();
+		// lf = new LineFollower();
 		LEDR = new Solenoid(Constants.PCM_CAN,Constants.PCM_LED_R);
 		LEDG = new Solenoid(Constants.PCM_CAN,Constants.PCM_LED_G);
 		LEDB = new Solenoid(Constants.PCM_CAN,Constants.PCM_LED_B);
@@ -111,7 +118,9 @@ private int loopcounter;
 
 		Subsystems.teleopPeriodic();
 		Scheduler.getInstance().run();
-		System.out.println(lf.getState());
+		// lf.run();
+		System.out.println("Right Sensor: " + rightColorSensor.get());
+		System.out.println("Left Sensor: " + leftColorSensor.get());
 	}
 
 	@Override

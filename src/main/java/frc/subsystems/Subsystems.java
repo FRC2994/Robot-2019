@@ -34,7 +34,7 @@ public class Subsystems {
 	public static PowerDistributionPanel powerPanel;
 	public static Compressor compressor;
 	public static AnalogInput autoSelectSwitch;
-	public static LineFollower lineFollower;
+	// public static LineFollower lineFollower;
 
 	private static String gameSpecificData = "%NOT POLLED";
 
@@ -57,11 +57,11 @@ public class Subsystems {
 		logger.println("Hello World");
 		logger.println("Goodbye Aliens");
 
-		lineFollower = new LineFollower();
+		// lineFollower = new LineFollower();
 
 		subsystemsArray = new ArrayList<Subsystem>();
 		subsystemsArray.add(Robot.drivetrain);
-		subsystemsArray.add(lineFollower);
+		// subsystemsArray.add(lineFollower);
 }
 
 	public String getGameSpecificData() {

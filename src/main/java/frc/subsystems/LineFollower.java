@@ -8,7 +8,6 @@
 package frc.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.AnalogInput;
 
 import frc.subsystems.Logger;
 import frc.utils.Constants;
@@ -22,14 +21,16 @@ public class LineFollower extends Subsystem {
   // here. Call these from Commands.
 
 	private static LineFollower instance;
+  private static DigitalInput rightColorSensor;
+  private static DigitalInput leftColorSensor;
 
   public LineFollower() {
     instance = this;
+    rightColorSensor = new DigitalInput(Constants.DIO_RIGHT_COLOUR_SENSOR);
+    leftColorSensor = new DigitalInput(Constants.DIO_LEFT_COLOUR_SENSOR);
   }
-
-  DigitalInput rightColorSensor = new DigitalInput(Constants.DIO_RIGHT_COLOUR_SENSOR);  // TODO: use a constant
-  DigitalInput leftColorSensor = new DigitalInput(Constants.DIO_LEFT_COLOUR_SENSOR);   // TODO: use a constant
- // String direction;  // TODO:Use an Enum state = rightState, leftState, bothState, noneState
+  
+ // String direction;
 
   public static final double closeDistance = 5; // 5 inches
   private static boolean rightColorSensorValue;
@@ -59,7 +60,7 @@ public class LineFollower extends Subsystem {
       return instance;
   }
 
-  public State getState() {
+ /* public State getState() {
       rightColorSensorValue = rightColorSensor.get();
       leftColorSensorValue = leftColorSensor.get(); 
 
@@ -82,7 +83,30 @@ public class LineFollower extends Subsystem {
       }
 
       return state;
-  }
+  } */
+
+  public void run() {
+    rightColorSensorValue = rightColorSensor.get();
+    leftColorSensorValue = leftColorSensor.get(); 
+
+    if(leftColorSensorValue == false && rightColorSensorValue == true) {
+        //Only right sensor sees white so it should go left
+        System.out.println("Going Left");
+
+    } else if(leftColorSensorValue == true && rightColorSensorValue == false) {
+        //Only Left sensor sees white so it should go right
+        System.out.println("Going Right");
+
+      } else if(leftColorSensorValue == true && rightColorSensorValue == true) {
+        //Both sensors see the white line therefore should go straight
+        System.out.println("Going Straight");
+
+      } else {
+        //None of sensors sees the white line therefore if should stop
+        System.out.println("Nothing!");
+
+    }
+}
 
   @Override
 	public void initTeleop() {
