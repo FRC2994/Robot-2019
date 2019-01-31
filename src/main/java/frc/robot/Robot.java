@@ -28,11 +28,8 @@ import edu.wpi.first.wpilibj.DigitalSource;
  */
 public class Robot extends TimedRobot {
 
-	AnalogInput sensor = new AnalogInput(2);
-	// DigitalInput sensorDIO = new DigitalInput(3);
-	int mVintoV = 1000;
-	double scalingFactor = 0.009766 * mVintoV;
-	// Counter sensor = new Counter(sensorDIO);
+	DigitalInput rightColorSensor = new DigitalInput(18);
+	DigitalInput leftColorSensor = new DigitalInput(23);
 	
 	Command autonomousCommand;
 	private static Robot instance;
@@ -135,16 +132,17 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		double sensorValue = (sensor.getVoltage()*mVintoV) / scalingFactor;
-		System.out.println("Distance: " + sensorValue + " inches");
-        //loopcounter = ( loopcounter +1) % 100;
-        //if(loopcounter == 0){		
-	    //	System.out.println(sensor.getPeriod());
-        //}
+		// lf.run();
+		System.out.println("Right Sensor: " + rightColorSensor.get());
+		System.out.println("Left Sensor: " + leftColorSensor.get());
 	}
 
 	@Override
 	public void testInit() {
+		Subsystems.testInit();
+//		LEDR.set(true);
+//		LEDG.set(true);
+//		LEDB.set(true);
 	}
 
 	/**

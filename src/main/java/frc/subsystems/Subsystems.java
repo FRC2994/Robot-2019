@@ -1,16 +1,35 @@
 package frc.subsystems;
 
+import java.util.ArrayList;
+import java.util.List;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.AnalogInput;
 
+import static frc.utils.Constants.DIO_ELEVATOR_LIMIT_BOTTOM;
+import static frc.utils.Constants.USB_CONTROL_GAMEPAD;
+import static frc.utils.Constants.USB_DRIVE_STICK;
+import static frc.utils.Constants.AIO_AUTO_SELECT;
+import frc.utils.DriveTrainCharacterizer;
 import frc.utils.ArduinoI2C;
+
 import frc.subsystems.Logger;
+import frc.subsystems.LineFollower;
+import frc.robot.Robot;
+import frc.utils.Constants;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+
 
 public class Subsystems {	
 
 	public static Logger logger = new Logger();
-
+	
+	public static PowerDistributionPanel powerPanel;
+	public static Compressor compressor;
 	public static AnalogInput autoSelectSwitch;
+	// public static LineFollower lineFollower;
+
 	private static String gameSpecificData = "%NOT POLLED";
 
 	/**

@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.commands.DriveWithJoystick;
 import frc.subsystems.DriveTrain;
 
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -17,6 +18,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import frc.utils.Constants;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 
@@ -25,11 +27,13 @@ public class DriveTrain extends Subsystem{
 	TalonSRX leftRearDrive = new TalonSRX(Constants.CAN_LEFT_REAR_DRIVE);
 	TalonSRX rightFrontDrive = new TalonSRX(Constants.CAN_RIGHT_FRONT_DRIVE);
 	VictorSPX rightRearDrive = new VictorSPX(Constants.CAN_RIGHT_REAR_DRIVE);
-	DifferentialDrive differentialDrive;
 
 	Solenoid gearShiftSolenoid = new Solenoid(Constants.CAN_PCM, 
 											Constants.PCM_SHIFTER_A);
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+	public RobotDrive robotDrive;
+	public DifferentialDrive differentialDrive;
+
 	private int startPosition;
 	private int desiredPosition = 0;
 	private boolean stopArcadeDrive;
@@ -226,7 +230,6 @@ public class DriveTrain extends Subsystem{
 	public int getRightEncoderValue() {
 		return rightFrontDrive.getSelectedSensorPosition(0);
 	}
-		
 	public void zero() {
 		startPosition = getLeftEncoderValue();
 	}
