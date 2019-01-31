@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.commands.Autonomous;
 import frc.subsystems.DriveTrain;
 import frc.subsystems.LineFollower;
 import frc.subsystems.Logger;
@@ -59,6 +60,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		m_oi = new OI();
+
 		CameraServer.getInstance().startAutomaticCapture();	
 		m_autoSelectSwitch = new AnalogInput(Constants.AIO_AUTO_SELECT);
 
@@ -69,6 +72,8 @@ public class Robot extends TimedRobot {
         // subsysems
 		m_drivetrain = new DriveTrain();
 		m_lineFollower = new LineFollower();
+
+		autonomousCommand = new Autonomous();
 	}
 
 	public String getGameSpecificData() {
