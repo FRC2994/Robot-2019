@@ -9,6 +9,7 @@ import frc.subsystems.LineFollower;
 import frc.subsystems.Logger;
 import frc.subsystems.Subsystems;
 import frc.utils.Constants;
+import frc.robot.OI;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
@@ -27,9 +28,6 @@ import edu.wpi.first.wpilibj.DigitalSource;
  * directory.
  */
 public class Robot extends TimedRobot {
-
-	DigitalInput rightColorSensor = new DigitalInput(18);
-	DigitalInput leftColorSensor = new DigitalInput(23);
 	
 	Command autonomousCommand;
 	private static Robot instance;
@@ -57,7 +55,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		m_oi = new OI();
 
 		CameraServer.getInstance().startAutomaticCapture();	
 		m_autoSelectSwitch = new AnalogInput(Constants.AIO_AUTO_SELECT);
@@ -71,6 +68,7 @@ public class Robot extends TimedRobot {
 		m_lineFollower = new LineFollower();
 
 		autonomousCommand = new Autonomous();
+		m_oi = new OI();  // must be after DriveTrain
 	}
 
 	public String getGameSpecificData() {
@@ -132,9 +130,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		// lf.run();
-		System.out.println("Right Sensor: " + rightColorSensor.get());
-		System.out.println("Left Sensor: " + leftColorSensor.get());
+		// m_lineFollower.run();
 	}
 
 	@Override

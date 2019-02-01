@@ -31,7 +31,6 @@ public class DriveTrain extends Subsystem{
 	Solenoid gearShiftSolenoid = new Solenoid(Constants.CAN_PCM, 
 											Constants.PCM_SHIFTER_A);
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-	public RobotDrive robotDrive;
 	public DifferentialDrive differentialDrive;
 
 	private int startPosition;
@@ -200,7 +199,8 @@ public class DriveTrain extends Subsystem{
 	}
 
 	public void setGear(boolean high) {
-		gearShiftSolenoid.set(high);
+	   System.out.println("Trying to shift to gear high when true: " + high);
+       gearShiftSolenoid.set(high);
 	}
 	
 	public void resetGyro() {
@@ -266,7 +266,7 @@ public class DriveTrain extends Subsystem{
     * @param joy The ps3 style joystick to use to drive tank style.
     */
     public void drive(Joystick joy) {
-       drive(-joy.getY(), -joy.getThrottle());
+		differentialDrive.arcadeDrive(joy.getY(),joy.getX());
     }
 
    /**

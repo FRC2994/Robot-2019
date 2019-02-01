@@ -67,7 +67,7 @@ public class OI {
   
     // Connect the buttons to commands
     joystickShifter.whenPressed(new ShiftGear(true));
-    joystickShifter.whenReleased(new ShiftGear(false));
+    joystickShifter.cancelWhenPressed(new ShiftGear(false));
     // dpadUp.whenPressed(new SetElevatorSetpoint(0.2));
     // dpadDown.whenPressed(new SetElevatorSetpoint(-0.2));
     // dpadRight.whenPressed(new CloseClaw());

@@ -13,7 +13,7 @@ import frc.utils.DriveTrainCharacterizer;
 import frc.utils.ArduinoI2C;
 
 import frc.subsystems.Logger;
-import frc.subsystems.LineFollower;
+//import frc.subsystems.LineFollower;
 import frc.robot.Robot;
 import frc.utils.Constants;
 import edu.wpi.first.wpilibj.Compressor;
@@ -28,7 +28,6 @@ public class Subsystems {
 	public static PowerDistributionPanel powerPanel;
 	public static Compressor compressor;
 	public static AnalogInput autoSelectSwitch;
-	// public static LineFollower lineFollower;
 
 	private static String gameSpecificData = "%NOT POLLED";
 
