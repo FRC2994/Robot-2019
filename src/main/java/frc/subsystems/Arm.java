@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.utils.Constants;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.PWM;
 
@@ -14,6 +15,8 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ControlType;
+
+import frc.robot.Robot;
 
 public class Arm extends Subsystems {
     private static CANSparkMax motor;
@@ -134,7 +137,9 @@ public class Arm extends Subsystems {
       }
       
       public void zero() {
-        if (!limitElevatorBottom.get()) {
+        Solenoid limitElevatorBottom;
+    boolean printedZeroing;
+    if (!limitElevatorBottom.get()) {
                 if (!printedZeroing) {
               System.out.println("Elevator Zeroing!! Old startPosition " + startPosition + " New startPosition " +  getRealPosition());
               printedZeroing = true;
@@ -149,11 +154,8 @@ public class Arm extends Subsystems {
       }
     
       public void moveDown() {
-          if ( limitElevatorBottom.get()) {
-          System.out.println("Elevator Moving Down to " + getDesiredPosition() + Constants.ELEVATOR_POSITION_DECREMENT );
-          System.out.println("ELEVATOR : getDesiredPosition() " + getDesiredPosition() + " getRealPosition() " + getRealPosition() + " Encoder Position " + motor.getSelectedSensorPosition(0));
-          System.out.println("Voltage: " + motor.getmotorOutputVoltage() + " CL error: " + motor.getClosedLoopError(0) + " P: " + motor.configGetParameter(ParamEnum.eProfileParamSlot_P, 0, 10));
-          System.out.println("getErrorDerivative: " + motor.getErrorDerivative(0) );
+          Solenoid limitElevatorBottom;
+    if (limitElevatorBottom.get()) {
           setPIDDown();
           setPosition(getRealPosition() + Constants.ELEVATOR_POSITION_DECREMENT);
           } else {
@@ -187,18 +189,18 @@ public class Arm extends Subsystems {
         kMinOutput = min; kMaxOutput = max; 
       }
     }
-  }
+  
   
     //ARM CONTROL
     public void armForward() {
-        arm = new CANSparkMax(armmotorControllerID, motorType.kBrushless);
-        arm.setInverted(false);
-        arm.set(armSpeed);
+        motor = new CANSparkMax(armmotorControllerID, MotorType.kBrushless);
+        motor.setInverted(false);
+        motor.set(armSpeed);
     }
     public void armBackward() {
-        arm = new CANSparkMax(armmotorControllerID, motorType.kBrushless);
-        arm.setInverted(true);
-        arm.set(armSpeed);
+        motor = new CANSparkMax(armmotorControllerID, MotorType.kBrushless);
+        motor.setInverted(true);
+        motor.set(armSpeed);
     }
 
     //CARGO CONTROL
