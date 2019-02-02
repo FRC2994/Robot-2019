@@ -16,19 +16,21 @@ public class ArmGamePiece extends Subsystems {
     private static CANSparkMax arm;
     private static VictorSPX hatch;
     private static VictorSPX cargo;
+    private static Solenoid hatchPush;
 
-    private static final int armMotorControllerID = 0;
-    
-    public ArmGamePiece() {
-        arm = new CANSparkMax(armMotorControllerID, MotorType.kBrushless);
-    }
+    private static final int armMotorControllerID = 6;
+    public static final double armSpeed = 20.0;
 
     //ARM CONTROL
     public void armForward() {
-
+        arm = new CANSparkMax(armMotorControllerID, MotorType.kBrushless);
+        arm.setInverted(false);
+        arm.set(armSpeed);
     }
     public void armBackward() {
-
+        arm = new CANSparkMax(armMotorControllerID, MotorType.kBrushless);
+        arm.setInverted(true);
+        arm.set(armSpeed);
     }
 
     //CARGO CONTROL
