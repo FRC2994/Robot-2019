@@ -3,11 +3,12 @@ package frc.subsystems;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.utils.Constants;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.PWM;
 
+import com.ctre.phoenix.motorcontrol.ControlMode; 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANEncoder;
@@ -29,7 +30,7 @@ public class Arm extends Subsystems {
     private CANPIDController m_pidController;
     private CANEncoder m_encoder;
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
-    private int startPosition = 0;
+    private int startPoSsition = 0;
     private int positionInTicks = 0;
     private static final int deviceID = 3;
 
@@ -59,26 +60,26 @@ public class Arm extends Subsystems {
   
       // set PID coefficients
       ((CANPIDController) m_pidController).setP(kP);
-      m_pidController.setI(kI);
-      m_pidController.setD(kD);
-      m_pidController.setIZone(kIz);
-      m_pidController.setFF(kFF);
-      m_pidController.setOutputRange(kMinOutput, kMaxOutput);
+      ((CANPIDController) m_pidController).setI(kI);
+      ((CANPIDController) m_pidController).setD(kD);
+      ((CANPIDController) m_pidController).setIZone(kIz);
+      ((CANPIDController) m_pidController).setFF(kFF);
+      ((CANPIDController) m_pidController).setOutputRange(kMinOutput, kMaxOutput);
   
       // display PID coefficients on SmartDashboard
-      SmartDashboard.putNumber("P Gain", kP);
-      SmartDashboard.putNumber("I Gain", kI);
-      SmartDashboard.putNumber("D Gain", kD);
-      SmartDashboard.putNumber("I Zone", kIz);
-      SmartDashboard.putNumber("Feed Forward", kFF);
-      SmartDashboard.putNumber("Max Output", kMaxOutput);
-      SmartDashboard.putNumber("Min Output", kMinOutput);
-      SmartDashboard.putNumber("Set Rotations", 0);
+      // SmartDashboard.putNumber("P Gain", kP);
+      // SmartDashboard.putNumber("I Gain", kI);
+      // SmartDashboard.putNumber("D Gain", kD);
+      // SmartDashboard.putNumber("I Zone", kIz);
+      // SmartDashboard.putNumber("Feed Forward", kFF);
+      // SmartDashboard.putNumber("Max Output", kMaxOutput);
+      // SmartDashboard.putNumber("Min Output", kMinOutput);
+      // SmartDashboard.putNumber("Set Rotations", 0);
     }
     
     public void setmotorOpenLoop(double percent) {
-      System.out.println("Trying to move elevator in Open Loop... currentPosition " + getDesiredPosition() 
-        + " encPos "  + getDesiredPosition() + " percent " + percent + ".");
+      // System.out.println("Trying to move elevator in Open Loop... currentPosition " + getDesiredPosition() 
+        // + " encPos "  + getDesiredPosition() + " percent " + percent + ".");
       motor.set(ControlMode.PercentOutput, percent);
     }
   
@@ -131,7 +132,7 @@ public class Arm extends Subsystems {
     //			int limittedVal = getDesiredPosition() + Constants.ELEVATOR_POSITION_INCREMENT;
             setPIDUp();
           setPosition(getRealPosition() + Constants.ELEVATOR_POSITION_INCREMENT);
-          System.out.println("Moving UP getDesiredPosition() " + getDesiredPosition() + " getRealPosition() " + getRealPosition() + " Encoder Position " + motor.getSelectedSensorPosition(0));
+          // System.out.println("Moving UP getDesiredPosition() " + getDesiredPosition() + " getRealPosition() " + getRealPosition() + " Encoder Position " + motor.getSelectedSensorPosition(0));
     //    		setmotorOpenLoop(-0.8);
     //		}
       }
@@ -141,7 +142,7 @@ public class Arm extends Subsystems {
     boolean printedZeroing;
     if (!limitElevatorBottom.get()) {
                 if (!printedZeroing) {
-              System.out.println("Elevator Zeroing!! Old startPosition " + startPosition + " New startPosition " +  getRealPosition());
+              // System.out.println("Elevator Zeroing!! Old startPosition " + startPosition + " New startPosition " +  getRealPosition());
               printedZeroing = true;
                 }
             startPosition = getRealPosition();
@@ -159,7 +160,7 @@ public class Arm extends Subsystems {
           setPIDDown();
           setPosition(getRealPosition() + Constants.ELEVATOR_POSITION_DECREMENT);
           } else {
-          System.out.println("Elevator Zeroing!!");
+          // System.out.println("Elevator Zeroing!!");
           startPosition = getRealPosition();
           setPosition(0);
           }
@@ -169,14 +170,14 @@ public class Arm extends Subsystems {
     @Override
     public void teleopPeriodic() {
       // read PID coefficients from SmartDashboard
-      double p = SmartDashboard.getNumber("P Gain", 0);
-      double i = SmartDashboard.getNumber("I Gain", 0);
-      double d = SmartDashboard.getNumber("D Gain", 0);
-      double iz = SmartDashboard.getNumber("I Zone", 0);
-      double ff = SmartDashboard.getNumber("Feed Forward", 0);
-      double max = SmartDashboard.getNumber("Max Output", 0);
-      double min = SmartDashboard.getNumber("Min Output", 0);
-      double rotations = SmartDashboard.getNumber("Set Rotations", 0);
+      // double p = SmartDashboard.getNumber("P Gain", 0);
+      // double i = SmartDashboard.getNumber("I Gain", 0);
+      // double d = SmartDashboard.getNumber("D Gain", 0);
+      // double iz = SmartDashboard.getNumber("I Zone", 0);
+      // double ff = SmartDashboard.getNumber("Feed Forward", 0);
+      // double max = SmartDashboard.getNumber("Max Output", 0);
+      // double min = SmartDashboard.getNumber("Min Output", 0);
+      // double rotations = SmartDashboard.getNumber("Set Rotations", 0);
   
       // if PID coefficients on SmartDashboard have changed, write new values to controller
       if((p != kP)) { m_pidController.setP(p); kP = p; }
