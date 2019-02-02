@@ -86,10 +86,5 @@ public class Lift1 extends Subsystem {
       LiftUp.set(Value.kForward);
       }
 
-      public void LiftUpMid() {
-        System.out.println("Trying to Lilt Going to the middle.");
-        LiftUp.set(Value.kForward);
-        }
-
   }
 
