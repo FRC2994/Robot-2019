@@ -40,10 +40,7 @@ public class Lift1 extends Subsystem {
 
   VictorSPX ChinUpPull = new VictorSPX(Constants.CAN_CHINUP_PULL);
 	TalonSRX ChinUpRotation = new TalonSRX(Constants.CAN_CHINUP_ROTATION);
-  DoubleSolenoid LiftUpLeft = new DoubleSolenoid(Constants.PCM_LEFT_RETRACTABLE_LEG_OUT, Constants.PCM_LEFT_RETRACTABLE_LEG_IN);
-  DoubleSolenoid LiftUpRight = new DoubleSolenoid(Constants.PCM_RIGHT_RETRACTABLE_LEG_OUT, Constants.PCM_RIGHT_RETRACTABLE_LEG_IN);
-
-
+  DoubleSolenoid LiftUp = new DoubleSolenoid(Constants.PCM_RETRACTABLE_LEG_IN, Constants.PCM_RETRACTABLE_LEG_OUT);
 
     public void initDefaultCommand() {
     }
@@ -78,31 +75,21 @@ public class Lift1 extends Subsystem {
     public void initDefaultComman() {
     }
 
-    public void LiftUpLeft() {
+    public void LiftUpUP() {
       System.out.println("Trying to Lilt Going UP.");
-      LiftUpLeft.set(Value.kReverse);
-      LiftUpRight.set(Value.kReverse);
+      LiftUp.set(Value.kReverse);
     }    
 
 
-    public void LiftUpRight() {
+    public void LiftUpDOWN() {
       System.out.println("Trying to Lilt Going DOWN.");
-      LiftUpLeft.set(Value.kForward);
-      LiftUpRight.set(Value.kForward);
+      LiftUp.set(Value.kForward);
       }
 
-      public void LiftUpMidle() {
+      public void LiftUpMid() {
         System.out.println("Trying to Lilt Going to the middle.");
-        LiftUpLeft.set(Value.kForward);
-        LiftUpRight.set(Value.kReverse);
+        LiftUp.set(Value.kForward);
         }
 
-    public void stopLiftUpLeft() {
-      LiftUpLeft.set(Value.kReverse);    
-    }
-
-    public void stopLiftUpRight() {
-      LiftUpRight.set(Value.kReverse);
-    }
   }
 
