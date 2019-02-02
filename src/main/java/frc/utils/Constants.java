@@ -19,12 +19,13 @@ public class Constants
     public static final int CAN_CHINUP_WHEEL_INTAKE    = 9; 
 
 	// PCM (Solenoid, LEDs, etc...)
-	public static final int PCM_SHIFTER_A              = 0;
-	public static final int PCM_SHIFTER_B              = 1;
-	public static final int PCM_RETRACTABLE_REAR_LEGS  = 2;
-	public static final int PCM_FINGER                 = 3;
-	public static final int PCM_PISTON_PUSH            = 4;
-	public static final int PCM_PISTON_RETRACT         = 4;
+	public static final int PCM_SHIFTER_A                  = 0;
+	public static final int PCM_SHIFTER_B                  = 1;
+	public static final int PCM_LEFT_RETRACTABLE_REAR_LEG  = 2;
+	public static final int PCM_RIGHT_RETRACTABLE_REAR_LEG = 3;
+	public static final int PCM_FINGER                     = 4;
+	public static final int PCM_PISTON_PUSH                = 5;
+	public static final int PCM_PISTON_RETRACT             = 6;
 
 	// DIO
 	public static final int DIO_CUBE_PICKUP            = 2;
