@@ -111,6 +111,11 @@ public class LineFollower extends Subsystem {
     }
 }
 
+public void debug() {
+  System.out.println("Right Sensor: " + rightColorSensor.get());
+  System.out.println("Left Sensor: " + leftColorSensor.get());
+}
+
   @Override
 	public void periodic() {
     Logger.appendRecord("\t"+state+"\t"+leftDistance+"\t"+rightDistance+"\t");
