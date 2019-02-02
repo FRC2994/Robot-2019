@@ -22,14 +22,12 @@ public class Constants
 	// PCM (Solenoid, LEDs, etc...)
 	public static final int PCM_SHIFTER_A                  = 0;
 	public static final int PCM_SHIFTER_B                  = 1;
-	public static final int PCM_LEFT_RETRACTABLE_LEG_OUT   = 2;
-	public static final int PCM_LEFT_RETRACTABLE_LEG_IN    = 3;
-	public static final int PCM_RIGHT_RETRACTABLE_LEG_OUT  = 4;
-	public static final int PCM_RIGHT_RETRACTABLE_LEG_IN   = 5;
-	public static final int PCM_FINGER_HOLD                = 6;
-	public static final int PCM_FINGER_RETRACT             = 7;
-	public static final int PCM_PISTON_PUSH                = 8;
-	public static final int PCM_PISTON_RETRACT             = 9;
+	public static final int PCM_RETRACTABLE_LEG_OUT        = 2;
+	public static final int PCM_RETRACTABLE_LEG_IN         = 3;
+	public static final int PCM_FINGER_HOLD                = 4;
+	public static final int PCM_FINGER_RETRACT             = 5;
+	public static final int PCM_PISTON_PUSH                = 6;
+	public static final int PCM_PISTON_RETRACT             = 7;
 
 	// DIO
 	public static final int DIO_CUBE_PICKUP            = 2;
