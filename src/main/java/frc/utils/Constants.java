@@ -8,23 +8,22 @@ import java.util.Properties;
 public class Constants
 {
 	// CAN
-	public static final int CAN_PCM               = 8;
-	public static final int CAN_RIGHT_FRONT_DRIVE = 1;
-	public static final int CAN_RIGHT_REAR_DRIVE  = 7;
-	public static final int CAN_LEFT_FRONT_DRIVE  = 3;
-	public static final int CAN_LEFT_REAR_DRIVE   = 4;
-	public static final int CAN_PICKUP_RIGHT      = 5;
-	public static final int CAN_PICKUP_LEFT       = 6;
-	public static final int CAN_ELEVATOR          = 2; // FIXME: Swapped for temporary Talonization of elevator
-//	public static final int CAN_CLIMBER           = 8; // FIXME: Swapped for temporary Talonization of elevator
+	public static final int CAN_PCM                    = 8;
+	public static final int CAN_RIGHT_FRONT_DRIVE      = 1;
+	public static final int CAN_RIGHT_REAR_DRIVE       = 7;
+	public static final int CAN_LEFT_FRONT_DRIVE       = 3;
+	public static final int CAN_LEFT_REAR_DRIVE        = 4;
+	// public static final int CAN_CHINUP              = 5;
+	// public static final int CAN_ARM                 = 6;
+	// public static final int CAN_WHEEL_INTAKE        = 2;
+    // public static final int CAN_CHINUP_WHEEL_INTAKE = 9; 
 
 	// PCM (Solenoid, LEDs, etc...)
 	public static final int PCM_SHIFTER_A            = 0;
 	public static final int PCM_SHIFTER_B            = 1;
-	// public static final int PCM_PICKUP_1_CHANNEL1 = 1;
-	// public static final int PCM_PICKUP_1_CHANNEL2 = 2;
-	// public static final int PCM_PICKUP_2_CHANNEL1 = 3;
-	// public static final int PCM_PICKUP_2_CHANNEL2 = 4;
+	// public static final int PCM_RETRACTABLE_LEGS  = 2;
+	// public static final int PCM_FINGER            = 3;
+	// public static final int PCM_LED               = 4;
 
 	// DIO
 	public static final int DIO_CUBE_PICKUP           = 2;
