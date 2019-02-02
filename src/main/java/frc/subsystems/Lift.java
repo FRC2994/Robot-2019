@@ -30,8 +30,8 @@ public class Lift extends Subsystem {
 //Sets up Talons Victors, Solenoid, Chin up bar, puling up mechinism and lifting mechinism
     private VictorSPX ChinUpPull;
 	private TalonSRX ChinUpRotation;
-	private DoubleSolenoid liftupTilt_1;
-    private DoubleSolenoid liftupTilt_2;
+	private DoubleSolenoid LiftUpLeft;
+    private DoubleSolenoid LiftUpRight;
     private ChinUpStatus ChinUpBarStatus = ChinUpStatus.IN;
 	private PullUpStatus intakeStatus = PullUpStatus.STOP;
 	private LiftupStatus pickupStatus = LiftupStatus.UP;
@@ -98,14 +98,14 @@ public class Lift extends Subsystem {
 
 	public void tiltLiftUp() {
 		System.out.println("Trying to Lilt Going UP.");
-		liftupTilt_1.set(Value.kReverse);
-		liftupTilt_2.set(Value.kReverse);
+		LiftUpLeft.set(Value.kReverse);
+		LiftUpRight.set(Value.kReverse);
 	}
 
 	public void tiltLiftDown() {
 		System.out.println("Trying to Lilt Going DOWN.");
-		liftupTilt_1.set(Value.kForward);
-		liftupTilt_2.set(Value.kForward);
+		LiftUpLeft.set(Value.kForward);
+		LiftUpRight.set(Value.kForward);
     }
 
 
@@ -148,8 +148,8 @@ public class Lift extends Subsystem {
 		
 	public void ChinUpBar() {
 		System.out.println("Trying to bring bar out.");
-		liftupTilt_1.set(Value.kForward);
-		liftupTilt_2.set(Value.kForward);
+		LiftUpLeft.set(Value.kForward);
+		LiftUpRight.set(Value.kForward);
     }
 
 	@Override
