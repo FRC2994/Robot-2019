@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import frc.subsystems.DriveTrain.GearShiftState;
 import frc.commands.Autonomous;
 import frc.commands.ShiftGear;
 import frc.robot.Gamepad;
@@ -66,8 +67,8 @@ public class OI {
   //		public static final int JOYSTICK_ELEVATOR_UP = 3;
   
     // Connect the buttons to commands
-    joystickShifter.whenPressed(new ShiftGear(true));
-    joystickShifter.cancelWhenPressed(new ShiftGear(false));
+    joystickShifter.whenPressed(new ShiftGear(GearShiftState.HI));
+    joystickShifter.whenReleased(new ShiftGear(GearShiftState.LO));
     // dpadUp.whenPressed(new SetElevatorSetpoint(0.2));
     // dpadDown.whenPressed(new SetElevatorSetpoint(-0.2));
     // dpadRight.whenPressed(new CloseClaw());

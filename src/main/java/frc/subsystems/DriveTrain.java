@@ -1,13 +1,11 @@
 package frc.subsystems;
 
-// import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 import frc.commands.DriveWithJoystick;
 import frc.subsystems.DriveTrain;
-
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -17,8 +15,6 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import frc.utils.Constants;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 
@@ -30,6 +26,8 @@ public class DriveTrain extends Subsystem{
 
 	Solenoid gearShiftSolenoid = new Solenoid(Constants.CAN_PCM, 
 											Constants.PCM_SHIFTER_A);
+	public static enum GearShiftState { HI, LO };
+
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	public DifferentialDrive differentialDrive;
 
@@ -145,9 +143,6 @@ public class DriveTrain extends Subsystem{
 
 		gyro.calibrate();
 
-		// Set low gear by default
-		setGear(false);
-
 		leftFrontDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		leftFrontDrive.setSensorPhase(false);
 		rightFrontDrive.setSensorPhase(false);
@@ -160,19 +155,16 @@ public class DriveTrain extends Subsystem{
 	
 	public void driveWithCurve(double speed, double turn, boolean isQuickTurn) {
 		differentialDrive.curvatureDrive(speed, turn, isQuickTurn);
-		// robotDrive.drive(speed, turn);
 	}
 	
 	public void arcadeDrive(Joystick driveJoystick) {
         if (!stopArcadeDrive) {
 			differentialDrive.arcadeDrive(driveJoystick.getY(),driveJoystick.getX());
-			// robotDrive.arcadeDrive(driveJoystick);
 		}
 	}
 	
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 		differentialDrive.tankDrive(leftSpeed, rightSpeed);
-		//robotDrive.tankDrive(leftSpeed, rightSpeed);
 	}
 	
 	
@@ -180,10 +172,10 @@ public class DriveTrain extends Subsystem{
 		leftFrontDrive.setSelectedSensorPosition(0,0,0);
 		rightFrontDrive.setSelectedSensorPosition(0,0,0);
 		if (getLeftEncoderValue() != 0) {
-			//System.out.println("ERROR - Could not reset Left encoder!!");
+			System.out.println("ERROR - Could not reset Left encoder!!");
 		}
 		if (getRightEncoderValue() != 0) {
-			//System.out.println("ERROR - Could not reset Right encoder!!");
+			System.out.println("ERROR - Could not reset Right encoder!!");
 		}
 		 
 		//TODO: Reverse encoders on talons - how do you do this
@@ -198,9 +190,9 @@ public class DriveTrain extends Subsystem{
 		leftRearDrive.setNeutralMode(brakeOrCoast == BrakeCoastStatus.BRAKE ? NeutralMode.Brake : NeutralMode.Coast);
 	}
 
-	public void setGear(boolean high) {
-	   System.out.println("Trying to shift to gear high when true: " + high);
-       gearShiftSolenoid.set(high);
+	public void setGear(GearShiftState state) {
+	   System.out.println("Trying to shift to gear state " + state);
+	   gearShiftSolenoid.set(state==GearShiftState.HI?true:false);
 	}
 	
 	public void resetGyro() {
@@ -245,9 +237,9 @@ public class DriveTrain extends Subsystem{
 	@Override
 	public void periodic() {
 //		System.out.println("Left Encoder: " + getLeftEncoderValue() +" Right Encoder: " + getRightEncoderValue());
-		Logger.appendRecord(
-		 		getFrontLeftMotor().getMotorOutputVoltage() + "\t" + getFrontRightMotor().getMotorOutputVoltage() + 
-		 		"\t" + getLeftEncoderValue() + "\t" + getRightEncoderValue() + "\t" + getHeading() + "\t");
+		// Logger.appendRecord(
+		//  		getFrontLeftMotor().getMotorOutputVoltage() + "\t" + getFrontRightMotor().getMotorOutputVoltage() + 
+		//  		"\t" + getLeftEncoderValue() + "\t" + getRightEncoderValue() + "\t" + getHeading() + "\t");
 	}
 
    /**
@@ -282,10 +274,17 @@ public class DriveTrain extends Subsystem{
     * Reset the robots sensors to the zero states.
     */
     public void reset() {
-        gyro.reset();
-		this.resetEncoders();
-		this.resetGyro();
+        setDefaultCommand(new DriveWithJoystick());
+		resetEncoders();
+		resetGyro();
 		stopArcadeDrive = false;
+		rightRearDrive.setInverted(false);
+		rightFrontDrive.setInverted(false);
+		setBrakeCoast(BrakeCoastStatus.BRAKE);
+		setGear(GearShiftState.LO);
+		zero();
+		stopArcadeDrive = false;
+        Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
     }
 
    /**
@@ -304,16 +303,7 @@ public class DriveTrain extends Subsystem{
     */
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new DriveWithJoystick());
-		//driveJoystick.enableButton(3);
-		rightRearDrive.setInverted(false);
-		rightFrontDrive.setInverted(false);
-		setBrakeCoast(BrakeCoastStatus.BRAKE);
-		setGear(false);
-		zero();
 		reset();
-		stopArcadeDrive = false;
-        Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
 	}
 
 }

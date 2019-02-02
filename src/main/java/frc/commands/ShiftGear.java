@@ -9,19 +9,23 @@ package frc.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
+import frc.subsystems.DriveTrain;
+import frc.subsystems.DriveTrain.GearShiftState;
 
-/**
- * Add your docs here.
- */
 public class ShiftGear extends InstantCommand {
-  /**
-   * Add your docs here.
-   */
-  public ShiftGear(boolean high) {
+	private GearShiftState state;
+  
+  public ShiftGear(GearShiftState state) {
     super();
     // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    Robot.m_drivetrain.setGear(high);
+    requires(Robot.m_drivetrain);
+    this.state = state;
   }
+
+  @Override
+	protected void initialize() {
+    Robot.m_drivetrain.setGear(state);
+	}
+
 
 }
