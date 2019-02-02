@@ -12,7 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-public class ArmGamePiece extends Subsystems {
+public class Arm extends Subsystems {
     private static CANSparkMax arm;
     private static VictorSPX hatch;
     private static VictorSPX cargo;
@@ -179,7 +179,7 @@ public void stopMotor() {
 
     //HATCH CONTROL
     public void hatchPull() {
-
+        
     }
     public void hatchPush() {
 
