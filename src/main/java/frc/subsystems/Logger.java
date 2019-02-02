@@ -5,6 +5,8 @@ package frc.subsystems;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import edu.wpi.first.wpilibj.command.Subsystem;
+
 /**
  * @author ASH
  *
@@ -14,7 +16,7 @@ public class Logger {
     File recFile;
     static String recLine;
     
-    Logger() {
+    public Logger() {
  	   File baseDrive = new File( "/home/lvuser");
  	   File logDir = new File(baseDrive, "logs");
  	   if (!logDir.exists()) {

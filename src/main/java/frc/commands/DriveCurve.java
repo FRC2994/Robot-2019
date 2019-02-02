@@ -1,4 +1,4 @@
-package frc.autonomous;
+package frc.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -7,21 +7,17 @@ import frc.robot.Robot;
 
 public class DriveCurve extends Command{
    
-    public DriveCurve(){
-        requires(Robot.drivetrain);
+    public DriveCurve(double speed, double turn, boolean isQuickTurn){
+        requires(Robot.m_drivetrain);
         setTimeout(1);
-    }
-
-    private void requires(DriveTrain drivetrain) {
+        Robot.m_drivetrain.driveWithCurve(speed, turn, isQuickTurn);
     }
 
     protected void initialize(){
-        Robot.drivetrain.driveWithCurve(1, 30);
     }
 
     protected void execute(){
     }
-
 
     protected boolean isFinished() {
         return isTimedOut();

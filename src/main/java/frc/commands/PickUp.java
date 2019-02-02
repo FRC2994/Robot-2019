@@ -1,3 +1,4 @@
+/*
 package frc.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -154,17 +155,4 @@ public class PickUp extends Command {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/

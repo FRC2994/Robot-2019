@@ -8,12 +8,9 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 import static frc.utils.Constants.*;
-import frc.subsystems.Subsystem;
-import frc.controls.EJoystick;
-import frc.controls.ButtonEntry;
-import static frc.subsystems.Subsystems.driveJoystick;
 // import frc.subsystems.Subsystems;
 import frc.subsystems.DriveTrain;
 
@@ -23,13 +20,9 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import frc.controls.ButtonEntry;
-import frc.controls.EJoystick;
 import frc.utils.Constants;
-import frc.utils.SimPID;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
-//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 
@@ -103,7 +96,7 @@ public class Lift extends Subsystem {
     	
     }
 
-		public void tiltLiftUp() {
+	public void tiltLiftUp() {
 		System.out.println("Trying to Lilt Going UP.");
 		liftupTilt_1.set(Value.kReverse);
 		liftupTilt_2.set(Value.kReverse);
@@ -117,72 +110,51 @@ public class Lift extends Subsystem {
 
 
 
-        public void ChinUpBarIn() {
+    public void ChinUpBarIn() {
 	  	System.out.println("Trying to bring bar in.");
-            ChinUpPull(ChinUpRotateNum);
-            boolean buttonToggle = false;
+        ChinUpPull(ChinUpRotateNum);
+        boolean buttonToggle = false;
         //  if (button.isPressed()) {
         //     leftFrontDrive.setSelectedSensorPosition(0,0,0);
         //          }            }
-        }
+    }
         
-        public void ChinUpBarOut() {
-            System.out.println("Trying to bring bar out.");
-            ChinUpPull(ChinUpRotateNum*-1);
-        }
+    public void ChinUpBarOut() {
+        System.out.println("Trying to bring bar out.");
+        ChinUpPull(ChinUpRotateNum*-1);
+    }
     
-        public void ChinUpPull(double value) {
-	    	ChinUpPull.set(ControlMode.PercentOutput, value);
+    public void ChinUpPull(double value) {
+	 	ChinUpPull.set(ControlMode.PercentOutput, value);
     }
 
     public void PullUpPull() {
 		System.out.println("Trying to bring bar in.");
-            ChinUpRotation(ChinUpRotateNum);
-        }
+        ChinUpRotation(ChinUpRotateNum);
+    }
         
-        public void PullUpPush() {
-            System.out.println("Trying to bring bar out.");
-            ChinUpRotation(ChinUpRotateNum*-1);
-        }
+    public void PullUpPush() {
+        System.out.println("Trying to bring bar out.");
+        ChinUpRotation(ChinUpRotateNum*-1);
+    }
 
-        public void PullUpStop() {
-            System.out.println("Trying to bring bar out.");
-            ChinUpRotation(0);
-        }		
-        public void ChinUpRotation(double value) {
-	    	ChinUpRotation.set(ControlMode.PercentOutput, value);
-        }
-    public void ChinUpBar() {
+    public void PullUpStop() {
+        System.out.println("Trying to bring bar out.");
+        ChinUpRotation(0);
+    }		
+    public void ChinUpRotation(double value) {
+	   	ChinUpRotation.set(ControlMode.PercentOutput, value);
+    }
+		
+	public void ChinUpBar() {
 		System.out.println("Trying to bring bar out.");
 		liftupTilt_1.set(Value.kForward);
 		liftupTilt_2.set(Value.kForward);
     }
 
+	@Override
+	protected void initDefaultCommand() {
 
-
-@Override
-public void tickTesting() {
-}
-
-@Override
-public void initTesting() {
-    
-}
-
-@Override
-public void initAutonomous() {
-    
-}
-
-@Override
-public void initTeleop() {
-    
-}
-@Override
-public void tickAutonomous() {
-}
-@Override
-	public void tickTeleop() {
-    }
+	}
 
 }

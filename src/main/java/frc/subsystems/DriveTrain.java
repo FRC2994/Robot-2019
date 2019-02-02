@@ -1,20 +1,11 @@
 package frc.subsystems;
 
-// import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PWM;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-import static frc.utils.Constants.*;
-import frc.subsystems.Subsystem;
-import frc.controls.EJoystick;
-import frc.controls.ButtonEntry;
-import static frc.subsystems.Subsystems.driveJoystick;
-// import frc.subsystems.Subsystems;
+import frc.commands.DriveWithJoystick;
 import frc.subsystems.DriveTrain;
-
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -22,13 +13,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import frc.controls.ButtonEntry;
-import frc.controls.EJoystick;
 import frc.utils.Constants;
-import frc.utils.SimPID;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.RobotDrive;
-//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 
@@ -38,20 +24,21 @@ public class DriveTrain extends Subsystem{
 	TalonSRX rightFrontDrive = new TalonSRX(Constants.CAN_RIGHT_FRONT_DRIVE);
 	VictorSPX rightRearDrive = new VictorSPX(Constants.CAN_RIGHT_REAR_DRIVE);
 
-    
-	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-	public RobotDrive robotDrive;
-	public DifferentialDrive differentialDrive;
-	SimPID gyroPID = new SimPID(Constants.GYRO_PID_P, Constants.GYRO_PID_I, Constants.GYRO_PID_D, Constants.GYRO_PID_E);
+	Solenoid gearShiftSolenoid = new Solenoid(Constants.CAN_PCM, 
+											Constants.PCM_SHIFTER_A);
+	public static enum GearShiftState { HI, LO };
 
-	SimPID autoDrivePID = new SimPID(Constants.ENCODER_PID_P,Constants.ENCODER_PID_I,Constants.ENCODER_PID_D,Constants.ENCODER_PID_E);
-	
-	Solenoid gearShiftSolenoid = new Solenoid(Constants.PCM_CAN, 
-											Constants.PCM_SHIFTER_B);
+	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+	public DifferentialDrive differentialDrive;
+
 	private int startPosition;
 	private int desiredPosition = 0;
 	private boolean stopArcadeDrive;
 	
+    // Circumference in ft = 4in/12(in/ft)*PI
+	private static final double leftDistancePerPulse = (4.0 / 12.0 * Math.PI) / 360.0;
+	private static final double rightDistancePerPulse = (4.0 / 12.0 * Math.PI) / 360.0;
+
 	public static DriveTrain instance;
 	
 	public class TalonWrapperSpeedController implements SpeedController {
@@ -146,66 +133,38 @@ public class DriveTrain extends Subsystem{
 	}
 
 	public DriveTrain() {
+		instance = this;
+
 		// Set the rear drives to follow the left and right front drives
 		leftRearDrive.follow(leftFrontDrive);
 		rightRearDrive.follow(rightFrontDrive);
 
-//		rightFrontDrive.config_kP(0, 0.3, 0);
-
-        robotDrive = new RobotDrive(new TalonWrapperSpeedController(leftFrontDrive), new TalonWrapperSpeedController(rightFrontDrive));
-        //differentialDrive = new DifferentialDrive(new TalonWrapperSpeedController(leftFrontDrive), new TalonWrapperSpeedController(rightFrontDrive));
-
-//		rightDriveEncoder.setDistancePerPulse(0.026);
-//		leftDriveEncoder.setDistancePerPulse(0.001);
-//		rightDriveEncoder.setReverseDirection(true);
-//		leftDriveEncoder.setReverseDirection(true);
+        differentialDrive = new DifferentialDrive(new TalonWrapperSpeedController(leftFrontDrive), new TalonWrapperSpeedController(rightFrontDrive));
 
 		gyro.calibrate();
-
-		// Set low gear by default
-		setLowGear();
 
 		leftFrontDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		leftFrontDrive.setSensorPhase(false);
 		rightFrontDrive.setSensorPhase(false);
 		rightFrontDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 
-		instance = this;
+        // Let's name the sensors on the LiveWindow
+        addChild("Drive", differentialDrive);
+        addChild("Gyro", gyro);
 	}
 	
-	public void reset() {
-		autoDrivePID.setDesiredValue(0);
-		// Reset the encoder PID to a reasonable state.
-		autoDrivePID.resetErrorSum();
-		autoDrivePID.resetPreviousVal();
-		// Used to make sure that the PID doesn't bail out as done
-		// right away (we know both the distances are zero from the
-		// above reset).
-		autoDrivePID.calcPID(0);
-
-		gyroPID = new SimPID(Constants.GYRO_PID_P,Constants.GYRO_PID_I,Constants.GYRO_PID_D,Constants.GYRO_PID_E);
-		
-		this.resetEncoders();
-		this.resetGyro();
-		stopArcadeDrive = false;
+	public void driveWithCurve(double speed, double turn, boolean isQuickTurn) {
+		differentialDrive.curvatureDrive(speed, turn, isQuickTurn);
 	}
 	
-	//public void driveWithCurve(double speed, double turn, boolean isQuickTurn) {
-	public void driveWithCurve(double speed, double turn) {
-		//differentialDrive.curvatureDrive(speed, turn, isQuickTurn);
-		robotDrive.drive(speed, turn);
-	}
-	
-	public void arcadeDrive(EJoystick driveJoystick) {
+	public void arcadeDrive(Joystick driveJoystick) {
         if (!stopArcadeDrive) {
-			//differentialDrive.arcadeDrive(driveJoystick.getY(),driveJoystick.getX());
-			robotDrive.arcadeDrive(driveJoystick);
+			differentialDrive.arcadeDrive(driveJoystick.getY(),driveJoystick.getX());
 		}
 	}
 	
 	public void tankDrive(double leftSpeed, double rightSpeed) {
-		//differentialDrive.tankDrive(leftSpeed, rightSpeed);
-		robotDrive.tankDrive(leftSpeed, rightSpeed);
+		differentialDrive.tankDrive(leftSpeed, rightSpeed);
 	}
 	
 	
@@ -213,10 +172,10 @@ public class DriveTrain extends Subsystem{
 		leftFrontDrive.setSelectedSensorPosition(0,0,0);
 		rightFrontDrive.setSelectedSensorPosition(0,0,0);
 		if (getLeftEncoderValue() != 0) {
-			//System.out.println("ERROR - Could not reset Left encoder!!");
+			System.out.println("ERROR - Could not reset Left encoder!!");
 		}
 		if (getRightEncoderValue() != 0) {
-			//System.out.println("ERROR - Could not reset Right encoder!!");
+			System.out.println("ERROR - Could not reset Right encoder!!");
 		}
 		 
 		//TODO: Reverse encoders on talons - how do you do this
@@ -231,32 +190,14 @@ public class DriveTrain extends Subsystem{
 		leftRearDrive.setNeutralMode(brakeOrCoast == BrakeCoastStatus.BRAKE ? NeutralMode.Brake : NeutralMode.Coast);
 	}
 
-	public void setLowGear() {
-		System.out.println("Trying to shift to low gear.");
-		gearShiftSolenoid.set(false);
-	}
-
-	public void setHighGear() {
-//		System.out.println("Trying to shift to high gear.");
-		gearShiftSolenoid.set(true);
-	}
-	
-	public double getHeading() {
-		return gyro.getAngle();
+	public void setGear(GearShiftState state) {
+	   System.out.println("Trying to shift to gear state " + state);
+	   gearShiftSolenoid.set(state==GearShiftState.HI?true:false);
 	}
 	
 	public void resetGyro() {
 		gyro.reset();
 	}
-	
-	public SimPID getAutoDrivePID() {
-		return autoDrivePID;
-	}
-
-	public SimPID getTurnPID() {
-		return gyroPID;
-	}
-	
 	
 	public TalonSRX getFrontLeftMotor() {
 		return leftFrontDrive;
@@ -281,20 +222,6 @@ public class DriveTrain extends Subsystem{
 	public int getRightEncoderValue() {
 		return rightFrontDrive.getSelectedSensorPosition(0);
 	}
-	
-	public double getLeftEncoderPosition() {
-		return getLeftEncoderValue();
-	}
-
-	public double getRightEncoderPosition() {
-		return getRightEncoderValue();
-	}
-
-	public double getDistance() {
-		return getLeftEncoderValue();
-		//TODO: Get encoder position from Talons and average it
-	}
-	
 	public void zero() {
 		startPosition = getLeftEncoderValue();
 	}
@@ -303,86 +230,80 @@ public class DriveTrain extends Subsystem{
 		stopArcadeDrive = value;
 	}
 
+
+    /**
+     * This function is called periodically by Scheduler.run
+     */
 	@Override
-	public void initTeleop() {
-		driveJoystick.enableButton(3);
-		zero();
-		rightRearDrive.setInverted(false);
-		rightFrontDrive.setInverted(false);
-		// Set low gear & coast mode by default
-		setBrakeCoast(BrakeCoastStatus.BRAKE);
-		setLowGear();
-		reset();
+	public void periodic() {
+//		System.out.println("Left Encoder: " + getLeftEncoderValue() +" Right Encoder: " + getRightEncoderValue());
+		// Logger.appendRecord(
+		//  		getFrontLeftMotor().getMotorOutputVoltage() + "\t" + getFrontRightMotor().getMotorOutputVoltage() + 
+		//  		"\t" + getLeftEncoderValue() + "\t" + getRightEncoderValue() + "\t" + getHeading() + "\t");
+	}
 
-		robotDrive.setSafetyEnabled(false);
-		//differentialDrive.setSafetyEnabled(false);
-		driveJoystick.enableButton(Constants.JOYSTICK_SHIFTER);
-		driveJoystick.enableButton(Constants.JOYSTICK_INVERSE);
-
-//        Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
+   /**
+    * Tank style driving for the DriveTrain.
+    *
+    * @param left Speed in range [-1,1]
+    * @param right Speed in range [-1,1]
+    */
+    public void drive(double left, double right) {
+		differentialDrive.tankDrive(left, right);
     }
 
-    @Override
-    public void initAutonomous() {
-		robotDrive.setSafetyEnabled(false);
-		//differentialDrive.setSafetyEnabled(false);
-    	setLowGear();
+   /**
+    * Tank style driving for the DriveTrain.
+    *
+    * @param joy The ps3 style joystick to use to drive tank style.
+    */
+    public void drive(Joystick joy) {
+		differentialDrive.arcadeDrive(joy.getY(),joy.getX());
+    }
+
+   /**
+    * Get the robot's heading.
+    *
+    * @return The robots heading in degrees.
+    */
+    public double getHeading() {
+      return gyro.getAngle();
+    }
+
+   /**
+    * Reset the robots sensors to the zero states.
+    */
+    public void reset() {
+        setDefaultCommand(new DriveWithJoystick());
+		resetEncoders();
+		resetGyro();
+		stopArcadeDrive = false;
+		rightRearDrive.setInverted(false);
+		rightFrontDrive.setInverted(false);
+		setBrakeCoast(BrakeCoastStatus.BRAKE);
+		setGear(GearShiftState.LO);
 		zero();
 		stopArcadeDrive = false;
         Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
-    }   
-    
-    /**
-     * This function is called periodically during autonomous
-     */
-    @Override
-    public void tickAutonomous() {
-        Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
     }
 
-	@Override
-	public void tickTeleop() {
-		if (driveJoystick.getEvent(Constants.JOYSTICK_SHIFTER) == ButtonEntry.EVENT_CLOSED) {
-			setHighGear();
-		}
-		if (driveJoystick.getEvent(Constants.JOYSTICK_SHIFTER) == ButtonEntry.EVENT_OPENED) {
-			setLowGear();
-		}
-		
-		if (driveJoystick.getEvent(Constants.JOYSTICK_INVERSE) == ButtonEntry.EVENT_CLOSED) {
-//			rightRearDrive.setInverted(false);
-//			rightFrontDrive.setInverted(false);
-//			leftRearDrive.setInverted(true);
-//			leftFrontDrive.setInverted(true);
-			// Set the rear drives to follow the left and right front drives
-//			leftRearDrive.follow(leftFrontDrive);
-//			rightRearDrive.follow(rightFrontDrive);
-		}
-		
-		if (driveJoystick.getEvent(Constants.JOYSTICK_INVERSE) == ButtonEntry.EVENT_OPENED) {
-//			rightRearDrive.setInverted(true);
-//			rightFrontDrive.setInverted(true);
-//			leftRearDrive.setInverted(false);
-//			leftFrontDrive.setInverted(false);
-			// Set the rear drives to follow the left and right front drives
-//			leftRearDrive.follow(leftFrontDrive);
-//			rightRearDrive.follow(rightFrontDrive);
-		}
-		
-//		System.out.println("Left Encoder: " + getLeftEncoderValue() +" Right Encoder: " + getRightEncoderValue());
-		arcadeDrive(driveJoystick);
-		Logger.appendRecord(
-		 		getFrontLeftMotor().getMotorOutputVoltage() + "\t" + getFrontRightMotor().getMotorOutputVoltage() + 
-		 		"\t" + getLeftEncoderValue() + "\t" + getRightEncoderValue() + "\t" + getHeading() + "\t");
-	}
+   /**
+    * Get the average distance of the encoders since the last reset.
+    *
+    * @return The distance driven (average of left and right encoders).
+    */
+    public double getDistance() {
+	   return (getLeftEncoderValue()*leftDistancePerPulse + 
+	         getRightEncoderValue()*rightDistancePerPulse) / 2;
+    }
 
-	@Override
-	public void tickTesting() {
-	}
-
-	@Override
-	public void initTesting() {
-		
+   /**
+    * When no other command is running let the operator drive around using the
+    * PS3 joystick.
+    */
+    @Override
+    public void initDefaultCommand() {
+		reset();
 	}
 
 }

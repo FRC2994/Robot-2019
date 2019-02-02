@@ -5,29 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.autonomous;
-
-// import javax.lang.model.util.ElementScanner6;
+package frc.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.subsystems.Subsystems;
 import frc.subsystems.DriveTrain;
 import frc.subsystems.LineFollower;
-// import frc.subsystems.LineFollower.State;
+import frc.subsystems.LineFollower.State;
 import frc.robot.Robot;
 
 public class FollowLine extends Command {
   private static final double averageSpeed = 50;
   private static final double correctionSpeed = 10;
-  private static final DriveTrain drivetrain = Robot.drivetrain;
-  // private static final LineFollower lineFollower = Subsystems.lineFollower;
-  private static final LineFollower lineFollower = Robot.lf;
+  private static final DriveTrain drivetrain = Robot.m_drivetrain;
+  private static final LineFollower lineFollower = Robot.m_lineFollower;
   private static boolean isFinished = false;
-  // State direction;
+  State direction;
 
   public FollowLine() {
     // Use requires() here to declare subsystem dependencies
-    //requires(lineFollower);  // TODO uncomment
+    requires(lineFollower);
   }
 
   // Called just before this Command runs the first time
@@ -39,7 +36,7 @@ public class FollowLine extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    /* direction = Subsystems.lineFollower.getState();
+    direction = Robot.m_lineFollower.getState();
     if(direction == State.noneState) {
       //return control to joystick
       drivetrain.setStopArcadeDrive(false);
@@ -90,8 +87,7 @@ public class FollowLine extends Command {
       //return control to joystick
       drivetrain.setStopArcadeDrive(false);
       isFinished = true;
-    } 
-    */
+    }
 
   }
 

@@ -8,6 +8,8 @@
 package frc.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 import frc.subsystems.Logger;
 import frc.utils.Constants;
@@ -26,8 +28,8 @@ public class LineFollower extends Subsystem {
 
   public LineFollower() {
     instance = this;
-    rightColorSensor = new DigitalInput(Constants.DIO_RIGHT_COLOUR_SENSOR);
-    leftColorSensor = new DigitalInput(Constants.DIO_LEFT_COLOUR_SENSOR);
+    // rightColorSensor = new DigitalInput(Constants.DIO_RIGHT_COLOUR_SENSOR);
+    // leftColorSensor = new DigitalInput(Constants.DIO_LEFT_COLOUR_SENSOR);
   }
   
  // String direction;
@@ -60,7 +62,7 @@ public class LineFollower extends Subsystem {
       return instance;
   }
 
- /* public State getState() {
+  public State getState() {
       rightColorSensorValue = rightColorSensor.get();
       leftColorSensorValue = leftColorSensor.get(); 
 
@@ -83,12 +85,13 @@ public class LineFollower extends Subsystem {
       }
 
       return state;
-  } */
+  }
 
   public void run() {
     rightColorSensorValue = rightColorSensor.get();
     leftColorSensorValue = leftColorSensor.get(); 
 
+		System.out.println("Left Line " + leftColorSensorValue + "   Right Line " + rightColorSensorValue);
     if(leftColorSensorValue == false && rightColorSensorValue == true) {
         //Only right sensor sees white so it should go left
         System.out.println("Going Left");
@@ -114,25 +117,13 @@ public void debug() {
 }
 
   @Override
-	public void initTeleop() {
-    Logger.appendRecord("lfS\tlfLD\tlfRD\t");
-  }
-  @Override
-	public void tickTeleop() {
-    Logger.appendRecord("\t"+state+"\t"+leftDistance+"\t"+rightDistance+"\t");
-  }	
-  @Override
-	public void initAutonomous() {
-    Logger.appendRecord("lfS\tlfLD\tlfRD\t");
-  }
-  @Override
-	public void tickAutonomous() {
+	public void periodic() {
     Logger.appendRecord("\t"+state+"\t"+leftDistance+"\t"+rightDistance+"\t");
   }	
 
   @Override
-	public void initTesting() {}
-  @Override
-	public void tickTesting() {}
+  protected void initDefaultCommand() {
+    Logger.appendRecord("lfS\tlfLD\tlfRD\t");
+  }
 
 }
