@@ -3,28 +3,104 @@ package frc.subsystems;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.PWM;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.ControlType;
 
 public class Arm extends Subsystems {
-    private static CANSparkMax arm;
+    private static CANSparkMax motor;
     private static VictorSPX hatch;
     private static VictorSPX cargo;
     private static Solenoid hatchPush;
 
-    private static final int armMotorControllerID = 6;
+    private static final int armmotorControllerID = 6;
     public static final double armSpeed = 20.0;
+    private CANPIDController m_pidController;
+    private CANEncoder m_encoder;
+    public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
+    private int startPosition = 0;
+    private int positionInTicks = 0;
+    private static final int deviceID = 3;
 
+    public Arm() {
+  
+    // initialize motor
+      motor = new CANSparkMax(deviceID, MotorType.kBrushless);
+  
+      /**
+       * In order to use PID functionality for a controller, a CANPIDController object
+       * is constructed by calling the getPIDController() method on an existing
+       * CANSparkMax object
+       */
+      Object m_pidController = motor.getPIDController();
+  
+      // Encoder object created to display position values
+      m_encoder = motor.getEncoder();
+  
+      // PID coefficients
+      kP = 0.1; 
+      kI = 1e-4;
+      kD = 1; 
+      kIz = 0; 
+      kFF = 0; 
+      kMaxOutput = 1; 
+      kMinOutput = -1;
+  
+      // set PID coefficients
+      ((CANPIDController) m_pidController).setP(kP);
+      m_pidController.setI(kI);
+      m_pidController.setD(kD);
+      m_pidController.setIZone(kIz);
+      m_pidController.setFF(kFF);
+      m_pidController.setOutputRange(kMinOutput, kMaxOutput);
+  
+      // display PID coefficients on SmartDashboard
+      SmartDashboard.putNumber("P Gain", kP);
+      SmartDashboard.putNumber("I Gain", kI);
+      SmartDashboard.putNumber("D Gain", kD);
+      SmartDashboard.putNumber("I Zone", kIz);
+      SmartDashboard.putNumber("Feed Forward", kFF);
+      SmartDashboard.putNumber("Max Output", kMaxOutput);
+      SmartDashboard.putNumber("Min Output", kMinOutput);
+      SmartDashboard.putNumber("Set Rotations", 0);
+    }
     
-public void stopMotor() {
+    public void setmotorOpenLoop(double percent) {
+      System.out.println("Trying to move elevator in Open Loop... currentPosition " + getDesiredPosition() 
+        + " encPos "  + getDesiredPosition() + " percent " + percent + ".");
+      motor.set(ControlMode.PercentOutput, percent);
+    }
+  
+    public void setPosition(int positionInTicks) {
+      //		if (positionInTicks < 50 && positionInTicks < this.positionInTicks) {
+      //			positionInTicks = 50;
+      //		}
+      //		System.out.println("Trying to move elevator in Closed Loop... currentPosition " + getDesiredPosition() 
+      //			+ " encPos "  + getDesiredPosition() + " positionInTicks " + positionInTicks + ".");
+      //		System.out.println("New desired: " + (positionInTicks + startPosition));
+          motor.set(ControlMode.Position, positionInTicks + startPosition);
+          this.positionInTicks = positionInTicks;
+        }
+
+    public int getDesiredPosition() {
+      return positionInTicks;
+    }
+    
+    public int getRealPosition() {
+      return motor.getSelectedSensorPosition(0) - startPosition;
+    }
+
+    public void stopmotor() {
     //    	setPosition(getDesiredPosition() + Constants.ELEVATOR_POSITION_INCREMENT);
-    //    	setMotorOpenLoop(0);
+    //    	setmotorOpenLoop(0);
       }
     
       public void setPIDUp() {
@@ -50,13 +126,10 @@ public void stopMotor() {
     //		if ( getDesiredPosition() + Constants.ELEVATOR_POSITION_INCREMENT <  Constants.ELEVATOR_POSITION_MAXIMUM)
     //		if ( ! limitElevatorTop.get()) {
     //			int limittedVal = getDesiredPosition() + Constants.ELEVATOR_POSITION_INCREMENT;
-               System.out.println("Elevator Moving Up to " + getDesiredPosition() + Constants.ELEVATOR_POSITION_INCREMENT );
-            System.out.println("ELEVATOR : getDesiredPosition() " + getDesiredPosition() + " getRealPosition() " + getRealPosition() + " Encoder Position " + motor.getSelectedSensorPosition(0));
-          System.out.println("Voltage: " + motor.getMotorOutputVoltage() + " CL error: " + motor.getClosedLoopError(0) + " P: " + motor.configGetParameter(ParamEnum.eProfileParamSlot_P, 0, 10));
             setPIDUp();
           setPosition(getRealPosition() + Constants.ELEVATOR_POSITION_INCREMENT);
           System.out.println("Moving UP getDesiredPosition() " + getDesiredPosition() + " getRealPosition() " + getRealPosition() + " Encoder Position " + motor.getSelectedSensorPosition(0));
-    //    		setMotorOpenLoop(-0.8);
+    //    		setmotorOpenLoop(-0.8);
     //		}
       }
       
@@ -79,7 +152,7 @@ public void stopMotor() {
           if ( limitElevatorBottom.get()) {
           System.out.println("Elevator Moving Down to " + getDesiredPosition() + Constants.ELEVATOR_POSITION_DECREMENT );
           System.out.println("ELEVATOR : getDesiredPosition() " + getDesiredPosition() + " getRealPosition() " + getRealPosition() + " Encoder Position " + motor.getSelectedSensorPosition(0));
-          System.out.println("Voltage: " + motor.getMotorOutputVoltage() + " CL error: " + motor.getClosedLoopError(0) + " P: " + motor.configGetParameter(ParamEnum.eProfileParamSlot_P, 0, 10));
+          System.out.println("Voltage: " + motor.getmotorOutputVoltage() + " CL error: " + motor.getClosedLoopError(0) + " P: " + motor.configGetParameter(ParamEnum.eProfileParamSlot_P, 0, 10));
           System.out.println("getErrorDerivative: " + motor.getErrorDerivative(0) );
           setPIDDown();
           setPosition(getRealPosition() + Constants.ELEVATOR_POSITION_DECREMENT);
@@ -90,47 +163,6 @@ public void stopMotor() {
           }
         }
     
-    public ArmGamepiece() {
-      // initialize motor
-      m_motor = new CANSparkMax(deviceID, MotorType.kBrushless);
-  
-      /**
-       * In order to use PID functionality for a controller, a CANPIDController object
-       * is constructed by calling the getPIDController() method on an existing
-       * CANSparkMax object
-       */
-      m_pidController = m_motor.getPIDController();
-  
-      // Encoder object created to display position values
-      m_encoder = m_motor.getEncoder();
-  
-      // PID coefficients
-      kP = 0.1; 
-      kI = 1e-4;
-      kD = 1; 
-      kIz = 0; 
-      kFF = 0; 
-      kMaxOutput = 1; 
-      kMinOutput = -1;
-  
-      // set PID coefficients
-      m_pidController.setP(kP);
-      m_pidController.setI(kI);
-      m_pidController.setD(kD);
-      m_pidController.setIZone(kIz);
-      m_pidController.setFF(kFF);
-      m_pidController.setOutputRange(kMinOutput, kMaxOutput);
-  
-      // display PID coefficients on SmartDashboard
-      SmartDashboard.putNumber("P Gain", kP);
-      SmartDashboard.putNumber("I Gain", kI);
-      SmartDashboard.putNumber("D Gain", kD);
-      SmartDashboard.putNumber("I Zone", kIz);
-      SmartDashboard.putNumber("Feed Forward", kFF);
-      SmartDashboard.putNumber("Max Output", kMaxOutput);
-      SmartDashboard.putNumber("Min Output", kMinOutput);
-      SmartDashboard.putNumber("Set Rotations", 0);
-    }
   
     @Override
     public void teleopPeriodic() {
@@ -159,12 +191,12 @@ public void stopMotor() {
   
     //ARM CONTROL
     public void armForward() {
-        arm = new CANSparkMax(armMotorControllerID, MotorType.kBrushless);
+        arm = new CANSparkMax(armmotorControllerID, motorType.kBrushless);
         arm.setInverted(false);
         arm.set(armSpeed);
     }
     public void armBackward() {
-        arm = new CANSparkMax(armMotorControllerID, MotorType.kBrushless);
+        arm = new CANSparkMax(armmotorControllerID, motorType.kBrushless);
         arm.setInverted(true);
         arm.set(armSpeed);
     }
