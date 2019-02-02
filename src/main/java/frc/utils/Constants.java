@@ -13,19 +13,23 @@ public class Constants
 	public static final int CAN_RIGHT_REAR_DRIVE       = 7;
 	public static final int CAN_LEFT_FRONT_DRIVE       = 3;
 	public static final int CAN_LEFT_REAR_DRIVE        = 4;
-	public static final int CAN_CHINUP                 = 5;
-	public static final int CAN_ARM                    = 6;
+	public static final int CAN_CHINUP_PULL            = 5;
+	public static final int CAN_CHINUP_ROTATION        = 6;
+	public static final int CAN_ARM                    = 9;
 	public static final int CAN_WHEEL_INTAKE           = 2;
-    public static final int CAN_CHINUP_WHEEL_INTAKE    = 9; 
+    public static final int CAN_CHINUP_WHEEL_INTAKE    = 10; 
 
 	// PCM (Solenoid, LEDs, etc...)
 	public static final int PCM_SHIFTER_A                  = 0;
 	public static final int PCM_SHIFTER_B                  = 1;
-	public static final int PCM_LEFT_RETRACTABLE_REAR_LEG  = 2;
-	public static final int PCM_RIGHT_RETRACTABLE_REAR_LEG = 3;
-	public static final int PCM_FINGER                     = 4;
-	public static final int PCM_PISTON_PUSH                = 5;
-	public static final int PCM_PISTON_RETRACT             = 6;
+	public static final int PCM_LEFT_RETRACTABLE_LEG_OUT   = 2;
+	public static final int PCM_LEFT_RETRACTABLE_LEG_IN    = 3;
+	public static final int PCM_RIGHT_RETRACTABLE_LEG_OUT  = 4;
+	public static final int PCM_RIGHT_RETRACTABLE_LEG_IN   = 5;
+	public static final int PCM_FINGER_HOLD                = 6;
+	public static final int PCM_FINGER_RETRACT             = 7;
+	public static final int PCM_PISTON_PUSH                = 8;
+	public static final int PCM_PISTON_RETRACT             = 9;
 
 	// DIO
 	public static final int DIO_CUBE_PICKUP            = 2;
