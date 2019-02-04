@@ -20,7 +20,7 @@ public class Constants
     public static final int CAN_CHINUP_WHEEL_INTAKE    = 10; 
 
 	// PCM (Solenoid, LEDs, etc...)
-	public static final int PCM_SHIFTER_A                  = 0;
+	public static final int PCM_SHIFTER_A                 = 0;
 	public static final int PCM_SHIFTER_B                  = 1;
 	public static final int PCM_RETRACTABLE_LEG_OUT        = 2;
 	public static final int PCM_RETRACTABLE_LEG_IN         = 3;
