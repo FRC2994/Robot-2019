@@ -71,7 +71,7 @@ public class Subsystems {
 	/**
 	 * This function is called periodically during operator control
 	 */
-	public static void teleopPeriodic() {
+	public void teleopPeriodic() {
 	    logger.addRecord();  // Add the line of accumulated records
 	}
 
