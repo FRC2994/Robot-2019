@@ -115,7 +115,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		// m_lineFollower.run();
+		m_lineFollower.debug();
 	}
 
 	@Override

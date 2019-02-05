@@ -20,7 +20,7 @@ public class Constants
     public static final int CAN_CHINUP_WHEEL_INTAKE    = 10; 
 
 	// PCM (Solenoid, LEDs, etc...)
-	public static final int PCM_SHIFTER_A                 = 0;
+	public static final int PCM_SHIFTER_A                  = 0;
 	public static final int PCM_SHIFTER_B                  = 1;
 	public static final int PCM_RETRACTABLE_LEG_OUT        = 2;
 	public static final int PCM_RETRACTABLE_LEG_IN         = 3;
@@ -28,6 +28,10 @@ public class Constants
 	public static final int PCM_FINGER_RETRACT             = 5;
 	public static final int PCM_PISTON_PUSH                = 6;
 	public static final int PCM_PISTON_RETRACT             = 7;
+	public static final int PCM_CAN                        = 8;
+	public static final int PCM_LED_R                      = 9;
+	public static final int PCM_LED_G                      = 10;
+	public static final int PCM_LED_B                      = 11;
 
 	// DIO
 	public static final int DIO_CUBE_PICKUP            = 2;
@@ -35,8 +39,9 @@ public class Constants
 	public static final int DIO_ELEVATOR_LIMIT_TOP     = 1;
 	public static final int DIO_RIGHT_COLOUR_SENSOR    = 18;
 	public static final int DIO_LEFT_COLOUR_SENSOR     = 23;
-	public static final int DIO_ARM_LIMIT_TOP       = 3;
+	public static final int DIO_ARM_LIMIT_BOTTOM       = 3;
 	public static final int DIO_CHINUP_LIMIT_BOTTOM    = 4;
+	public static final int DIO_WHEEL_INTAKE_LIMIT     = 5;
 
 	// Analog IO
     //	public static final int AIO_GYRO_SENSOR         = 0;
@@ -85,7 +90,6 @@ public class Constants
     public static final int    ENCODER_TICKS_PER_REVOLUTION  = 128;
     public static final double WHEEL_DIAMETER = 5.875 * METERS_PER_INCHES;
     public static final String MOTION_PROFILE_TRAJECTORIES_LOC = "/home/lvuser/trajectories/";
-	public static int Arm_POSITION_DECREMENT;
 
 	// Shooter
 	// public static final double INDEXER_SPEED               = 0.5;
