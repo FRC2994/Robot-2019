@@ -72,8 +72,7 @@ public class Lift1 extends Subsystem {
     	ChinUpRotation.set(ControlMode.PercentOutput, 0);
     }
 
-    public DigitalInput limitChinUpBarIn = new DigitalInput(DIO_CHINUP_LIMIT_BOTTOM);
-
+    public DigitalInput limitChinUp = new DigitalInput(DIO_CHINUP_LIMIT_BOTTOM);
 
     public void initDefaultComman() {
     }
