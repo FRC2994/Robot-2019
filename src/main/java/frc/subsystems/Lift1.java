@@ -103,11 +103,12 @@ public class Lift1 extends Subsystem {
     public void LiftUpUP() {
       System.out.println("Trying to Lilt Going UP.");
       LiftUp.set(Value.kReverse);
-      }    
-     
+    }    
+
     public void LiftUpDOWN() {
       System.out.println("Trying to Lilt Going DOWN.");
       LiftUp.set(Value.kForward);  
       }
 
   }
+

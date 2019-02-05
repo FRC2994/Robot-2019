@@ -28,6 +28,10 @@ public class Constants
 	public static final int PCM_FINGER_RETRACT             = 5;
 	public static final int PCM_PISTON_PUSH                = 6;
 	public static final int PCM_PISTON_RETRACT             = 7;
+	public static final int PCM_CAN                        = 8;
+	public static final int PCM_LED_R                      = 9;
+	public static final int PCM_LED_G                      = 10;
+	public static final int PCM_LED_B                      = 11;
 
 	// DIO
 	public static final int DIO_CUBE_PICKUP            = 2;
@@ -37,6 +41,7 @@ public class Constants
 	public static final int DIO_LEFT_COLOUR_SENSOR     = 23;
 	public static final int DIO_ARM_LIMIT_BOTTOM       = 3;
 	public static final int DIO_CHINUP_LIMIT_BOTTOM    = 4;
+	public static final int DIO_WHEEL_INTAKE_LIMIT     = 5;
 
 	// Analog IO
     //	public static final int AIO_GYRO_SENSOR         = 0;
