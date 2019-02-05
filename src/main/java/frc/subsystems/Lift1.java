@@ -33,44 +33,69 @@ import edu.wpi.first.wpilibj.RobotDrive;
 //import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
-
+import com.ctre.phoenix.ErrorCode;
 
 public class Lift1 extends Subsystem {
-
-
+  
   VictorSPX ChinUpPull = new VictorSPX(Constants.CAN_CHINUP_PULL);
 	TalonSRX ChinUpRotation = new TalonSRX(Constants.CAN_CHINUP_ROTATION);
   DoubleSolenoid LiftUp = new DoubleSolenoid(Constants.PCM_RETRACTABLE_LEG_IN, Constants.PCM_RETRACTABLE_LEG_OUT);
+   
+  public Lift1() {
+    ChinUpRotation.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+  }
+  
+  public void setPIDIN() {
+      /* set closed loop gains in slot0, typically kF stays zero. */
+      ChinUpRotation.config_kF(0, 0.0, 0);
+      ChinUpRotation.config_kP(0, 0.2, 0);
+      ChinUpRotation.config_kI(0, 0.0, 0);
+      ChinUpRotation.config_kD(0, 0.0, 0);	
+      ChinUpRotation.configPeakOutputForward(1.0, 0);
+    }
+    
+    public void setPIDOUT() {
+      /* set closed loop gains in slot0, typically kF stays zero. */
+      ChinUpRotation.config_kF(0, 0.0, 0);
+      ChinUpRotation.config_kP(0, 0.1, 0);
+      ChinUpRotation.config_kI(0, 0.0, 0);
+      ChinUpRotation.config_kD(0, 0.0, 0);
+      ChinUpRotation.configPeakOutputReverse(-0.5, 0);
+    }
 
     public void initDefaultCommand() {
     }
 
     public void Pull() {
-      ChinUpPull.set(ControlMode.PercentOutput, -1);
+      ChinUpPull.set(ControlMode.Position, -1);
     }
 
     public void Push() {
-      ChinUpPull.set(ControlMode.PercentOutput, 1);
+      ChinUpPull.set(ControlMode.Position, 1);
     }
 
     public void stopChinUpPull() {
-      ChinUpPull.set(ControlMode.PercentOutput, 0);
+      ChinUpPull.set(ControlMode.Position, 0);
     }
 
     public void initDefaultCom() {
     }
-
+  
     public void Out() {
-      ChinUpRotation.set(ControlMode.PercentOutput, 1);
+      ChinUpRotation.set(ControlMode.Position, 1);
+      setPIDOUT();
     }
 
     public void In() {
-    	ChinUpRotation.set(ControlMode.PercentOutput, -1);
+      ChinUpRotation.set(ControlMode.Position, -1);
+      setPIDIN();
     }
 
     public void stopChinUpRotation() {
-    	ChinUpRotation.set(ControlMode.PercentOutput, 0);
+    	ChinUpRotation.set(ControlMode.Position, 0);
     }
+
+    public DigitalInput limitChinUp = new DigitalInput(DIO_CHINUP_LIMIT_BOTTOM);
 
     public void initDefaultComman() {
     }
@@ -78,13 +103,11 @@ public class Lift1 extends Subsystem {
     public void LiftUpUP() {
       System.out.println("Trying to Lilt Going UP.");
       LiftUp.set(Value.kReverse);
-    }    
-
-
+      }    
+     
     public void LiftUpDOWN() {
       System.out.println("Trying to Lilt Going DOWN.");
-      LiftUp.set(Value.kForward);
+      LiftUp.set(Value.kForward);  
       }
 
   }
-

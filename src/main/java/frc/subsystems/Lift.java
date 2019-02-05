@@ -71,10 +71,10 @@ public class Lift extends Subsystem {
 	public void setPickupStatus(LiftupStatus status) {
 		switch (status) {
 		case UP:
-            tiltLiftUp();
+            LiftUp();
 			break;
 		case DOWN:
-            tiltLiftDown();
+            LiftDown();
 			break;
 		}
 		pickupStatus = status;
@@ -96,13 +96,13 @@ public class Lift extends Subsystem {
     	
     }
 
-	public void tiltLiftUp() {
+	public void LiftUp() {
 		System.out.println("Trying to Lilt Going UP.");
 		LiftUpLeft.set(Value.kReverse);
 		LiftUpRight.set(Value.kReverse);
 	}
 
-	public void tiltLiftDown() {
+	public void LiftDown() {
 		System.out.println("Trying to Lilt Going DOWN.");
 		LiftUpLeft.set(Value.kForward);
 		LiftUpRight.set(Value.kForward);

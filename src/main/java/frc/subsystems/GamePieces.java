@@ -15,9 +15,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 public class GamePieces extends Subsystems {
     DoubleSolenoid hatch = new DoubleSolenoid(Constants.PCM_PISTON_PUSH, Constants.PCM_PISTON_PUSH);
     DoubleSolenoid finger = new DoubleSolenoid(Constants.PCM_FINGER_HOLD, Constants.PCM_PISTON_RETRACT);
