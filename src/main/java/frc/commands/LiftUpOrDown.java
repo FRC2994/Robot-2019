@@ -9,8 +9,8 @@ package frc.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ReleaseHatch extends Command {
-  public ReleaseHatch() {
+public class LiftUpOrDown extends Command {
+  public LiftUpOrDown() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }

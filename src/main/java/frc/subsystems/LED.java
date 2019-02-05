@@ -24,22 +24,28 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 public class LED extends Subsystems {
 
-	DigitalInput rightColorSensor = new DigitalInput(18);
+	Solenoid LEDR, LEDG, LEDB;
 	DigitalInput leftColorSensor = new DigitalInput(23);
 	
 	Command autonomousCommand;
 	private static LED instance;
 	public static DriveTrain m_drivetrain;
 
-	public void LED() {
-		LEDR = new Solenoid(Constants.PCM_CAN,Constants.PCM_LED_R);
-		LEDG = new Solenoid(Constants.PCM_CAN,Constants.PCM_LED_G);
-		LEDB = new Solenoid(Constants.PCM_CAN,Constants.PCM_LED_B);
-  }
-  public void LED() {
-		Subsystems.LED();
-		LEDR.set(true);
-		LEDG.set(true);
-		LEDB.set(true);
+	public LED() {
+		LEDR = new Solenoid(Constants.CAN_PCM,Constants.PCM_LED_R);
+		LEDG = new Solenoid(Constants.CAN_PCM,Constants.PCM_LED_G);
+		LEDB = new Solenoid(Constants.CAN_PCM,Constants.PCM_LED_B);
+    }
+
+	public void setLEDR(boolean value) {
+		LEDR.set(value);
+	}
+
+	public void setLEDG(boolean value) {
+		LEDG.set(value);
+	}
+
+	public void setLEDB(boolean value) {
+		LEDB.set(value);
 	}
 }
