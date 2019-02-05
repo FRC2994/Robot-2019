@@ -72,6 +72,8 @@ public class Lift1 extends Subsystem {
     	ChinUpRotation.set(ControlMode.PercentOutput, 0);
     }
 
+    public DigitalInput limitChinUp = new DigitalInput(DIO_CHINUP_LIMIT_BOTTOM);
+
     public void initDefaultComman() {
     }
 
@@ -80,16 +82,9 @@ public class Lift1 extends Subsystem {
       LiftUp.set(Value.kReverse);
     }    
 
-
     public void LiftUpDOWN() {
       System.out.println("Trying to Lilt Going DOWN.");
       LiftUp.set(Value.kForward);
       }
 
-      public void LiftUpMid() {
-        System.out.println("Trying to Lilt Going to the middle.");
-        LiftUp.set(Value.kForward);
-        }
-
-  }
-
+    }
