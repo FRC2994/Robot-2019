@@ -2,11 +2,13 @@ package frc.robot;
 
 // import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
-// import frc.commands.Autonomous;
+import frc.commands.Autonomous;
 import frc.subsystems.DriveTrain;
 import frc.subsystems.LineFollower;
 // import frc.subsystems.Logger;
 import frc.subsystems.Subsystems;
+import frc.subsystems.GamePieces;
+import frc.subsystems.LED;
 import frc.robot.OI;
 
 import edu.wpi.first.cameraserver.CameraServer;
@@ -26,9 +28,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
  */
 public class Robot extends TimedRobot {
 
-	DigitalInput rightColorSensor = new DigitalInput(18);
-	DigitalInput leftColorSensor = new DigitalInput(23);
-	
 	Command autonomousCommand;
 	private static Robot instance;
 	public static DriveTrain m_drivetrain;
@@ -37,6 +36,8 @@ public class Robot extends TimedRobot {
 	
 	public static AnalogInput m_autoSelectSwitch;
 	public static LineFollower m_lineFollower;
+	public static GamePieces m_gamePieces;
+	public static LED m_LED;
 
 	// private static String gameSpecificData = "%NOT POLLED";
 
@@ -56,12 +57,11 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		// this.kDefaultPeriod = Constants.TIMED_ROBOT_PERIOD;
 		m_drivetrain = new DriveTrain();
-		// LEDR = new Solenoid(Constants.PCM_CAN,Constants.PCM_LED_R);
-		// LEDG = new Solenoid(Constants.PCM_CAN,Constants.PCM_LED_G);
-		// LEDB = new Solenoid(Constants.PCM_CAN,Constants.PCM_LED_B);
+		m_LED = new LED();
+		m_gamePieces = new GamePieces();
 		CameraServer.getInstance().startAutomaticCapture();	
 		Subsystems.initialize();
-		// autonomousCommand = new Autonomous();
+		autonomousCommand = new Autonomous();
 		m_oi = new OI();
 	}
 
@@ -115,7 +115,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		m_lineFollower.debug();
+		// m_lineFollower.debug();
 	}
 
 	@Override

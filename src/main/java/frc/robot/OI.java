@@ -29,7 +29,8 @@ import frc.robot.Gamepad;
  */
 public class OI {
   private final Joystick m_joystick = new Joystick(0);
-	private final Gamepad m_controlGamepad = new Gamepad(0);
+  private final Gamepad m_controlGamepad = new Gamepad(0);
+  // private final Joystick m_controlGamepad = new Joystick(0);
 
 /**
    * Construct the OI and all of the buttons on it.
@@ -60,13 +61,17 @@ public class OI {
     final JoystickButton joystickCalibrate = new JoystickButton(m_joystick, 11);
     final JoystickButton joystickRecord = new JoystickButton(m_joystick, 4);
     final JoystickButton joystickShifter = new JoystickButton(m_joystick, 1);
+    final JoystickButton gamepadCargoIN = new JoystickButton(m_controlGamepad, 4); //Gamepad Y button
+    final JoystickButton gamepadCargoOUT = new JoystickButton(m_controlGamepad, 3); //Gamepad B Button
   //    final JoystickButton joystickInverse = new JoystickButton(m_joystick, 2);
   //		public static final int JOYSTICK_PICKUP_IN = 6;
   //		public static final int JOYSTICK_PICKUP_OUT = 7;
   //		public static final int JOYSTICK_ELEVATOR_DOWN = 2;
   //		public static final int JOYSTICK_ELEVATOR_UP = 3;
   
-    // Connect the buttons to commands
+    /* Connect the buttons to commands */
+
+    //JOYSTICK
     joystickShifter.whenPressed(new ShiftGear(GearShiftState.HI));
     joystickShifter.whenReleased(new ShiftGear(GearShiftState.LO));
     // dpadUp.whenPressed(new SetElevatorSetpoint(0.2));
@@ -74,6 +79,7 @@ public class OI {
     // dpadRight.whenPressed(new CloseClaw());
     // dpadLeft.whenPressed(new OpenClaw());
 
+    //GAMEPAD
     // r1.whenPressed(new PrepareToPickup());
     // r2.whenPressed(new Pickup());
     // l1.whenPressed(new Place());

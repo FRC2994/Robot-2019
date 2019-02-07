@@ -25,11 +25,11 @@ public class Constants
 	public static final int PCM_RETRACTABLE_LEG_IN         = 2;
 	public static final int PCM_HATCH_FINGER_HOLD          = 3;
 	public static final int PCM_HATCH_FINGER_RETRACT       = 4;
-	// public static final int PCM_PISTON_PUSH                = 5;  // What are these?
-	// public static final int PCM_PISTON_RETRACT             = 6;
+	public static final int PCM_PISTON_PUSH                = 5; 
+	public static final int PCM_PISTON_RETRACT             = 6;
 	public static final int PCM_LED_R                      = 7;
-	public static final int PCM_LED_G                      = 10;
-	public static final int PCM_LED_B                      = 11;
+	// public static final int PCM_LED_G                      = 6;
+	// public static final int PCM_LED_B                      = 7;
 
 	// DIO
 	public static final int DIO_CUBE_PICKUP            = 2;

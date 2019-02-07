@@ -33,8 +33,8 @@ public class LED extends Subsystems {
 
 	public LED() {
 		LEDR = new Solenoid(Constants.CAN_PCM,Constants.PCM_LED_R);
-		LEDG = new Solenoid(Constants.CAN_PCM,Constants.PCM_LED_G);
-		LEDB = new Solenoid(Constants.CAN_PCM,Constants.PCM_LED_B);
+		// LEDG = new Solenoid(Constants.CAN_PCM,Constants.PCM_LED_G);
+		// LEDB = new Solenoid(Constants.CAN_PCM,Constants.PCM_LED_B);
     }
 
 	public void setLEDR(boolean value) {
