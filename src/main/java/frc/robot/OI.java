@@ -14,14 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.subsystems.DriveTrain.GearShiftState;
 import frc.commands.Autonomous;
 import frc.commands.ShiftGear;
-import frc.robot.Gamepad;
-// import frc.robot.commands.CloseClaw;
-// import frc.robot.commands.OpenClaw;
-// import frc.robot.commands.Pickup;
-// import frc.robot.commands.Place;
-// import frc.robot.commands.PrepareToPickup;
-// import frc.robot.commands.SetElevatorSetpoint;
-// import frc.robot.commands.SetWristSetpoint;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -29,8 +21,7 @@ import frc.robot.Gamepad;
  */
 public class OI {
   private final Joystick m_joystick = new Joystick(0);
-  private final Gamepad m_controlGamepad = new Gamepad(0);
-  // private final Joystick m_controlGamepad = new Joystick(0);
+  private final Joystick m_gamepad = new Joystick(1);
 
 /**
    * Construct the OI and all of the buttons on it.
@@ -50,47 +41,26 @@ public class OI {
     SmartDashboard.putData("Deliver Soda", new Autonomous());
 
     // Create some buttons
-    // final JoystickButton dpadUp = new JoystickButton(m_joystick, 5);
-    // final JoystickButton dpadRight = new JoystickButton(m_joystick, 6);
-    // final JoystickButton dpadDown = new JoystickButton(m_joystick, 7);
-    // final JoystickButton dpadLeft = new JoystickButton(m_joystick, 8);
-    final JoystickButton l2 = new JoystickButton(m_joystick, 9);
-    // final JoystickButton r2 = new JoystickButton(m_joystick, 10);
-    // final JoystickButton l1 = new JoystickButton(m_joystick, 11);
-    // final JoystickButton r1 = new JoystickButton(m_joystick, 12);
-    final JoystickButton joystickCalibrate = new JoystickButton(m_joystick, 11);
-    final JoystickButton joystickRecord = new JoystickButton(m_joystick, 4);
-    final JoystickButton joystickShifter = new JoystickButton(m_joystick, 1);
-    final JoystickButton gamepadCargoIN = new JoystickButton(m_controlGamepad, 4); //Gamepad Y button
-    final JoystickButton gamepadCargoOUT = new JoystickButton(m_controlGamepad, 3); //Gamepad B Button
-  //    final JoystickButton joystickInverse = new JoystickButton(m_joystick, 2);
-  //		public static final int JOYSTICK_PICKUP_IN = 6;
-  //		public static final int JOYSTICK_PICKUP_OUT = 7;
-  //		public static final int JOYSTICK_ELEVATOR_DOWN = 2;
-  //		public static final int JOYSTICK_ELEVATOR_UP = 3;
+    final JoystickButton jsButnCalibrate = new JoystickButton(m_joystick, 11);
+    final JoystickButton jsButnRecord = new JoystickButton(m_joystick, 4);
+    final JoystickButton jsButnShifter = new JoystickButton(m_joystick, 1);
+    final JoystickButton gpButnCargoIn = new JoystickButton(m_gamepad, 4); //Gamepad Y button
+    final JoystickButton gpButnCargoOut = new JoystickButton(m_gamepad, 3); //Gamepad B Button
   
     /* Connect the buttons to commands */
-
     //JOYSTICK
-    joystickShifter.whenPressed(new ShiftGear(GearShiftState.HI));
-    joystickShifter.whenReleased(new ShiftGear(GearShiftState.LO));
-    // dpadUp.whenPressed(new SetElevatorSetpoint(0.2));
-    // dpadDown.whenPressed(new SetElevatorSetpoint(-0.2));
-    // dpadRight.whenPressed(new CloseClaw());
-    // dpadLeft.whenPressed(new OpenClaw());
+    jsButnShifter.whenPressed(new ShiftGear(GearShiftState.HI));
+    jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
 
     //GAMEPAD
-    // r1.whenPressed(new PrepareToPickup());
-    // r2.whenPressed(new Pickup());
-    // l1.whenPressed(new Place());
-    l2.whenPressed(new Autonomous());
+    gpButnCargoIn.whenPressed(new Autonomous());
   }
 
   public Joystick getJoystick() {
     return m_joystick;
   }
 
-  public Gamepad getGamepad() {
-    return m_controlGamepad;
+  public Joystick getGamepad() {
+    return m_gamepad;
   }
 }

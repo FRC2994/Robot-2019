@@ -24,8 +24,7 @@ public class DriveTrain extends Subsystem{
 	TalonSRX rightFrontDrive = new TalonSRX(Constants.CAN_RIGHT_FRONT_DRIVE);
 	VictorSPX rightRearDrive = new VictorSPX(Constants.CAN_RIGHT_REAR_DRIVE);
 
-	Solenoid gearShiftSolenoid = new Solenoid(Constants.CAN_PCM, 
-											Constants.PCM_SHIFTER_A);
+	Solenoid gearShiftSolenoid = new Solenoid(Constants.CAN_PCM,Constants.PCM_GEAR_SHIFT);
 	public static enum GearShiftState { HI, LO };
 
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
@@ -283,7 +282,6 @@ public class DriveTrain extends Subsystem{
 		setBrakeCoast(BrakeCoastStatus.BRAKE);
 		setGear(GearShiftState.LO);
 		zero();
-		stopArcadeDrive = false;
         Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");
     }
 

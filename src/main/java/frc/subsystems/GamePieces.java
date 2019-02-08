@@ -1,15 +1,14 @@
 package frc.subsystems;
 
 import frc.utils.Constants;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 public class GamePieces extends Subsystems {
-    DoubleSolenoid hatch = new DoubleSolenoid(Constants.PCM_PISTON_PUSH, Constants.PCM_PISTON_RETRACT);
-    DoubleSolenoid finger = new DoubleSolenoid(Constants.PCM_HATCH_FINGER_HOLD, Constants.PCM_HATCH_FINGER_RETRACT);
+    Solenoid hatch = new Solenoid(Constants.PCM_HATCH_PISTON);
+    Solenoid finger = new Solenoid(Constants.PCM_HATCH_FINGER);
     VictorSPX cargo = new VictorSPX(Constants.CAN_WHEEL_INTAKE);
 
     private static final double cargoMotorSpeed = 0.5;
@@ -37,15 +36,15 @@ public class GamePieces extends Subsystems {
 
     //HATCH CONTROL
     public void fingerHold() {
-        finger.set(Value.kForward);
+        finger.set(false);
     }
     public void fingerRelease() {
-        finger.set(Value.kReverse);
+        finger.set(true);
     }
     public void pistonPush() {
-        hatch.set(Value.kForward);
+        hatch.set(true);
     }
     public void pistonReset() {
-        hatch.set(Value.kReverse);
+        hatch.set(false);
     }
 }
