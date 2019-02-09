@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 // import edu.wpi.first.wpilibj.Counter;
 // import edu.wpi.first.wpilibj.DigitalSource;
+import edu.wpi.first.wpilibj.Ultrasonic;
 
 /**
  * creating this project, you must also update the manifest file in the resource
@@ -38,6 +39,8 @@ public class Robot extends TimedRobot {
 	public static LineFollower m_lineFollower;
 	public static GamePieces m_gamePieces;
 	public static LED m_LED;
+
+	Ultrasonic USsensor = new Ultrasonic(20, 19);
 
 	// private static String gameSpecificData = "%NOT POLLED";
 
@@ -64,6 +67,7 @@ public class Robot extends TimedRobot {
 		Subsystems.initialize();
 		autonomousCommand = new Autonomous();
 		m_oi = new OI();
+		USsensor.setAutomaticMode(true);
 	}
 
 	/**
@@ -116,7 +120,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		m_lineFollower.run();
+		// m_lineFollower.run();
+		System.out.println(USsensor.getRangeInches());
 	}
 
 	@Override

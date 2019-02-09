@@ -29,14 +29,18 @@ public class Constants
 	public static final int PCM_LED_B                      = 7;
 
 	// DIO
-	public static final int DIO_CUBE_PICKUP            = 2;
-	public static final int DIO_ELEVATOR_LIMIT_BOTTOM  = 0;
-	public static final int DIO_ELEVATOR_LIMIT_TOP     = 1;
-	public static final int DIO_RIGHT_COLOUR_SENSOR    = 18;
-	public static final int DIO_LEFT_COLOUR_SENSOR     = 23;
-	public static final int DIO_ARM_LIMIT_BOTTOM       = 3;
-	public static final int DIO_CHINUP_LIMIT_BOTTOM    = 4;
-	public static final int DIO_WHEEL_INTAKE_LIMIT     = 5;
+	public static final int DIO_CUBE_PICKUP            	= 2;
+	public static final int DIO_ELEVATOR_LIMIT_BOTTOM  	= 0;
+	public static final int DIO_ELEVATOR_LIMIT_TOP     	= 1;
+	public static final int DIO_RUS_ECHO			  	= 20;
+	public static final int DIO_RUS_TRIG				= 19;
+	public static final int DIO_LUS_ECHO				= 24;
+	public static final int DIO_LUS_TRIG				= 25;
+	public static final int DIO_RIGHT_COLOUR_SENSOR		= 18;
+	public static final int DIO_LEFT_COLOUR_SENSOR     	= 23;
+	public static final int DIO_ARM_LIMIT_BOTTOM       	= 3;
+	public static final int DIO_CHINUP_LIMIT_BOTTOM    	= 4;
+	public static final int DIO_WHEEL_INTAKE_LIMIT     	= 5;
 
 	// Analog IO
     //	public static final int AIO_GYRO_SENSOR         = 0;
