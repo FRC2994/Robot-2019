@@ -28,8 +28,8 @@ public class LineFollower extends Subsystem {
 
   public LineFollower() {
     instance = this;
-    // rightColorSensor = new DigitalInput(Constants.DIO_RIGHT_COLOUR_SENSOR);
-    // leftColorSensor = new DigitalInput(Constants.DIO_LEFT_COLOUR_SENSOR);
+    rightColorSensor = new DigitalInput(Constants.DIO_RIGHT_COLOUR_SENSOR);
+    leftColorSensor = new DigitalInput(Constants.DIO_LEFT_COLOUR_SENSOR);
   }
   
  // String direction;
@@ -91,16 +91,15 @@ public class LineFollower extends Subsystem {
     rightColorSensorValue = rightColorSensor.get();
     leftColorSensorValue = leftColorSensor.get(); 
 
-		System.out.println("Left Line " + leftColorSensorValue + "   Right Line " + rightColorSensorValue);
-    if(leftColorSensorValue == false && rightColorSensorValue == true) {
+    if(leftColorSensorValue == true && rightColorSensorValue == false) {
         //Only right sensor sees white so it should go left
         System.out.println("Going Left");
 
-    } else if(leftColorSensorValue == true && rightColorSensorValue == false) {
+    } else if(leftColorSensorValue == false && rightColorSensorValue == true) {
         //Only Left sensor sees white so it should go right
         System.out.println("Going Right");
 
-      } else if(leftColorSensorValue == true && rightColorSensorValue == true) {
+      } else if(leftColorSensorValue == false && rightColorSensorValue == false) {
         //Both sensors see the white line therefore should go straight
         System.out.println("Going Straight");
 

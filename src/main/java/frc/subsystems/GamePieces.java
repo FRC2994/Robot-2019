@@ -15,8 +15,6 @@ public class GamePieces extends Subsystem{
     private static final double cargoMotorSpeed = 0.5;
     private static GamePieces instance;
 
-    public static enum cargoState{GO, STOP};
-
     public GamePieces() {
         System.out.println("Game Piece Subsystem activated! ");
         instance = this;
@@ -27,11 +25,14 @@ public class GamePieces extends Subsystem{
     }
 
     //CARGO CONTROL
-    public void wheelIntake(cargoState state) { 
-        cargo.set(ControlMode.PercentOutput, state==cargoState.GO?cargoMotorSpeed:0);
+    public void wheelIntake() { 
+        cargo.set(ControlMode.PercentOutput, cargoMotorSpeed);
     }
-    public void wheelShoot(cargoState state) { 
-        cargo.set(ControlMode.PercentOutput, state==cargoState.GO?-cargoMotorSpeed:0);
+    public void wheelShoot() { 
+        cargo.set(ControlMode.PercentOutput, -cargoMotorSpeed);
+    }
+    public void wheelStop() {
+        cargo.set(ControlMode.PercentOutput, 0);
     }
 
     // //HATCH CONTROL

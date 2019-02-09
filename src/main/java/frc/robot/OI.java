@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.subsystems.DriveTrain.GearShiftState;
-import frc.subsystems.GamePieces.cargoState;
 import frc.commands.Autonomous;
 import frc.commands.FollowLine;
 import frc.commands.ShiftGear;
@@ -25,7 +24,7 @@ import frc.commands.CargoShoot;
  */
 public class OI {
   private final Joystick m_joystick = new Joystick(0);
-  private final Joystick m_gamepad = new Joystick(1);
+  private final Joystick m_gamepad = new Joystick(2);
 
 /**
    * Construct the OI and all of the buttons on it.
@@ -77,7 +76,7 @@ public class OI {
     // jsButnChinUpIn.whenReleased(new ?(?.STOP));
     // jsButnRetractableLegsUp.whenPressed(new );
     // jsButnRetractableLegsDown.whenPressed(new );
-    jsButnFollowLine.whileHeld(new FollowLine());
+    // jsButnFollowLine.whileHeld(new FollowLine());
  
 
     //GAMEPAD
@@ -86,10 +85,8 @@ public class OI {
     // gpButnArmRetract.whenReleased(new ?(?.STOP));
     // gpButnArmForward.whileHeld(new ?(?.GO));
     // gpButnArmForward.whenReleased(new ?(?.STOP));
-    gpButnCargoIn.whileHeld(new CargoIntake(cargoState.GO));
-    gpButnCargoIn.whenReleased(new CargoIntake(cargoState.STOP));
-    gpButnCargoOut.whileHeld(new CargoShoot(cargoState.GO));
-    gpButnCargoOut.whenReleased(new CargoShoot(cargoState.STOP));
+    gpButnCargoIn.whileHeld(new CargoIntake());
+    gpButnCargoOut.whileHeld(new CargoShoot());
     //gpButnFingerRetract.whenPressed(new );
     //gpButnFingerHold.whenPressed(new );
   }
