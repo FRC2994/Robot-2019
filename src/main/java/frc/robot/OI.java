@@ -12,8 +12,11 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.subsystems.DriveTrain.GearShiftState;
+import frc.subsystems.GamePieces.cargoState;
 import frc.commands.Autonomous;
 import frc.commands.ShiftGear;
+import frc.commands.CargoIntake;
+import frc.commands.CargoShoot;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -53,7 +56,10 @@ public class OI {
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
 
     //GAMEPAD
-    gpButnCargoIn.whenPressed(new Autonomous());
+    gpButnCargoIn.whileHeld(new CargoIntake(cargoState.GO));
+    gpButnCargoIn.whenReleased(new CargoIntake(cargoState.STOP));
+    gpButnCargoOut.whileHeld(new CargoShoot(cargoState.GO));
+    gpButnCargoOut.whenReleased(new CargoShoot(cargoState.STOP));
   }
 
   public Joystick getJoystick() {

@@ -10,30 +10,32 @@ package frc.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.subsystems.GamePieces;
+import frc.subsystems.GamePieces.cargoState;
 
-public class CargoRelease extends Command {
+public class CargoShoot extends Command {
   private static final GamePieces cargo = Robot.m_gamePieces;
+  private cargoState state;
 
-  public CargoRelease() {
+  public CargoShoot(cargoState state) {
     // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(cargo);
+    this.state = state;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-      cargo.wheelShoot();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+      cargo.wheelShoot(state);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    cargo.wheelStop();
     return false;
   }
 
