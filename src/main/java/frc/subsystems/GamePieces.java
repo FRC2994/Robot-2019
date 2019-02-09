@@ -1,12 +1,13 @@
 package frc.subsystems;
 
 import frc.utils.Constants;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Solenoid;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-public class GamePieces extends Subsystems {
+public class GamePieces extends Subsystem{
     Solenoid hatch = new Solenoid(Constants.PCM_HATCH_PISTON);
     Solenoid finger = new Solenoid(Constants.PCM_HATCH_FINGER);
     VictorSPX cargo = new VictorSPX(Constants.CAN_WHEEL_INTAKE);
@@ -46,5 +47,10 @@ public class GamePieces extends Subsystems {
     }
     public void pistonReset() {
         hatch.set(false);
+    }
+
+    @Override
+    protected void initDefaultCommand() {
+
     }
 }

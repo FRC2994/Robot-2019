@@ -18,7 +18,7 @@ public class CargoIntake extends Command {
   private static final GamePieces cargo = Robot.m_gamePieces;
   
   public CargoIntake() {
-    // requires(Robot.m_gamePieces);
+    requires(Robot.m_gamePieces);
   }
 
   // Called just before this Command runs the first time
