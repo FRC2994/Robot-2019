@@ -14,8 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.subsystems.DriveTrain.GearShiftState;
 import frc.subsystems.GamePieces.cargoState;
 import frc.commands.Autonomous;
-import frc.commands.CargoIntake;
-import frc.commands.CargoRelease;
 import frc.commands.FollowLine;
 import frc.commands.ShiftGear;
 import frc.commands.CargoIntake;
@@ -58,7 +56,6 @@ public class OI {
     final JoystickButton jsButnRetractableLegsDown = new JoystickButton(m_joystick, 2);
     final JoystickButton jsButnFollowLine = new JoystickButton(m_joystick, 1);
     final JoystickButton gpButnHatchPiston = new JoystickButton(m_gamepad, 8);   //Gamepad RT button
-    final JoystickButton gpButnArmUpRetract = new JoystickButton(m_gamepad, 6);  //Gamepad RB button
     final JoystickButton gpButnArmForward = new JoystickButton(m_gamepad, 5);    //Gamepad LB button
     final JoystickButton gpButnCargoOut = new JoystickButton(m_gamepad, 4);      //Gamepad Y button
     final JoystickButton gpButnCargoIn = new JoystickButton(m_gamepad, 3);       //Gamepad B Button
@@ -67,20 +64,33 @@ public class OI {
 
 
     /* Connect the buttons to commands */
+    
     //JOYSTICK
     jsButnShifter.whenPressed(new ShiftGear(GearShiftState.HI));
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
-    
+    // jsButnChinUpRetract.whenPressed(new );
+    // jsButnChinUpForward.whenPressed(new );
+    // jsButnChinUpOut.whileHeld(new ?(?.GO));
+    // jsButnChinUpOut.whenReleased(new ?(?.STOP));
+    // jsButnChinUpIn.whileHeld(new ?(?.GO));
+    // jsButnChinUpIn.whenReleased(new ?(?.STOP));
     // jsButnRetractableLegsUp.whenPressed(new );
-    // jsButnRetractableLegsDown.whenPressed(new);
-    // jsButnFollowLine.whilePressed(new FollowLine(FollowLine));
+    // jsButnRetractableLegsDown.whenPressed(new );
+    jsButnFollowLine.whileHeld(new FollowLine());
  
 
     //GAMEPAD
+    // gpButnHatchPiston.whenPressed(new );
+    // gpButnArmRetract.whileHeld(new ?(?.GO));
+    // gpButnArmRetract.whenReleased(new ?(?.STOP));
+    // gpButnArmForward.whileHeld(new ?(?.GO));
+    // gpButnArmForward.whenReleased(new ?(?.STOP));
     gpButnCargoIn.whileHeld(new CargoIntake(cargoState.GO));
     gpButnCargoIn.whenReleased(new CargoIntake(cargoState.STOP));
     gpButnCargoOut.whileHeld(new CargoShoot(cargoState.GO));
     gpButnCargoOut.whenReleased(new CargoShoot(cargoState.STOP));
+    //gpButnFingerRetract.whenPressed(new );
+    //gpButnFingerHold.whenPressed(new );
   }
 
   public Joystick getJoystick() {
