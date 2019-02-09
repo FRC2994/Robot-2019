@@ -68,27 +68,23 @@ public class OI {
     //JOYSTICK
     jsButnShifter.whenPressed(new ShiftGear(GearShiftState.HI));
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
-    // jsButnChinUpRetract.whenPressed(new );
-    // jsButnChinUpForward.whenPressed(new );
-    // jsButnChinUpOut.whileHeld(new ?(?.GO));
-    // jsButnChinUpOut.whenReleased(new ?(?.STOP));
-    // jsButnChinUpIn.whileHeld(new ?(?.GO));
-    // jsButnChinUpIn.whenReleased(new ?(?.STOP));
-    // jsButnRetractableLegsUp.whenPressed(new );
-    // jsButnRetractableLegsDown.whenPressed(new );
+    // jsButnChinUpRetract.whenPressed(new ());
+    // jsButnChinUpForward.whenPressed(new ());
+    // jsButnChinUpOut.whileHeld(new ());
+    // jsButnChinUpIn.whileHeld(new ());
+    // jsButnRetractableLegsUp.whenPressed(new ());
+    // jsButnRetractableLegsDown.whenPressed(new ());
     // jsButnFollowLine.whileHeld(new FollowLine());
  
 
     //GAMEPAD
-    // gpButnHatchPiston.whenPressed(new );
-    // gpButnArmRetract.whileHeld(new ?(?.GO));
-    // gpButnArmRetract.whenReleased(new ?(?.STOP));
-    // gpButnArmForward.whileHeld(new ?(?.GO));
-    // gpButnArmForward.whenReleased(new ?(?.STOP));
+    // gpButnHatchPiston.whenPressed(new ());
+    // gpButnArmRetract.whileHeld(new ());
+    // gpButnArmForward.whileHeld(new ());
     gpButnCargoIn.whileHeld(new CargoIntake());
     gpButnCargoOut.whileHeld(new CargoShoot());
-    //gpButnFingerRetract.whenPressed(new );
-    //gpButnFingerHold.whenPressed(new );
+    //gpButnFingerRetract.whenPressed(new ());
+    //gpButnFingerHold.whenPressed(new ());
   }
 
   public Joystick getJoystick() {
