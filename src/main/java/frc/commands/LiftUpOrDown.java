@@ -7,38 +7,41 @@
 
 package frc.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Robot;
+import frc.subsystems.Lift;
+import frc.subsystems.Lift.LiftDirection;
 
-public class LiftUpOrDown extends Command {
-  public LiftUpOrDown() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-  }
-
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-  }
-
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
+public class LiftUpOrDown extends CommandGroup {
+  public LiftUpOrDown(LiftDirection direction) {
+    final int chinupOnPlatform  = 2000; 
+    if (direction==LiftDirection.DN) {
+      // Move robot ahaead to get space for chinup
+      addSequential(new DriveStraight(2000));
+      // Bring legs down and get chinup to rest on platform
+      addSequential(new LiftLegsUpOrDown(LiftDirection.DN));
+      addParallel(new LiftChinUpMoveToPosition(2000));
+      // Move robot off platform; weight is on chinup and legs
+      addSequential(new DriveStraight(5000));
+      // Bring robot down
+      addParallel(new LiftChinUpMoveToPosition(0));
+      addSequential(new LiftLegsUpOrDown(LiftDirection.UP));
+      // Stow chinup
+      // TBD addSequential(new LiftChinupMoveToPosition(0));
+    } else {
+      // Bring chinup to the height of platform
+      addSequential(new LiftChinUpMoveToPosition(chinupOnPlatform+500));
+      // Move robot ahaead so chinup can rest on platform
+      addSequential(new DriveStraight(2000));
+      // Make chinup take some weight off wheels
+      addSequential(new LiftChinUpMoveToPosition(chinupOnPlatform));
+      // Extend legs and get chinup to rest on platform
+      addSequential(new LiftLegsUpOrDown(LiftDirection.UP));
+      addParallel(new LiftChinUpMoveToPosition(2000));
+      // Move robot on platform;
+      addSequential(new LiftChinUpPullOpenLoop(5000));
+      // Stow chinup
+      // TBD addSequential(new LiftChinupMoveToPosition(0));
+    }
   }
 }

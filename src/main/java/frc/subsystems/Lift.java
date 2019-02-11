@@ -15,6 +15,7 @@ public class Lift extends Subsystem {
   
   private static final int chinUpPositionIncrement = 0;
   public static enum LiftDirection { UP, DN };
+  public static enum LiftPushPullDirection { Push, DN };
   DigitalInput limitChinUp;
   VictorSPX ChinUpPull;
 	TalonSRX ChinUpRotation;
@@ -48,6 +49,13 @@ public class Lift extends Subsystem {
       ChinUpRotation.configPeakOutputReverse(-0.5, 0);
     }
   }
+  private void chinUpPullOpenLoop(LiftPushPullDirection direction, int speed) {
+    if (direction == LiftPushPullDirection.Push) {
+      ChinUpPull.set(ControlMode.Velocity, speed);
+    } else {
+      ChinUpPull.set(ControlMode.Velocity, -speed);
+    }
+  }
 
   private void chinUpSetPosition(int desiredPosition) {
     int position;
@@ -60,7 +68,7 @@ public class Lift extends Subsystem {
 		else {
 			position = desiredPosition;
 		}
-    ChinUpPull.set(ControlMode.Position, position);
+    ChinUpRotation.set(ControlMode.Position, position);
     this.desiredPosition = position;
   }
 
@@ -95,7 +103,7 @@ public class Lift extends Subsystem {
     } else if (dir == LiftDirection.UP) {
       ChinUpRotation.set(ControlMode.Position, speed);
     } else {
-      ChinUpRotation.set(ControlMode.Position, speed);
+      ChinUpRotation.set(ControlMode.Position, -speed);
     }
   }
 

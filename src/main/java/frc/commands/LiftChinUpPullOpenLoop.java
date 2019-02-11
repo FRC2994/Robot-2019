@@ -8,8 +8,11 @@
 package frc.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
+import frc.subsystems.Lift;
+import frc.subsystems.Lift.LiftDirection;
+import frc.subsystems.Lift.LiftPushPullDirection;
 
 /**
  * Drive the given distance straight (negative values go backwards). Uses a
@@ -17,33 +20,25 @@ import frc.robot.Robot;
  * command is running. The input is the averaged values of the left and right
  * encoders.
  */
-public class DriveStraight extends Command {
+public class LiftChinUpPullOpenLoop extends InstantCommand {
+  private Lift m_lift = Robot.m_lift;
+  private int position;
 
   /**
    * Create a new DriveStraight command.
-   * @param distance The distance to drive
+   * 
+   * @param position The postion to move to
    */
-  public DriveStraight(double distance) {
-    requires(Robot.m_drivetrain);
-    Robot.m_drivetrain.setDesiredPosition((int)distance);
+  public LiftChinUpPullOpenLoop(int position) {
+    super();
+    this.position = position;
+    requires(Robot.m_lift);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    // Get everything in a safe starting state.
-    Robot.m_drivetrain.reset();
+    m_lift.chinUpMoveToPosition(position);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return Robot.m_drivetrain.onTarget();
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-    Robot.m_drivetrain.drive(0, 0);
-  }
 }

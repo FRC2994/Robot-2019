@@ -11,35 +11,58 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.subsystems.GamePieces;
 
-public class CargoIntake extends Command {
-  private static final GamePieces cargo = Robot.m_gamePieces;
-  public CargoIntake() {
-    requires(cargo);
+public class HatchReleaseOrHold extends Command {
+  /**
+   *
+   */
+
+  private static final GamePieces hatch = Robot.m_gamePieces;
+  public static enum releaseOrHold { release, hold };
+  private releaseOrHold relHold;
+  private int counter;
+  private static final int counterMax = 25;
+
+  public HatchReleaseOrHold(releaseOrHold relHold) {
+    // Use requires() here to declare subsystem dependencies
+    requires(hatch);
+    this.relHold = relHold;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    counter = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-      // cargo.wheelIntake();
-      System.out.println("SHOOTING");
+    if (relHold == releaseOrHold.hold) {
+      if (counter==0) {
+        hatch.fingerHold();
+     } else if (counter == counterMax) { // 25*20ms = 0.5s
+        hatch.pistonReset();
+      }
+      hatch.pistonPush();
+    } else {
+      if (counter==0) {
+         hatch.fingerRelease();
+      } else if (counter == counterMax) {
+         hatch.pistonPush();
+      }
+    }
+    counter=(counter+1)%(counterMax+1);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // cargo.wheelStop();
-    return false;
+    return counter==counterMax;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    System.out.println("STOP");
   }
 
   // Called when another command which requires one or more of the same

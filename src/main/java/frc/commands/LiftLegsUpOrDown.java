@@ -7,33 +7,28 @@
 
 package frc.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.Robot;
+import frc.subsystems.Lift;
+import frc.subsystems.Lift.LiftDirection;
 
-public class HatchReleaseOrGrab extends Command {
-  public HatchReleaseOrGrab() {
+public class LiftLegsUpOrDown extends InstantCommand {
+  private Lift m_lift = Robot.m_lift;
+  private LiftDirection direction;
+  public LiftLegsUpOrDown(LiftDirection direction) {
     // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    // requires(m_lift); DON"T UNCOMMENT BECAUSE LiftChinupUpOrDown is already doing it.
+    this.direction = direction;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-  }
-
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
+    if (direction == LiftDirection.DN) {
+        m_lift.retractableLegsDown();
+    } else {
+        m_lift.retractableLegsUp();
+    }
   }
 
   // Called when another command which requires one or more of the same

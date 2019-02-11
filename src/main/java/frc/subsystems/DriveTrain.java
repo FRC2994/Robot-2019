@@ -108,7 +108,7 @@ public class DriveTrain extends Subsystem{
 		rightFrontDrive.setInverted(false);
 	}
 	
-	public boolean talonsAreHappy() {
+	public boolean onTarget() {
 		int cl_err = leftFrontDrive.getClosedLoopError(0);
 		System.out.println("CL_ERR: " + Math.abs(cl_err) + " leftMotorOut: " + leftFrontDrive.getMotorOutputPercent() + " rightMotorOut: " + rightFrontDrive.getMotorOutputPercent()
 		+ " leftEnc: " + leftFrontDrive.getSelectedSensorPosition(0) + " rightEnc: " + rightFrontDrive.getSelectedSensorPosition(0)

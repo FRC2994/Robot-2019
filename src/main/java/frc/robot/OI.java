@@ -44,23 +44,23 @@ public class OI {
     SmartDashboard.putData("Deliver Soda", new Autonomous());
 
     // Create some buttons
-    final JoystickButton jsButnCalibrate = new JoystickButton(m_joystick, 11);
-    final JoystickButton jsButnRecord = new JoystickButton(m_joystick, 10);
-    final JoystickButton jsButnShifter = new JoystickButton(m_joystick, 8);
-    final JoystickButton jsButnChinUpRetract = new JoystickButton(m_joystick, 7);
-    final JoystickButton jsButnChinUpForward = new JoystickButton(m_joystick, 6);
-    final JoystickButton jsButnChinUpOut = new JoystickButton(m_joystick, 5);
-    final JoystickButton jsButnChinUpIn = new JoystickButton(m_joystick, 4);
-    final JoystickButton jsButnRetractableLegsUp = new JoystickButton(m_joystick, 3);
-    final JoystickButton jsButnRetractableLegsDown = new JoystickButton(m_joystick, 2);
-    final JoystickButton jsButnFollowLine = new JoystickButton(m_joystick, 1);
-    final JoystickButton gpButnHatchPiston = new JoystickButton(m_gamepad, 8);   //Gamepad RT button
-    final JoystickButton gpButnArmRetract = new JoystickButton(m_gamepad, 6);    //Gamepad RB button
-    final JoystickButton gpButnArmForward = new JoystickButton(m_gamepad, 5);    //Gamepad LB button
-    final JoystickButton gpButnCargoOut = new JoystickButton(m_gamepad, 4);      //Gamepad Y button
-    final JoystickButton gpButnCargoIn = new JoystickButton(m_gamepad, 3);       //Gamepad B Button
-    final JoystickButton gpButnFingerRetract = new JoystickButton(m_gamepad, 2); //Gamepad A button
-    final JoystickButton gpButnFingerHold = new JoystickButton(m_gamepad, 1);    //Gamepad X button
+    final JoystickButton jsButnCalibrate             = new JoystickButton(m_joystick, 11);
+    final JoystickButton jsButnRecord                = new JoystickButton(m_joystick, 10);
+    final JoystickButton jsButnShifter               = new JoystickButton(m_joystick, 8);
+    final JoystickButton jsButnChinUpRetract         = new JoystickButton(m_joystick, 7);
+    final JoystickButton jsButnChinUpForward         = new JoystickButton(m_joystick, 6);
+    final JoystickButton jsButnChinUpOut             = new JoystickButton(m_joystick, 5);
+    final JoystickButton jsButnChinUpIn              = new JoystickButton(m_joystick, 4);
+    final JoystickButton jsButnRetractableLegsUp     = new JoystickButton(m_joystick, 3);
+    final JoystickButton jsButnRetractableLegsDown   = new JoystickButton(m_joystick, 2);
+    final JoystickButton jsButnFollowLine            = new JoystickButton(m_joystick, 1);
+    final JoystickButton gpButnHatchPiston           = new JoystickButton(m_gamepad, 8); //Gamepad RT button
+    final JoystickButton gpButnArmRetract            = new JoystickButton(m_gamepad, 6); //Gamepad RB button
+    final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 5); //Gamepad LB button
+    final JoystickButton gpButnCargoOut              = new JoystickButton(m_gamepad, 4); //Gamepad Y button
+    final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 3); //Gamepad B button
+    final JoystickButton gpButnFingerRetract         = new JoystickButton(m_gamepad, 2); //Gamepad A button
+    final JoystickButton gpButnFingerHold            = new JoystickButton(m_gamepad, 1); //Gamepad X button
 
 
     /* Connect the buttons to commands */
