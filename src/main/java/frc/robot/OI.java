@@ -55,13 +55,14 @@ public class OI {
     final JoystickButton jsButnRetractableLegsUp     = new JoystickButton(m_joystick, 3);
     final JoystickButton jsButnRetractableLegsDown   = new JoystickButton(m_joystick, 2);
     final JoystickButton jsButnFollowLine            = new JoystickButton(m_joystick, 1);
-    final JoystickButton gpButnHatchPiston           = new JoystickButton(m_gamepad, 8); //Gamepad RT button
+    final JoystickButton gpButnLEDToggle             = new JoystickButton(m_gamepad, 8); //Gamepad RT button
+    final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 7); //Gamepad LT button
     final JoystickButton gpButnArmRetract            = new JoystickButton(m_gamepad, 6); //Gamepad RB button
     final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 5); //Gamepad LB button
     final JoystickButton gpButnCargoOut              = new JoystickButton(m_gamepad, 4); //Gamepad Y button
     final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 3); //Gamepad B button
-    final JoystickButton gpButnFingerRetract         = new JoystickButton(m_gamepad, 2); //Gamepad A button
-    final JoystickButton gpButnFingerHold            = new JoystickButton(m_gamepad, 1); //Gamepad X button
+    final JoystickButton gpButnPushHatch             = new JoystickButton(m_gamepad, 2); //Gamepad A button
+    final JoystickButton gpButnHoldHatch             = new JoystickButton(m_gamepad, 1); //Gamepad X button
 
 
     /* Connect the buttons to commands */
@@ -76,18 +77,19 @@ public class OI {
     // jsButnRetractableLegsUp.whenPressed(new ());
     // jsButnRetractableLegsDown.whenPressed(new ());
     // jsButnFollowLine.whileHeld(new FollowLine());
- 
+
 
     //GAMEPAD
-    // gpButnHatchPiston.whenPressed(new ());
-    // gpButnArmRetract.whileHeld(new ());
-    // gpButnArmForward.whileHeld(new ());
+    //gpButnLEDToggle.toggleWhenPressed(new ());
+    //gpButnLEDOff.whenPressed(new ());
+    //gpButnArmRetract.whileHeld(new ());
+    //gpButnArmForward.whileHeld(new ());
     gpButnCargoIn.whileHeld(new CargoIntake());
     gpButnCargoIn.whenReleased(new CargoStop());
     gpButnCargoOut.whileHeld(new CargoShoot());
     gpButnCargoOut.whenReleased(new CargoStop());
-    //gpButnFingerRetract.whenPressed(new ());
-    //gpButnFingerHold.whenPressed(new ());
+    //gpButnPushHatch.whenPressed(new ());
+    //gpButnHoldHatch.whenPressed(new ());
   }
 
   public Joystick getJoystick() {

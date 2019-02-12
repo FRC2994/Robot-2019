@@ -22,6 +22,7 @@ public class Constants
 	// PCM (Solenoid, LEDs, etc...)
 	public static final int PCM_GEAR_SHIFT                 = 0;
 	public static final int PCM_RETRACTABLE_LEGS           = 1;
+	//public static final int PCM_                         = 2; (TBD)
 	public static final int PCM_HATCH_FINGER               = 3;
 	public static final int PCM_HATCH_PISTON               = 4; 
 	public static final int PCM_LED_R                      = 5;
