@@ -19,9 +19,10 @@ import frc.subsystems.Lift.LiftDirection;
  * command is running. The input is the averaged values of the left and right
  * encoders.
  */
-public class LiftChinUpMoveToPosition extends InstantCommand {
+public class LiftChinUpMoveToPosition extends Command {
   private Lift m_lift = Robot.m_lift;
   private int speed;
+  private int counter;
 
   /**
    * Create a new DriveStraight command.
@@ -37,6 +38,20 @@ public class LiftChinUpMoveToPosition extends InstantCommand {
   @Override
   protected void initialize() {
     m_lift.chinUpMoveToPosition(speed);
+    counter = 0;
+  }
+
+  // Sets a specfic time until the function stops.
+  @Override
+  protected void execute() {
+    m_lift.chinUpMoveToPosition(speed);
+    counter = () ;
+  }
+
+  @Override
+  protected boolean isFinished() {
+    return counter == 0;
   }
 
 }
+
