@@ -8,10 +8,11 @@
 package frc.subsystems;
 
 import frc.subsystems.Subsystems;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.utils.Constants;
 import edu.wpi.first.wpilibj.Solenoid;
 
-public class LED extends Subsystems {
+public class LED extends Subsystem {
 
 	Solenoid LEDR, LEDG, LEDB;
 
@@ -31,5 +32,10 @@ public class LED extends Subsystems {
 
 	public void setLEDB(boolean value) {
 		LEDB.set(value);
+	}
+
+	@Override
+	protected void initDefaultCommand() {
+
 	}
 }
