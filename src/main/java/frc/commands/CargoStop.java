@@ -8,29 +8,24 @@
 package frc.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.Robot;
 import frc.subsystems.GamePieces;
-import edu.wpi.first.wpilibj.DigitalInput;
-import frc.utils.Constants;
+import frc.robot.Robot;
 
-public class CargoIntake extends InstantCommand {
+/**
+ * Add your docs here.
+ */
+public class CargoStop extends InstantCommand {
   private static final GamePieces cargo = Robot.m_gamePieces;
-  boolean limitValue;
-  int status;
-  
-  public CargoIntake() {
+  public CargoStop() {
+    super();
     requires(cargo);
   }
 
-  // Called just before this Command runs the first time
+  // Called once when the command executes
   @Override
   protected void initialize() {
-    if (cargo.buttonGet() == true){
-      cargo.wheelStop();
-    }
-    else {
-      cargo.wheelIntake();
-      System.out.println("INTAKING");
-   }
+    cargo.wheelStop();
+    System.out.println("STOP");
   }
+
 }

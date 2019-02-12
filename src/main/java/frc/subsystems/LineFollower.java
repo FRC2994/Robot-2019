@@ -42,19 +42,12 @@ public class LineFollower extends Subsystem {
   private static State state;
 
   public enum State {
-    rightState ('R'),
-    leftState ('L'),
-    centreState ('C'),
-    noneState ('N'),
-    finishedState ('F'),
-    invalidState ('I')
-    ;
-
-    private final char stateCode;
-
-    private State(char stateCode) {
-        this.stateCode = stateCode;
-    }
+    rightState,
+    leftState,
+    centreState,
+    noneState,
+    finishedState,
+    invalidState
   
   }
 

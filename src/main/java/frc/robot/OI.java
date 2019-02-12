@@ -17,6 +17,7 @@ import frc.commands.FollowLine;
 import frc.commands.ShiftGear;
 import frc.commands.CargoIntake;
 import frc.commands.CargoShoot;
+import frc.commands.CargoStop;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -82,7 +83,9 @@ public class OI {
     // gpButnArmRetract.whileHeld(new ());
     // gpButnArmForward.whileHeld(new ());
     gpButnCargoIn.whileHeld(new CargoIntake());
+    gpButnCargoIn.whenReleased(new CargoStop());
     gpButnCargoOut.whileHeld(new CargoShoot());
+    gpButnCargoOut.whenReleased(new CargoStop());
     //gpButnFingerRetract.whenPressed(new ());
     //gpButnFingerHold.whenPressed(new ());
   }

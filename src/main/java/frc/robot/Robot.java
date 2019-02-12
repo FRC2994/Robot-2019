@@ -123,7 +123,6 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		// m_lineFollower.run();
-		System.out.println(USsensor.getRangeInches());
 	}
 
 	@Override
