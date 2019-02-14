@@ -17,6 +17,7 @@ import frc.robot.Robot;
 public class FollowLine extends Command {
   private static final double averageSpeed = 50;
   private static final double correctionSpeed = 10;
+  private static final double slowDownSpeed = 20;
   private static final DriveTrain drivetrain = Robot.m_drivetrain;
   private static final LineFollower lineFollower = Robot.m_lineFollower;
   private static boolean isFinished = false;
@@ -37,57 +38,64 @@ public class FollowLine extends Command {
   @Override
   protected void execute() {
     direction = Robot.m_lineFollower.getState();
-    if(direction == State.noneState) {
-      //return control to joystick
-      drivetrain.setStopArcadeDrive(false);
-      isFinished = true;
-      System.out.println("Going Nowhere");
-    } 
 
-    else if (direction == State.finishedState)
-    {
-      //disable control from joystick
-      drivetrain.setStopArcadeDrive(true);
-      isFinished = true;
-      System.out.println("Finished");
-    }
+        if(direction == State.noneState) {
+          //return control to joystick
+          drivetrain.setStopArcadeDrive(false);
+          isFinished = true;
+          System.out.println("Going Nowhere");
+        } 
+        else if (direction == State.almostState) {
+          //Makes robot slow down as it approaches 
+          drivetrain.tankDrive(slowDownSpeed, slowDownSpeed);
+          isFinished = false;
+          System.out.println("Approaching!");
+        }
 
-    else if (direction == State.leftState)
-    {
-      //disable control from joystick
-      drivetrain.setStopArcadeDrive(true);
-      //Make robot go Right by increasing left motor speed and decreasing right motor speed
-      drivetrain.tankDrive(averageSpeed+correctionSpeed, averageSpeed-correctionSpeed);
-      isFinished = false;
-      System.out.println("Going Left");
-    }
+        else if (direction == State.finishedState)
+        {
+          //disable control from joystick
+          drivetrain.setStopArcadeDrive(true);
+          isFinished = true;
+          System.out.println("Finished");
+        }
 
-    else if (direction == State.rightState)
-    {
-      //disable control from joystick
-      drivetrain.setStopArcadeDrive(true);
-      //Make robot go Left by decreasing left motor speed and increasing right motor speed
-      drivetrain.tankDrive(averageSpeed-correctionSpeed, averageSpeed+correctionSpeed);
-      isFinished = false;
-      System.out.println("Going Right");
-    }
+        else if (direction == State.leftState)
+        {
+          //disable control from joystick
+          drivetrain.setStopArcadeDrive(true);
+          //Make robot go Right by increasing left motor speed and decreasing right motor speed
+          drivetrain.tankDrive(averageSpeed+correctionSpeed, averageSpeed-correctionSpeed);
+          isFinished = false;
+          System.out.println("Going Left");
+        }
 
-    else if (direction == State.centreState)
-    {
-      //disable control from joystick
-      drivetrain.setStopArcadeDrive(true);
-      //Keep robot going straight with same speed on both motors
-      drivetrain.tankDrive(averageSpeed, averageSpeed);
-      isFinished = false;
-      System.out.println("Going Straight");
-    }
+        else if (direction == State.rightState)
+        {
+          //disable control from joystick
+          drivetrain.setStopArcadeDrive(true);
+          //Make robot go Left by decreasing left motor speed and increasing right motor speed
+          drivetrain.tankDrive(averageSpeed-correctionSpeed, averageSpeed+correctionSpeed);
+          isFinished = false;
+          System.out.println("Going Right");
+        }
 
-    else 
-    {
-      //return control to joystick
-      drivetrain.setStopArcadeDrive(false);
-      isFinished = true;
-    }
+        else if (direction == State.centreState)
+        {
+          //disable control from joystick
+          drivetrain.setStopArcadeDrive(true);
+          //Keep robot going straight with same speed on both motors
+          drivetrain.tankDrive(averageSpeed, averageSpeed);
+          isFinished = false;
+          System.out.println("Going Straight");
+        }
+
+        else 
+        {
+          //return control to joystick
+          drivetrain.setStopArcadeDrive(false);
+          isFinished = true;
+        }
 
   }
 

@@ -10,7 +10,7 @@ package frc.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.AnalogInput;
-
+import edu.wpi.first.wpilibj.Ultrasonic;
 import frc.subsystems.Logger;
 import frc.utils.Constants;
 import static frc.utils.Constants.*;
@@ -25,16 +25,21 @@ public class LineFollower extends Subsystem {
 	private static LineFollower instance;
   private static DigitalInput rightColorSensor;
   private static DigitalInput leftColorSensor;
+  private static Ultrasonic   rightUltrasonic;
+  private static Ultrasonic   leftUltrasonic;
 
   public LineFollower() {
     instance = this;
     rightColorSensor = new DigitalInput(Constants.DIO_RIGHT_COLOUR_SENSOR);
     leftColorSensor = new DigitalInput(Constants.DIO_LEFT_COLOUR_SENSOR);
+    rightUltrasonic = new Ultrasonic(Constants.DIO_RUS_ECHO, Constants.DIO_RUS_TRIG);
+    leftUltrasonic = new Ultrasonic(Constants.DIO_LUS_ECHO, Constants.DIO_LUS_TRIG);
   }
   
  // String direction;
 
-  public static final double closeDistance = 5; // 5 inches
+  public static final double closeDistance = 5.0; // 5 inches
+  public static final double finishDistance = 2.0; // 2 Inches
   private static boolean rightColorSensorValue;
   private static boolean leftColorSensorValue; 
   private static double rightDistance;
@@ -47,6 +52,7 @@ public class LineFollower extends Subsystem {
     centreState,
     noneState,
     finishedState,
+    almostState,
     invalidState
   
   }
@@ -58,8 +64,16 @@ public class LineFollower extends Subsystem {
   public State getState() {
       rightColorSensorValue = rightColorSensor.get();
       leftColorSensorValue = leftColorSensor.get(); 
+      rightDistance = rightUltrasonic.getRangeInches();
+      leftDistance = leftUltrasonic.getRangeInches();
 
-      if(leftColorSensorValue == false && rightColorSensorValue == true) {
+      if (leftColorSensorValue == true || rightColorSensorValue == true && rightDistance <= 2 && leftDistance <= 2) {
+          //It is finished
+          state = State.finishedState;
+      } else if (leftColorSensorValue == true || rightColorSensorValue == true && rightDistance <= 5 && leftDistance <=5){
+          //Both color sensors sense white and the ultrasonic is within 5 inches
+          state = State.almostState;
+      } else if(leftColorSensorValue == false && rightColorSensorValue == true) {
           //Only right sensor sees white so it should go left
           state = State.leftState;
 
@@ -67,45 +81,26 @@ public class LineFollower extends Subsystem {
           //Only Left sensor sees white so it should go right
           state = State.rightState;
 
-        } else if(leftColorSensorValue == true && rightColorSensorValue == true) {
+      } else if(leftColorSensorValue == true && rightColorSensorValue == true) {
           //Both sensors see the white line therefore should go straight
           state = State.centreState;
 
-        } else {
+      } else {
           //None of sensors sees the white line therefore if should stop
           state = State.noneState;
 
       }
 
       return state;
-  }
-
-  public void run() {
-    rightColorSensorValue = rightColorSensor.get();
-    leftColorSensorValue = leftColorSensor.get(); 
-
-    if(leftColorSensorValue == true && rightColorSensorValue == false) {
-        //Only right sensor sees white so it should go left
-        System.out.println("Going Left");
-
-    } else if(leftColorSensorValue == false && rightColorSensorValue == true) {
-        //Only Left sensor sees white so it should go right
-        System.out.println("Going Right");
-
-      } else if(leftColorSensorValue == false && rightColorSensorValue == false) {
-        //Both sensors see the white line therefore should go straight
-        System.out.println("Going Straight");
-
-      } else {
-        //None of sensors sees the white line therefore if should stop
-        System.out.println("Nothing!");
-
     }
-}
 
-public void debug() {
+public void debugColor() {
   System.out.println("Right Sensor: " + rightColorSensor.get());
   System.out.println("Left Sensor: " + leftColorSensor.get());
+}
+public void debugUS() {
+  System.out.println("Right Ultrasonic: " + rightUltrasonic.getRangeInches());
+  System.out.println("Left Ultrasonic: " + leftUltrasonic.getRangeInches());
 }
 
   @Override
