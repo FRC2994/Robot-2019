@@ -34,6 +34,9 @@ public class LineFollower extends Subsystem {
     leftColorSensor = new DigitalInput(Constants.DIO_LEFT_COLOUR_SENSOR);
     rightUltrasonic = new Ultrasonic(Constants.DIO_RUS_ECHO, Constants.DIO_RUS_TRIG);
     leftUltrasonic = new Ultrasonic(Constants.DIO_LUS_ECHO, Constants.DIO_LUS_TRIG);
+
+    rightUltrasonic.setAutomaticMode(true);
+    leftUltrasonic.setAutomaticMode(true);
   }
   
  // String direction;
