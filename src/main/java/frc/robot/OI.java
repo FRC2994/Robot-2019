@@ -55,8 +55,9 @@ public class OI {
     final JoystickButton jsButnRetractableLegsUp     = new JoystickButton(m_joystick, 3);
     final JoystickButton jsButnRetractableLegsDown   = new JoystickButton(m_joystick, 2);
     final JoystickButton jsButnFollowLine            = new JoystickButton(m_joystick, 1);
-    final JoystickButton gpButnLEDToggle             = new JoystickButton(m_gamepad, 8); //Gamepad RT button
-    final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 7); //Gamepad LT button
+    final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 10); //Gamepad Start button
+    final JoystickButton gpButnLEDCargo              = new JoystickButton(m_gamepad, 8);  //Gamepad RT button
+    final JoystickButton gpButnLEDHatch              = new JoystickButton(m_gamepad, 7);  //Gamepad LT button
     final JoystickButton gpButnArmRetract            = new JoystickButton(m_gamepad, 6); //Gamepad RB button
     final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 5); //Gamepad LB button
     final JoystickButton gpButnCargoOut              = new JoystickButton(m_gamepad, 4); //Gamepad Y button
