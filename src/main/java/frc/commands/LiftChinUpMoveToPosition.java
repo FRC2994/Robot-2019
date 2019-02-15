@@ -9,6 +9,7 @@ package frc.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Robot;
 import frc.subsystems.Lift;
 import frc.subsystems.Lift.LiftDirection;
@@ -22,7 +23,9 @@ import frc.subsystems.Lift.LiftDirection;
 public class LiftChinUpMoveToPosition extends Command {
   private Lift m_lift = Robot.m_lift;
   private int speed;
-  private int counter;
+  private int counter = 0;
+  private final int countermax = 150;
+  boolean limitValue;
 
   /**
    * Create a new DriveStraight command.
@@ -38,19 +41,28 @@ public class LiftChinUpMoveToPosition extends Command {
   @Override
   protected void initialize() {
     m_lift.chinUpMoveToPosition(speed);
-    counter = 0;
+ 
   }
 
   // Sets a specfic time until the function stops.
   @Override
   protected void execute() {
     m_lift.chinUpMoveToPosition(speed);
-    counter = () ;
+    counter++;
+
   }
 
   @Override
   protected boolean isFinished() {
-    return counter == 0;
+    return counter == countermax;
+  }
+
+  @Override
+  protected void end() {
+  }
+
+  @Override
+  protected void interrupted() {
   }
 
 }
