@@ -10,6 +10,7 @@ package frc.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.subsystems.Subsystems;
 import frc.subsystems.DriveTrain;
+import frc.subsystems.LED;
 import frc.subsystems.LineFollower;
 import frc.subsystems.LineFollower.State;
 import frc.robot.Robot;
@@ -20,18 +21,21 @@ public class FollowLine extends Command {
   private static final double slowDownSpeed = 20;
   private static final DriveTrain drivetrain = Robot.m_drivetrain;
   private static final LineFollower lineFollower = Robot.m_lineFollower;
-  private static boolean isFinished = false;
+  private static final LED led = Robot.m_LED;
+  private boolean isFinished = false;
   State direction;
 
-  public FollowLine() {
-    // Use requires() here to declare subsystem dependencies
-    // requires(lineFollower);
+  public FollowLine(boolean isFinished) {
+    requires(lineFollower);
+    this.isFinished = isFinished;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     isFinished = false;
+    led.setLEDR(false);
+    led.setLEDB(false);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -68,6 +72,7 @@ public class FollowLine extends Command {
           drivetrain.tankDrive(averageSpeed+correctionSpeed, averageSpeed-correctionSpeed);
           isFinished = false;
           System.out.println("Going Left");
+          led.setLEDR(true);
         }
 
         else if (direction == State.rightState)
@@ -78,6 +83,7 @@ public class FollowLine extends Command {
           drivetrain.tankDrive(averageSpeed-correctionSpeed, averageSpeed+correctionSpeed);
           isFinished = false;
           System.out.println("Going Right");
+          led.setLEDB(true);
         }
 
         else if (direction == State.centreState)

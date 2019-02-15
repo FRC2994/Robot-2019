@@ -16,7 +16,7 @@ import frc.robot.Robot;
 public class controlLED extends Command {
   public int maxCount;
   public int count;
-  private static enum modeLED {FAST,SLOW,NORM, OFF};
+  private static enum modeLED {FAST,SLOW, OFF};
   private modeLED state;
   private int statusLED = 0;
   private boolean status = false;
@@ -36,8 +36,8 @@ public class controlLED extends Command {
                   break;
       case SLOW:  maxCount = 200; //2 Second
                   break;
-      case NORM:  maxCount = 50; //1 Second
-                  break;
+      // case NORM:  maxCount = 50; //1 Second
+      //             break;
       case OFF:   status = true;
                   break;
     }

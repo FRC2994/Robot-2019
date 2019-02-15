@@ -76,7 +76,8 @@ public class OI {
     // jsButnChinUpIn.whileHeld(new ());
     // jsButnRetractableLegsUp.whenPressed(new ());
     // jsButnRetractableLegsDown.whenPressed(new ());
-    // jsButnFollowLine.whileHeld(new FollowLine());
+    jsButnFollowLine.whileHeld(new FollowLine(false));
+    jsButnFollowLine.whenReleased(new FollowLine(true));
 
 
     //GAMEPAD
