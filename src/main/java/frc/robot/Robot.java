@@ -71,6 +71,7 @@ public class Robot extends TimedRobot {
 		m_gamePieces = new GamePieces();
 		m_lineFollower = new LineFollower();
 		m_arm = new Arm();
+		m_lift = new Lift();
 		CameraServer.getInstance().startAutomaticCapture();	
 		Subsystems.initialize();
 		autonomousCommand = new Autonomous();

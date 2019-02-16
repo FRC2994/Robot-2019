@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.subsystems.DriveTrain.GearShiftState;
+import frc.subsystems.Lift.LiftDirection;
 import frc.commands.Autonomous;
 import frc.commands.FollowLine;
 import frc.commands.ShiftGear;
@@ -20,6 +21,7 @@ import frc.commands.CargoShoot;
 import frc.commands.CargoStop;
 import frc.commands.ArmUpOrDown;
 import frc.commands.ArmUpOrDown.armStatus;
+import frc.commands.ChinUpIntake;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -77,8 +79,10 @@ public class OI {
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
     // jsButnChinUpRetract.whenPressed(new ());
     // jsButnChinUpForward.whenPressed(new ());
-    // jsButnChinUpOut.whileHeld(new ());
-    // jsButnChinUpIn.whileHeld(new ());
+    //jsButnChinUpOut.whileHeld(new ChinUpIntake());
+    //jsButnChinUpOut.whenReleased(new ChinUpStop());
+    //jsButnChinUpIn.whileHeld(new ChinUpOuttake());
+    //jsButnChinUpIn.whenReleased(new ChinUpStop());
     // jsButnRetractableLegsUp.whenPressed(new ());
     // jsButnRetractableLegsDown.whenPressed(new ());
     jsButnFollowLine.whileHeld(new FollowLine(false));
