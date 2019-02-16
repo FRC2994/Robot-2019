@@ -64,5 +64,6 @@ public class ArmUpOrDown extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        arm.stopMotor();
     }
 }
