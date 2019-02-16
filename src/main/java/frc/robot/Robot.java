@@ -10,6 +10,7 @@ import frc.subsystems.Subsystems;
 import frc.subsystems.GamePieces;
 import frc.subsystems.LED;
 import frc.subsystems.Lift;
+import frc.subsystems.Arm;
 import frc.robot.OI;
 
 import edu.wpi.first.cameraserver.CameraServer;
@@ -41,6 +42,9 @@ public class Robot extends TimedRobot {
 	public static GamePieces m_gamePieces;
 	public static LED m_LED;
 	public static Lift m_lift;
+	public static Arm m_arm;
+
+
 	public int ledStatus;
 	public int count;
 	public int maxCount;
@@ -70,6 +74,7 @@ public class Robot extends TimedRobot {
 		Subsystems.initialize();
 		autonomousCommand = new Autonomous();
 		m_oi = new OI();
+		m_arm = new Arm();
 	}
 
 	/**

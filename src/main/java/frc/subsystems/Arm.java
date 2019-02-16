@@ -2,7 +2,7 @@ package frc.subsystems;
 
 
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.utils.Constants;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,7 +13,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ControlType;
 
-public class Arm extends Subsystems {
+public class Arm extends Subsystem {
     private static CANSparkMax motor;
     public static enum ArmMoveDirection { HI, LO };
 
@@ -173,4 +173,9 @@ public class Arm extends Subsystems {
         kMinOutput = min; kMaxOutput = max; 
       }
     }
+
+  @Override
+  protected void initDefaultCommand() {
+
+  }
 }

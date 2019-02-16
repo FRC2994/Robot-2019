@@ -18,6 +18,8 @@ import frc.commands.ShiftGear;
 import frc.commands.CargoIntake;
 import frc.commands.CargoShoot;
 import frc.commands.CargoStop;
+import frc.commands.ArmUpOrDown;
+import frc.commands.ArmUpOrDown.armStatus;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -93,6 +95,10 @@ public class OI {
     gpButnCargoIn.whenReleased(new CargoStop());
     gpButnCargoOut.whileHeld(new CargoShoot());
     gpButnCargoOut.whenReleased(new CargoStop());
+    gpButnArmRetract.whileHeld(new ArmUpOrDown(armStatus.BACKWARD));
+    gpButnArmRetract.whenReleased(new ArmUpOrDown(armStatus.OFF));
+    gpButnArmForward.whileHeld(new ArmUpOrDown(armStatus.FORWARD));
+    gpButnArmForward.whenReleased(new ArmUpOrDown(armStatus.OFF));
     //gpButnPushHatch.whenPressed(new ());
     //gpButnHoldHatch.whenPressed(new ());
   }
