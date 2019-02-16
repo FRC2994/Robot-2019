@@ -128,9 +128,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testInit() {
 		Subsystems.testInit();
-//		LEDR.set(true);
-//		LEDG.set(true);
-//		LEDB.set(true);
+		m_LED.setLEDR(true);
+		m_LED.setLEDG(true);
+		m_LED.setLEDB(true);
 	}
 
 	/**

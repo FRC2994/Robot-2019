@@ -41,7 +41,6 @@ public class LiftChinUpMoveToPosition extends Command {
   @Override
   protected void initialize() {
     m_lift.chinUpMoveToPosition(speed);
- 
   }
 
   // Sets a specfic time until the function stops.
@@ -49,7 +48,6 @@ public class LiftChinUpMoveToPosition extends Command {
   protected void execute() {
     m_lift.chinUpMoveToPosition(speed);
     counter++;
-
   }
 
   @Override
