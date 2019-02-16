@@ -41,8 +41,9 @@ public class Robot extends TimedRobot {
 	public static GamePieces m_gamePieces;
 	public static LED m_LED;
 	public static Lift m_lift;
-
-	Ultrasonic USsensor = new Ultrasonic(20, 19);
+	public int ledStatus;
+	public int count;
+	public int maxCount;
 
 	// private static String gameSpecificData = "%NOT POLLED";
 
@@ -69,7 +70,6 @@ public class Robot extends TimedRobot {
 		Subsystems.initialize();
 		autonomousCommand = new Autonomous();
 		m_oi = new OI();
-		USsensor.setAutomaticMode(true);
 	}
 
 	/**
@@ -124,13 +124,12 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		// m_lineFollower.run();
 	}
-
 	@Override
 	public void testInit() {
 		Subsystems.testInit();
-		m_LED.setLEDR(true);
-		m_LED.setLEDG(true);
-		m_LED.setLEDB(true);
+		ledStatus = 0;
+		count = 0;
+		maxCount = 25;
 	}
 
 	/**
@@ -139,5 +138,25 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+		if(count == maxCount){
+			if(ledStatus == 0) {
+				m_LED.setLEDR(true);
+				m_LED.setLEDB(false);
+				m_LED.setLEDG(false);
+				ledStatus = 1;
+			} else if (ledStatus == 1) {
+				m_LED.setLEDR(false);
+				m_LED.setLEDB(true);
+				m_LED.setLEDG(false);
+				ledStatus = 2;
+			} else if (ledStatus == 2) {
+				m_LED.setLEDR(false);
+				m_LED.setLEDB(false);
+				m_LED.setLEDG(true);
+				ledStatus = 0;
+			}
+			count = 0;
+		  }
+		count = count + 1;
 	}
 }

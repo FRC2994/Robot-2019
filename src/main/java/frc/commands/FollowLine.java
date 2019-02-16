@@ -22,7 +22,7 @@ public class FollowLine extends Command {
   private static final DriveTrain drivetrain = Robot.m_drivetrain;
   private static final LineFollower lineFollower = Robot.m_lineFollower;
   private static final LED led = Robot.m_LED;
-  private boolean isFinished = false;
+  private static boolean isFinished = false;
   State direction;
 
   public FollowLine(boolean isFinished) {
