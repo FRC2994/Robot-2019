@@ -70,11 +70,11 @@ public class Robot extends TimedRobot {
 		m_LED = new LED();
 		m_gamePieces = new GamePieces();
 		m_lineFollower = new LineFollower();
+		m_arm = new Arm();
 		CameraServer.getInstance().startAutomaticCapture();	
 		Subsystems.initialize();
 		autonomousCommand = new Autonomous();
 		m_oi = new OI();
-		m_arm = new Arm();
 	}
 
 	/**

@@ -10,23 +10,23 @@ package frc.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.subsystems.Arm;
+import frc.subsystems.LineFollower.State;
 
 public class ArmUpOrDown extends Command {
     public static enum armStatus {FORWARD, BACKWARD, OFF};
     private static final Arm arm = Robot.m_arm;
-    public static armStatus status;
+    public armStatus state;
     private boolean armFinished;
 
-    public ArmUpOrDown(armStatus status) {
-        // Use requires() here to declare subsystem dependencies
+    public ArmUpOrDown(armStatus state) {
         requires(arm);
-        this.status = status;
+        this.state = state;
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        if (status == armStatus.OFF) {
+        if (state == armStatus.OFF) {
             armFinished = true;
         }
         else {
@@ -37,10 +37,10 @@ public class ArmUpOrDown extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (status == armStatus.FORWARD) {
+        if (state == armStatus.FORWARD) {
             arm.moveUp();
         }
-        else if (status == armStatus.BACKWARD) {
+        else if (state == armStatus.BACKWARD) {
             arm.moveDown();
         }
         else {

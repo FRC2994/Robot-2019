@@ -23,7 +23,7 @@ public class Arm extends Subsystem {
     private int startPosition = 0;
     private int desiredPosition = 0;
     private static final int arm_position_increment = 100;
-    public DigitalInput LimitArmTop;
+    public DigitalInput LimitArmTop = new DigitalInput(Constants.DIO_ARM_LIMIT_BOTTOM);
     private boolean printedZeroing;
     private final double kOutputRange = 1000;
   
@@ -31,7 +31,6 @@ public class Arm extends Subsystem {
   
       // initialize motor
       motor = new CANSparkMax(Constants.CAN_ARM, MotorType.kBrushless);
-      LimitArmTop = new DigitalInput(Constants.DIO_ARM_LIMIT_BOTTOM);
       /**
        * In order to use PID functionality for a controller, a CANPIDController object
        * is constructed by calling the getPIDController() method on an existing
