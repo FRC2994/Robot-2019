@@ -45,8 +45,9 @@ public class OI {
     SmartDashboard.putData("Deliver Soda", new Autonomous());
 
     // Create some buttons
-    final JoystickButton jsButnCalibrate             = new JoystickButton(m_joystick, 11);
+    final JoystickButton jsButnClimb                 = new JoystickButton(m_joystick, 11);
     final JoystickButton jsButnRecord                = new JoystickButton(m_joystick, 10);
+    final JoystickButton jsButnCalibrate             = new JoystickButton(m_joystick, 9);
     final JoystickButton jsButnShifter               = new JoystickButton(m_joystick, 8);
     final JoystickButton jsButnChinUpRetract         = new JoystickButton(m_joystick, 7);
     final JoystickButton jsButnChinUpForward         = new JoystickButton(m_joystick, 6);
@@ -58,17 +59,18 @@ public class OI {
     final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 10); //Gamepad Start button
     final JoystickButton gpButnLEDCargo              = new JoystickButton(m_gamepad, 8);  //Gamepad RT button
     final JoystickButton gpButnLEDHatch              = new JoystickButton(m_gamepad, 7);  //Gamepad LT button
-    final JoystickButton gpButnArmRetract            = new JoystickButton(m_gamepad, 6); //Gamepad RB button
-    final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 5); //Gamepad LB button
-    final JoystickButton gpButnCargoOut              = new JoystickButton(m_gamepad, 4); //Gamepad Y button
-    final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 3); //Gamepad B button
-    final JoystickButton gpButnPushHatch             = new JoystickButton(m_gamepad, 2); //Gamepad A button
-    final JoystickButton gpButnHoldHatch             = new JoystickButton(m_gamepad, 1); //Gamepad X button
+    final JoystickButton gpButnArmRetract            = new JoystickButton(m_gamepad, 6);  //Gamepad RB button
+    final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 5);  //Gamepad LB button
+    final JoystickButton gpButnCargoOut              = new JoystickButton(m_gamepad, 4);  //Gamepad Y button
+    final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 3);  //Gamepad B button
+    final JoystickButton gpButnPushHatch             = new JoystickButton(m_gamepad, 2);  //Gamepad A button
+    final JoystickButton gpButnHoldHatch             = new JoystickButton(m_gamepad, 1);  //Gamepad X button
 
 
     /* Connect the buttons to commands */
     
     //JOYSTICK
+    // jsButnClimb.whenPressed(new ())
     jsButnShifter.whenPressed(new ShiftGear(GearShiftState.HI));
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
     // jsButnChinUpRetract.whenPressed(new ());
@@ -82,8 +84,9 @@ public class OI {
 
 
     //GAMEPAD
-    //gpButnLEDToggle.toggleWhenPressed(new ());
     //gpButnLEDOff.whenPressed(new ());
+    //gpButnLEDCargo.whenPressed(new ());
+    //gpButnLEDHatch.whenPressed(new ());
     //gpButnArmRetract.whileHeld(new ());
     //gpButnArmForward.whileHeld(new ());
     gpButnCargoIn.whileHeld(new CargoIntake());
