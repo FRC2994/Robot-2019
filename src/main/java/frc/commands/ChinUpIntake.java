@@ -13,32 +13,24 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.utils.Constants;
 import frc.subsystems.Arm;
 
-public class ChinUpIntake extends InstantCommand {
-    private static final Arm ARM = ;
-    boolean limitValue;
-    int status;
-    JoystickButton(m_joystick, 4)
-    public ChinUpIntake() {
-      requires(ARM);
-    }
+// public class ChinUpIntake extends InstantCommand {
+//     private static final Arm ARM = ;
+//     boolean limitValue;
+//     int status;
+//     public ChinUpIntake() {
+//       requires(ARM);
+//     }
   
-    // Called just before this Command runs the first time
-    @Override
-    protected void initialize() {
-        if (ARM.buttonGet() == true){
-            cargo.wheelStop();
-        }
-        
-        else {
-        cargo.wheelIntake();
-        System.out.println("INTAKING");
-        }
-    }   
+//     // Called just before this Command runs the first time
+//     @Override
+//     protected void initialize() {
+//         }
+//     }   
 
 
 
-     }
-    }
+//      }
+//     }
 
 
 
@@ -51,4 +43,4 @@ public class ChinUpIntake extends InstantCommand {
 
 
 
-}
+// }
