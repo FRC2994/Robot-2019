@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.subsystems.DriveTrain.GearShiftState;
-import frc.subsystems.Lift.LiftDirection;
 import frc.commands.Autonomous;
 import frc.commands.FollowLine;
 import frc.commands.ShiftGear;
@@ -21,6 +20,7 @@ import frc.commands.CargoShoot;
 import frc.commands.CargoStop;
 import frc.commands.ArmUpOrDown;
 import frc.commands.ArmUpOrDown.armStatus;
+import frc.commands.ChinUpIntake.IntakeStatus;
 import frc.commands.ChinUpIntake;
 
 /**
@@ -79,10 +79,10 @@ public class OI {
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
     // jsButnChinUpRetract.whenPressed(new ());
     // jsButnChinUpForward.whenPressed(new ());
-    //jsButnChinUpOut.whileHeld(new ChinUpIntake());
-    //jsButnChinUpOut.whenReleased(new ChinUpStop());
-    //jsButnChinUpIn.whileHeld(new ChinUpOuttake());
-    //jsButnChinUpIn.whenReleased(new ChinUpStop());
+    jsButnChinUpOut.whileHeld(new ChinUpIntake(IntakeStatus.INTAKE));
+    jsButnChinUpOut.whenReleased(new ChinUpIntake(IntakeStatus.OFF));
+    jsButnChinUpIn.whileHeld(new ChinUpIntake(IntakeStatus.OUTTAKE));
+    jsButnChinUpIn.whenReleased(new ChinUpIntake(IntakeStatus.OFF));
     // jsButnRetractableLegsUp.whenPressed(new ());
     // jsButnRetractableLegsDown.whenPressed(new ());
     jsButnFollowLine.whenPressed(new FollowLine(true));

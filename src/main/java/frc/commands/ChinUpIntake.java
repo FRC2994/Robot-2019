@@ -10,41 +10,36 @@ package frc.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 import frc.subsystems.Lift;
-import frc.subsystems.Lift.LiftDirection;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.utils.Constants;
 
 
 public class ChinUpIntake extends InstantCommand {
+    public static enum IntakeStatus {INTAKE, OUTTAKE, OFF};
     private static final Lift ChinUpIntake = Robot.m_lift;
+    public IntakeStatus state;
     boolean limitValue;
     int status;
     
-    private LiftDirection direction;
-    public ChinUpIntake(LiftDirection direction) {
-      this.direction = direction;
-    }
-    
+public ChinUpIntake(IntakeStatus state) {
+    requires(ChinUpIntake);
+    this.state = state;
+}
+
 // Called just before this Command runs the first time
-
-    @Override
-    protected void initialize() {
-        if (direction == LiftDirection.UP){
-            ChinUpIntake.wheelIntake();
-            System.out.println("CHINUP INTAKING");
-        }
-        
-        else {
+@Override
+protected void initialize() {
+    if (state == IntakeStatus.INTAKE) {
+        ChinUpIntake.wheelIntake();
+        System.out.println("CHINUP INTAKING");
+    }
+    else if (state == IntakeStatus.OUTTAKE) {
+        ChinUpIntake.wheelOuttake();
+        System.out.println("CHINUP OUTTAKING");
+    }
+    else {
         ChinUpIntake.wheelStop();
+        System.out.println("CHINUP STOPPING");
         }
-    
-        if (direction == LiftDirection.DN){
-            ChinUpIntake.wheelOuttake();
-            System.out.println("CHINUP OUTTAKING");
-        }
-
-        else {
-        ChinUpIntake.wheelStop();
-        }
-    }     
+    }
 }
