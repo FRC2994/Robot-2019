@@ -158,7 +158,7 @@ public class DriveTrain extends Subsystem{
 	
 	public void arcadeDrive(Joystick driveJoystick) {
         if (!stopArcadeDrive) {
-			differentialDrive.arcadeDrive(driveJoystick.getY(),driveJoystick.getX());
+			differentialDrive.arcadeDrive(driveJoystick.getY(),-driveJoystick.getX());
 		}
 	}
 	
@@ -240,16 +240,6 @@ public class DriveTrain extends Subsystem{
 		//  		getFrontLeftMotor().getMotorOutputVoltage() + "\t" + getFrontRightMotor().getMotorOutputVoltage() + 
 		//  		"\t" + getLeftEncoderValue() + "\t" + getRightEncoderValue() + "\t" + getHeading() + "\t");
 	}
-
-   /**
-    * Tank style driving for the DriveTrain.
-    *
-    * @param left Speed in range [-1,1]
-    * @param right Speed in range [-1,1]
-    */
-    public void drive(double left, double right) {
-		differentialDrive.tankDrive(left, right);
-    }
 
    /**
     * Get the robot's heading.
