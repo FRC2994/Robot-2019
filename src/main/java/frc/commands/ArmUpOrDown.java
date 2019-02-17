@@ -10,14 +10,14 @@ package frc.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.subsystems.Arm;
-import frc.subsystems.LineFollower.State;
+import frc.utils.Constants;
 
 public class ArmUpOrDown extends Command {
     public static enum armStatus {FORWARD, BACKWARD, OFF};
     private static final Arm arm = Robot.m_arm;
     public armStatus state;
     private boolean armFinished;
-
+    
     public ArmUpOrDown(armStatus state) {
         requires(arm);
         this.state = state;
@@ -38,13 +38,14 @@ public class ArmUpOrDown extends Command {
     @Override
     protected void execute() {
         if (state == armStatus.FORWARD) {
-            arm.setMotorOpenLoop(1);
+            arm.setMotorOpenLoop(0.5);
+            // System.out.println("FORWARD");
         }
         else if (state == armStatus.BACKWARD) {
-            arm.setMotorOpenLoop(-1);
+            arm.setMotorOpenLoop(-0.5);
         }
         else {
-            arm.stopMotor();
+            armFinished = true;
         }
     }
 
@@ -64,6 +65,5 @@ public class ArmUpOrDown extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
-        arm.stopMotor();
     }
 }

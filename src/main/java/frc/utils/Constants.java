@@ -15,7 +15,7 @@ public class Constants
 	public static final int CAN_LEFT_REAR_DRIVE        = 4;
 	public static final int CAN_CHINUP_WHEEL_INTAKE    = 5;
 	public static final int CAN_CHINUP_ARM             = 6;
-	public static final int CAN_ARM                    = 9;
+	public static final int CAN_ARM                    = 10;
 	public static final int CAN_WHEEL_INTAKE           = 2;
 
 	// PCM (Solenoid, LEDs, etc...)
