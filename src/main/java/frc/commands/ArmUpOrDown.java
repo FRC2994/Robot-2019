@@ -38,10 +38,10 @@ public class ArmUpOrDown extends Command {
     @Override
     protected void execute() {
         if (state == armStatus.FORWARD) {
-            arm.setMotorOpenLoop(0.9);
+            arm.setMotorOpenLoop(1);
         }
         else if (state == armStatus.BACKWARD) {
-            arm.setMotorOpenLoop(0.9);
+            arm.setMotorOpenLoop(-1);
         }
         else {
             arm.stopMotor();

@@ -87,7 +87,7 @@ public class FollowLine extends Command {
           //disable control from joystick
           drivetrain.setStopArcadeDrive(true);
           //Keep robot going straight with same speed on both motors
-          drivetrain.tankDrive(averageSpeed, averageSpeed);
+          drivetrain.tankDrive(0.5, 0.5);
           System.out.println("Going Straight");
         }
 
