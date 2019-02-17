@@ -13,15 +13,15 @@ public class Constants
 	public static final int CAN_RIGHT_REAR_DRIVE       = 7;
 	public static final int CAN_LEFT_FRONT_DRIVE       = 3;
 	public static final int CAN_LEFT_REAR_DRIVE        = 4;
-	public static final int CAN_CHINUP_PULL            = 5;
-	public static final int CAN_CHINUP_ROTATION        = 6;
+	public static final int CAN_CHINUP_WHEEL_INTAKE    = 5;
+	public static final int CAN_CHINUP_ARM             = 6;
 	public static final int CAN_ARM                    = 9;
 	public static final int CAN_WHEEL_INTAKE           = 2;
-    public static final int CAN_CHINUP_WHEEL_INTAKE    = 10; 
 
 	// PCM (Solenoid, LEDs, etc...)
 	public static final int PCM_GEAR_SHIFT                 = 0;
 	public static final int PCM_RETRACTABLE_LEGS           = 1;
+	//public static final int PCM_                         = 2; (TBD)
 	public static final int PCM_HATCH_FINGER               = 3;
 	public static final int PCM_HATCH_PISTON               = 4; 
 	public static final int PCM_LED_R                      = 5;

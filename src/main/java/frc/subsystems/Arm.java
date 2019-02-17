@@ -1,48 +1,36 @@
 package frc.subsystems;
 
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.utils.Constants.*;
-import frc.utils.Constants;
-import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.PWM;
 
-import edu.wpi.first.wpilibj.TimedRobot;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.utils.Constants;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.IMotorController;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ControlType;
-import frc.robot.Robot;
 
-public class Arm extends Subsystems {
+public class Arm extends Subsystem {
     private static CANSparkMax motor;
+    public static enum ArmMoveDirection { HI, LO };
 
     private CANPIDController m_pidController;
     private CANEncoder m_encoder;
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
     private int startPosition = 0;
-    private int positionInTicks = 0;
-    private static final int arm_position_increment = 0;
-    public DigitalInput LimitArmTop;
+    private int desiredPosition = 0;
+    private static final int arm_position_increment = 100;
+    public DigitalInput LimitArmTop = new DigitalInput(Constants.DIO_ARM_LIMIT_BOTTOM);
     private boolean printedZeroing;
-    private double kOutputRange;
+    private final double kOutputRange = 1000;
   
     public Arm() {
   
       // initialize motor
       motor = new CANSparkMax(Constants.CAN_ARM, MotorType.kBrushless);
-      LimitArmTop = new DigitalInput(Constants.DIO_ARM_LIMIT_BOTTOM);
       /**
        * In order to use PID functionality for a controller, a CANPIDController object
        * is constructed by calling the getPIDController() method on an existing
@@ -57,7 +45,7 @@ public class Arm extends Subsystems {
       setPIDCoefficients(0);
     }
     
-    // direction = 0 for down, 11 for up
+    // direction = 0 for down, 1 for up
     private void setPIDCoefficients(int direction) {
       // PID coefficients
       kP = 0.1; 
@@ -84,7 +72,6 @@ public class Arm extends Subsystems {
       SmartDashboard.putNumber("Feed Forward", kFF);
       SmartDashboard.putNumber("Max Output", kMaxOutput);
       SmartDashboard.putNumber("Min Output", kMinOutput);
-      SmartDashboard.putNumber("Set Rotations", 0);
     }
 
     public void setMotorOpenLoop(double percent) {
@@ -93,7 +80,7 @@ public class Arm extends Subsystems {
       motor.set(percent);
     }
   
-    private void setPosition(int positionInTicks) {
+    public void setPosition(int positionInTicks) {
       
       // if (positionInTicks < 50 && positionInTicks < this.positionInTicks) {
       //			positionInTicks = 50;
@@ -101,15 +88,14 @@ public class Arm extends Subsystems {
       //		System.out.println("Trying to move Arm in Closed Loop... currentPosition " + getDesiredPosition() 
       //			+ " encPos "  + getDesiredPosition() + " positionInTicks " + positionInTicks + ".");
       //		System.out.println("New desired: " + (positionInTicks + startPosition));
-      double desiredPostion = positionInTicks + startPosition;
-      motor.set(desiredPostion);
-      m_pidController.setOutputRange(desiredPostion - kOutputRange, desiredPostion + kOutputRange);
-      m_pidController.setReference(desiredPostion, ControlType.kPosition);
-      this.positionInTicks = positionInTicks;
+      desiredPosition = positionInTicks + startPosition;
+      motor.set(desiredPosition);
+      m_pidController.setReference(desiredPosition, ControlType.kPosition);
+      m_pidController.setOutputRange(desiredPosition - kOutputRange, desiredPosition + kOutputRange);
     }
 
     public int getDesiredPosition() {
-      return positionInTicks;
+      return desiredPosition;
     }
     
     public int getRealPosition() {
@@ -186,4 +172,9 @@ public class Arm extends Subsystems {
         kMinOutput = min; kMaxOutput = max; 
       }
     }
+
+  @Override
+  protected void initDefaultCommand() {
+
+  }
 }

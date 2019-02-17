@@ -9,27 +9,29 @@
 // public class DrivePlatform extends CommandGroup
 // {
 //     public DrivePlatform() {
-//         addSequential(new DriveStaight(DriveStaight));
-//    //     addParallel(new /*lower legs*/());
-//         addSequential(new DriveStaight(DrivePlatform));
-//    //     addParallel(new /*lower chin up method*/());
-//         addSequential(new DriveStaight(DriveStaight));
+//       addSequential(new DriveStaight(DriveStaight));
+//       addParallel(new LiftLegsUpOrDown());
+//       addSequential(new DriveStaight(DrivePlatform));
+//       addParallel(new LiftChinUpMoveToPosition());
+//       addSequential(new DriveStaight(DriveStaight));
 //     }
 
-//     // public DrivePlatform() {
-//     //     requires(Robot.DriveTrain.DriveStaight);
-//     //     setTimeout();
-//     // }
+//     public DrivePlatform() {
+//       requires(Robot.DriveTrain.DriveStaight);
+//       setTimeout();
+//     }
     
-//     // protected void initialize() {
-//     // }
+//     protected void initialize() {
+//     }
     
-//     // protected void excute() {
-//     // }
+//     protected void excute() {
+//     }
 
-//     // protected boolean isFinished {
-//     //     return isTimedOut();
-//     // }
+//     protected boolean isFinished() {
+//         return isTimedOut();
+//     }
 
-//     // protected void interrupted{}
+//     protected void interrupted() {
+
+//     }
 // }

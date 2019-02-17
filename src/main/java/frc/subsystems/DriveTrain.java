@@ -163,7 +163,7 @@ public class DriveTrain extends Subsystem{
 	}
 	
 	public void tankDrive(double leftSpeed, double rightSpeed) {
-		differentialDrive.tankDrive(leftSpeed, rightSpeed);
+		differentialDrive.tankDrive(-leftSpeed, -rightSpeed);
 	}
 	
 	
@@ -252,15 +252,6 @@ public class DriveTrain extends Subsystem{
     }
 
    /**
-    * Tank style driving for the DriveTrain.
-    *
-    * @param joy The ps3 style joystick to use to drive tank style.
-    */
-    public void drive(Joystick joy) {
-		differentialDrive.arcadeDrive(joy.getY(),joy.getX());
-    }
-
-   /**
     * Get the robot's heading.
     *
     * @return The robots heading in degrees.
@@ -279,6 +270,8 @@ public class DriveTrain extends Subsystem{
 		stopArcadeDrive = false;
 		rightRearDrive.setInverted(false);
 		rightFrontDrive.setInverted(false);
+		// rightRearDrive.setInverted(true);
+		// rightFrontDrive.setInverted(true);
 		setBrakeCoast(BrakeCoastStatus.BRAKE);
 		setGear(GearShiftState.LO);
 		zero();

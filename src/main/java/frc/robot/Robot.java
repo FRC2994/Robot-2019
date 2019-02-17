@@ -10,6 +10,7 @@ import frc.subsystems.Subsystems;
 import frc.subsystems.GamePieces;
 import frc.subsystems.LED;
 import frc.subsystems.Lift;
+import frc.subsystems.Arm;
 import frc.robot.OI;
 
 import edu.wpi.first.cameraserver.CameraServer;
@@ -41,8 +42,12 @@ public class Robot extends TimedRobot {
 	public static GamePieces m_gamePieces;
 	public static LED m_LED;
 	public static Lift m_lift;
+	public static Arm m_arm;
 
-	Ultrasonic USsensor = new Ultrasonic(20, 19);
+
+	public int ledStatus;
+	public int count;
+	public int maxCount;
 
 	// private static String gameSpecificData = "%NOT POLLED";
 
@@ -65,11 +70,12 @@ public class Robot extends TimedRobot {
 		m_LED = new LED();
 		m_gamePieces = new GamePieces();
 		m_lineFollower = new LineFollower();
-		CameraServer.getInstance().startAutomaticCapture();	
+		m_arm = new Arm();
+		m_lift = new Lift();
+		// CameraServer.getInstance().startAutomaticCapture();	
 		Subsystems.initialize();
 		autonomousCommand = new Autonomous();
 		m_oi = new OI();
-		USsensor.setAutomaticMode(true);
 	}
 
 	/**
@@ -122,16 +128,14 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		// m_lineFollower.run();
-		System.out.println(USsensor.getRangeInches());
+		// m_lineFollower.debugUS();
 	}
-
 	@Override
 	public void testInit() {
 		Subsystems.testInit();
-//		LEDR.set(true);
-//		LEDG.set(true);
-//		LEDB.set(true);
+		ledStatus = 0;
+		count = 0;
+		maxCount = 25;
 	}
 
 	/**
@@ -140,5 +144,25 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+		if(count == maxCount){
+			if(ledStatus == 0) {
+				m_LED.setLEDR(true);
+				m_LED.setLEDB(false);
+				m_LED.setLEDG(false);
+				ledStatus = 1;
+			} else if (ledStatus == 1) {
+				m_LED.setLEDR(false);
+				m_LED.setLEDB(true);
+				m_LED.setLEDG(false);
+				ledStatus = 2;
+			} else if (ledStatus == 2) {
+				m_LED.setLEDR(false);
+				m_LED.setLEDB(false);
+				m_LED.setLEDG(true);
+				ledStatus = 0;
+			}
+			count = 0;
+		  }
+		count = count + 1;
 	}
 }

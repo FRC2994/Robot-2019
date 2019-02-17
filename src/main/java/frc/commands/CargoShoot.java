@@ -8,10 +8,11 @@
 package frc.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 import frc.subsystems.GamePieces;
 
-public class CargoShoot extends Command {
+public class CargoShoot extends InstantCommand {
   private static final GamePieces cargo = Robot.m_gamePieces;
 
   public CargoShoot() {
@@ -22,31 +23,7 @@ public class CargoShoot extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-      //cargo.wheelIntake();
-      System.out.println("INTAKING");
-  }
-
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    // cargo.wheelStop();
-    return false;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-    System.out.println("STOP");
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
+    cargo.wheelShoot();
+    System.out.println("SHOOT");
   }
 }
