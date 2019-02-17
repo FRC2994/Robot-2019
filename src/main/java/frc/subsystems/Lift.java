@@ -168,13 +168,13 @@ public class Lift extends Subsystem {
   }
 
   //CHIN UP WHEEL INTAKE
-  private static final double cargoMotorSpeed = 0.5;
+  private static final double ChinUpMotorSpeed = 0.5;
 
   public void wheelIntake() {
-    ChinUpIntake.set(ControlMode.PercentOutput, cargoMotorSpeed);
+    ChinUpIntake.set(ControlMode.PercentOutput, ChinUpMotorSpeed);
   }
   public void wheelOuttake() { 
-    ChinUpIntake.set(ControlMode.PercentOutput, -cargoMotorSpeed);
+    ChinUpIntake.set(ControlMode.PercentOutput, -ChinUpMotorSpeed);
   }
   public void wheelStop() {
     ChinUpIntake.set(ControlMode.PercentOutput, 0);
