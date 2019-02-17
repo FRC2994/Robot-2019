@@ -72,7 +72,7 @@ public class Robot extends TimedRobot {
 		m_lineFollower = new LineFollower();
 		m_arm = new Arm();
 		m_lift = new Lift();
-		CameraServer.getInstance().startAutomaticCapture();	
+		// CameraServer.getInstance().startAutomaticCapture();	
 		Subsystems.initialize();
 		autonomousCommand = new Autonomous();
 		m_oi = new OI();
@@ -128,7 +128,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		// m_lineFollower.run();
+		// m_lineFollower.debugUS();
 	}
 	@Override
 	public void testInit() {

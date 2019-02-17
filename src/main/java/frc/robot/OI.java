@@ -29,7 +29,7 @@ import frc.commands.ChinUpIntake;
  */
 public class OI {
   private final Joystick m_joystick = new Joystick(0);
-  private final Joystick m_gamepad = new Joystick(2);
+  private final Joystick m_gamepad = new Joystick(1);
 
 /**
    * Construct the OI and all of the buttons on it.
@@ -85,8 +85,8 @@ public class OI {
     //jsButnChinUpIn.whenReleased(new ChinUpStop());
     // jsButnRetractableLegsUp.whenPressed(new ());
     // jsButnRetractableLegsDown.whenPressed(new ());
-    jsButnFollowLine.whileHeld(new FollowLine(false));
-    jsButnFollowLine.whenReleased(new FollowLine(true));
+    jsButnFollowLine.whenPressed(new FollowLine(true));
+    jsButnFollowLine.whenReleased(new FollowLine(false));
 
 
     //GAMEPAD
