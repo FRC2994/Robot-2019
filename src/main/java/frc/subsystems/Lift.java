@@ -18,7 +18,7 @@ public class Lift extends Subsystem {
   public static enum LiftPushPullDirection { Push, DN };
   DigitalInput limitChinUp;
   TalonSRX ChinUpArm;
-  VictorSPX ChinUpIntake;
+  VictorSPX LiftChinUpIntake;
   Solenoid Legs;
   int startPosition;
   int desiredPosition;
@@ -27,16 +27,16 @@ public class Lift extends Subsystem {
   public Lift() {
     limitChinUp = new DigitalInput(Constants.DIO_CHINUP_LIMIT_BOTTOM);
     ChinUpArm = new TalonSRX(Constants.CAN_CHINUP_ARM);
-    ChinUpIntake = new VictorSPX(Constants.CAN_CHINUP_WHEEL_INTAKE);
+    LiftChinUpIntake = new VictorSPX(Constants.CAN_CHINUP_WHEEL_INTAKE);
     Solenoid Legs = new Solenoid(Constants.PCM_RETRACTABLE_LEGS);
     ChinUpArm.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);    
   
     System.out.println("Lift Subsystem activated! ");
   }
 
-  //CHIN UP BAR
+   //CHIN UP BAR
 
-  private void armSetPIDCoefficients(LiftDirection dir) {
+   private void armSetPIDCoefficients(LiftDirection dir) {
     if (dir == LiftDirection.UP) {
       /* set closed loop gains in slot0, typically kF stays zero. */
       ChinUpArm.config_kF(0, 0.0, 0);
@@ -85,19 +85,6 @@ public class Lift extends Subsystem {
 		}
     ChinUpArm.set(ControlMode.Position, position);
     this.desiredPosition = position;
-  }
-
-  public void chinUpMoveIncremental(LiftDirection dir) {
-    if (limitChinUp.get()) {
-      setPIDCoefficients(dir);
-      if (dir == LiftDirection.UP) {
-        chinUpSetPosition(getCurrentPosition() + chinUpPositionIncrement);
-      } else {
-        chinUpSetPosition(getCurrentPosition() - chinUpPositionIncrement);
-      }
-    } else {
-      chinUpSetPosition(0);
-    }
   }
 
   public void chinUpMoveToPosition(int desiredPostion) {

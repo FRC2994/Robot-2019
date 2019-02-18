@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.utils.Constants;
 
 
-public class LiftChinUpIntake extends InstantCommand {
+public class LiftLiftChinUpIntake extends InstantCommand {
     public static enum IntakeStatus {INTAKE, OUTTAKE, OFF};
-    private static final Lift LiftChinUpIntake = Robot.m_lift;
+    private static final Lift LiftLiftChinUpIntake = Robot.m_lift;
     public IntakeStatus state;
     public IntakeStatus position;
     boolean limitValue;
@@ -24,19 +24,19 @@ public class LiftChinUpIntake extends InstantCommand {
     private final double defaultSpeed = 0.5;
     private boolean openLoopMode = true;
     
-public LiftChinUpIntake(IntakeStatus state) {
-    requires(LiftChinUpIntake);
+public LiftLiftChinUpIntake(IntakeStatus state) {
+    requires(LiftLiftChinUpIntake);
     this.state = state;
     openLoopMode = true;
 }
 
-public LiftChinUpIntake(double position) {
-    requires(LiftChinUpIntake);
+public LiftLiftChinUpIntake(double position) {
+    requires(LiftLiftChinUpIntake);
     openLoopMode = false;
 }
 
-public LiftChinUpIntake() {
-    requires(LiftChinUpIntake);
+public LiftLiftChinUpIntake() {
+    requires(LiftLiftChinUpIntake);
     openLoopMode = false;
 }
 
@@ -45,28 +45,28 @@ public LiftChinUpIntake() {
 protected void initialize() {
     if (openLoopMode) {
         if (state == IntakeStatus.INTAKE) {
-            LiftChinUpIntake.chinUpMoveOpenLoop(defaultSpeed);
+            LiftLiftChinUpIntake.chinUpMoveOpenLoop(defaultSpeed);
             System.out.println("CHINUP INTAKING");
         }
         else if (state == IntakeStatus.OUTTAKE) {
-            LiftChinUpIntake.chinUpMoveOpenLoop(-defaultSpeed);
+            LiftLiftChinUpIntake.chinUpMoveOpenLoop(-defaultSpeed);
             System.out.println("CHINUP OUTTAKING");
         }
         else {
-            LiftChinUpIntake.chinUpMoveOpenLoop(0);
+            LiftLiftChinUpIntake.chinUpMoveOpenLoop(0);
             System.out.println("CHINUP STOPPING");
         }
      } else {
         if (position == IntakeStatus.INTAKE) {
-            LiftChinUpIntake.chinUpMoveOpenLoop(defaultSpeed);
+            LiftLiftChinUpIntake.chinUpMoveOpenLoop(defaultSpeed);
             System.out.println("CHINUP INTAKING");
         }
         else if (position == IntakeStatus.OUTTAKE) {
-            LiftChinUpIntake.chinUpMoveOpenLoop(-defaultSpeed);
+            LiftLiftChinUpIntake.chinUpMoveOpenLoop(-defaultSpeed);
             System.out.println("CHINUP OUTTAKING");
         }
         else {
-            LiftChinUpIntake.chinUpMoveOpenLoop(0);
+            LiftLiftChinUpIntake.chinUpMoveOpenLoop(0);
             System.out.println("CHINUP STOPPING");
         }
     
