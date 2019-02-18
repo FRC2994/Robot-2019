@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.utils.Constants;
 
 
-public class LiftLiftChinUpIntake extends InstantCommand {
+public class LiftChinUpIntake extends InstantCommand {
     public static enum IntakeStatus {INTAKE, OUTTAKE, OFF};
     private static final Lift LiftLiftChinUpIntake = Robot.m_lift;
     public IntakeStatus state;
@@ -24,18 +24,18 @@ public class LiftLiftChinUpIntake extends InstantCommand {
     private final double defaultSpeed = 0.5;
     private boolean openLoopMode = true;
     
-public LiftLiftChinUpIntake(IntakeStatus state) {
+public LiftChinUpIntake(IntakeStatus state) {
     requires(LiftLiftChinUpIntake);
     this.state = state;
     openLoopMode = true;
 }
 
-public LiftLiftChinUpIntake(double position) {
+public LiftChinUpIntake(double position) {
     requires(LiftLiftChinUpIntake);
     openLoopMode = false;
 }
 
-public LiftLiftChinUpIntake() {
+public LiftChinUpIntake() {
     requires(LiftLiftChinUpIntake);
     openLoopMode = false;
 }
