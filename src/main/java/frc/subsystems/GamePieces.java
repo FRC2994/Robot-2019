@@ -10,8 +10,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 public class GamePieces extends Subsystem{
-    Solenoid hatch = new Solenoid(Constants.PCM_HATCH_PISTON);
-    DoubleSolenoid finger = new DoubleSolenoid(Constants.PCM_HATCH_FINGER,Constants.PCM_HATCH_PISTON);
+    DoubleSolenoid hatch = new DoubleSolenoid(Constants.PCM_HATCH_PISTON1,Constants.PCM_HATCH_PISTON2);
+    Solenoid finger = new Solenoid(Constants.PCM_HATCH_FINGER);
     VictorSPX cargo = new VictorSPX(Constants.CAN_WHEEL_INTAKE);
     DigitalInput cargoLimit = new DigitalInput(Constants.DIO_WHEEL_INTAKE_LIMIT);
 
@@ -44,16 +44,16 @@ public class GamePieces extends Subsystem{
 
     // //HATCH CONTROL
     public void fingerHold() {
-        finger.set(DoubleSolenoid.Value.kReverse);
+        finger.set(true);
     }
     public void fingerRelease() {
-        finger.set(DoubleSolenoid.Value.kReverse);
+        finger.set(false);
     }
     public void pistonPush() {
-        hatch.set(true);
+        hatch.set(DoubleSolenoid.Value.kForward);
     }
     public void pistonReset() {
-        hatch.set(false);
+        hatch.set(DoubleSolenoid.Value.kReverse);
     }
 
     @Override

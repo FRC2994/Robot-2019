@@ -29,7 +29,7 @@ public class Lift extends Subsystem {
     limitChinUp = new DigitalInput(Constants.DIO_CHINUP_LIMIT_BOTTOM);
     ChinUpArm = new TalonSRX(Constants.CAN_CHINUP_ARM);
     LiftChinUpIntake = new VictorSPX(Constants.CAN_CHINUP_WHEEL_INTAKE);
-    DoubleSolenoid Legs = new DoubleSolenoid(Constants.PCM_RETRACTABLE_LEGS,Constants.PCM_LED_R);
+    DoubleSolenoid Legs = new DoubleSolenoid(Constants.PCM_RETRACTABLE_LEGS1,Constants.PCM_RETRACTABLE_LEGS2);
     ChinUpArm.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);    
   
     System.out.println("Lift Subsystem activated! ");
@@ -173,7 +173,7 @@ public class Lift extends Subsystem {
   public void chinUpMoveOpenLoop(double speed) {
     LiftChinUpIntake.set(ControlMode.PercentOutput, speed);
   }
-  
+
   public void chinUpMoveToPosition(double position) {
     LiftChinUpIntake.set(ControlMode.Position, position);
   }

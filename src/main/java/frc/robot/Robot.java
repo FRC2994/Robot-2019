@@ -148,17 +148,17 @@ public class Robot extends TimedRobot {
 			if(ledStatus == 0) {
 				m_LED.setLEDR(true);
 				m_LED.setLEDB(false);
-				m_LED.setLEDG(false);
+		//		m_LED.setLEDG(false);
 				ledStatus = 1;
 			} else if (ledStatus == 1) {
 				m_LED.setLEDR(false);
 				m_LED.setLEDB(true);
-				m_LED.setLEDG(false);
+		//		m_LED.setLEDG(false);
 				ledStatus = 2;
 			} else if (ledStatus == 2) {
 				m_LED.setLEDR(false);
 				m_LED.setLEDB(false);
-				m_LED.setLEDG(true);
+		//		m_LED.setLEDG(true);
 				ledStatus = 0;
 			}
 			count = 0;

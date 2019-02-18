@@ -18,7 +18,7 @@ public class LED extends Subsystem {
 
 	public LED() {
 		LEDR = new Solenoid(Constants.CAN_PCM,Constants.PCM_LED_R);
-		LEDG = new Solenoid(Constants.CAN_PCM,Constants.PCM_LED_G);
+		// LEDG = new Solenoid(Constants.CAN_PCM,Constants.PCM_LED_G);
 		LEDB = new Solenoid(Constants.CAN_PCM,Constants.PCM_LED_B);
     }
 
@@ -26,9 +26,9 @@ public class LED extends Subsystem {
 		LEDR.set(value);
 	}
 
-	public void setLEDG(boolean value) {
-		LEDG.set(value);
-	}
+	// public void setLEDG(boolean value) {
+	// 	LEDG.set(value);
+	// }
 
 	public void setLEDB(boolean value) {
 		LEDB.set(value);
