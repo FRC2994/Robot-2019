@@ -1,7 +1,8 @@
 package frc.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -19,7 +20,7 @@ public class Lift extends Subsystem {
   DigitalInput limitChinUp;
   TalonSRX ChinUpArm;
   VictorSPX LiftChinUpIntake;
-  Solenoid Legs;
+  DoubleSolenoid Legs;
   int startPosition;
   int desiredPosition;
   boolean printedZeroing;
@@ -28,7 +29,7 @@ public class Lift extends Subsystem {
     limitChinUp = new DigitalInput(Constants.DIO_CHINUP_LIMIT_BOTTOM);
     ChinUpArm = new TalonSRX(Constants.CAN_CHINUP_ARM);
     LiftChinUpIntake = new VictorSPX(Constants.CAN_CHINUP_WHEEL_INTAKE);
-    Solenoid Legs = new Solenoid(Constants.PCM_RETRACTABLE_LEGS);
+    DoubleSolenoid Legs = new DoubleSolenoid(Constants.PCM_RETRACTABLE_LEGS,Constants.PCM_LED_R);
     ChinUpArm.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);    
   
     System.out.println("Lift Subsystem activated! ");
@@ -128,7 +129,7 @@ public class Lift extends Subsystem {
       return false;
     } else {
       printedZeroing = false;
-      // chinUpSetPosition(getCurrentPosition());
+      //chinUpSetPosition(getCurrentPosition());
       return false;
     }
   }
@@ -156,12 +157,12 @@ public class Lift extends Subsystem {
   }
   public void retractableLegsUp() {
     System.out.println("Bringing RetractableLegs UP.");
-    Legs.set(false);
+    Legs.set(DoubleSolenoid.Value.kForward);
   }    
 
   public void retractableLegsDown() {
     System.out.println("Bringing RetractableLegs DOWN.");
-    Legs.set(true);  
+    Legs.set(DoubleSolenoid.Value.kReverse);
   }
 
   public int chinUpGetLateralPosition() {
