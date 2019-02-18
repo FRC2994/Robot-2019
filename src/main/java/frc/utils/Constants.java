@@ -64,16 +64,16 @@ public class Constants
 	// public static final int GAMEPAD_CLIMBER_DOWN          = 1; 
 	// public static final int GAMEPAD_CLIMBER_THROTTLE      = 4; // Axis... Not a button! 
 	
-	// Elevator Increment constants
-	public final static int ELEVATOR_ENCODER_TICKS_PER_REV   = 4096;
-	public final static int ELEVATOR_RPM                     = 2;
-//	public final static int ELEVATOR_POSITION_INCREMENT      = (int)(ELEVATOR_ENCODER_TICKS_PER_REV*TIMED_ROBOT_PERIOD*ELEVATOR_RPM*ELEVATOR_GEAR_FACTOR);
-	public final static int ELEVATOR_GEAR_FACTOR             = 7;
-	public final static int ELEVATOR_POSITION_INCREMENT      = 2500*ELEVATOR_GEAR_FACTOR;
-	public final static int ELEVATOR_POSITION_DECREMENT      = -1500*ELEVATOR_GEAR_FACTOR;
-	public final static int ELEVATOR_POSITION_MINIMUM        = 0;
+	// ARM Increment constants
+	public final static int ARM_ENCODER_TICKS_PER_REV   = 4096;
+	public final static int ARM_RPM                     = 2;
+//	public final static int ARM_POSITION_INCREMENT      = (int)(ARM_ENCODER_TICKS_PER_REV*TIMED_ROBOT_PERIOD*ELEVATOR_RPM*ELEVATOR_GEAR_FACTOR);
+	public final static int ARM_GEAR_FACTOR             = 7;
+	public final static int ARM_POSITION_INCREMENT      = 2500*ARM_GEAR_FACTOR;
+	public final static int ARM_POSITION_DECREMENT      = -1500*ARM_GEAR_FACTOR;
+	public final static int ARM_POSITION_MINIMUM        = 0;
 	// 8ft travel * 12in/ft * / (1.5 in * pie) * 4096 ~= 83_000;
-	public final static int ELEVATOR_POSITION_MAXIMUM        = 300000;   // TODO: 	
+	public final static int ARM_POSITION_MAXIMUM        = 300000;   // TODO: 	
 
 	public final static int CLIMBER_GEAR_FACTOR              = 81;
 	public final static int CLIMBER_POSITION_INCREMENT       = 1000*CLIMBER_GEAR_FACTOR;

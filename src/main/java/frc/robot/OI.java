@@ -20,8 +20,7 @@ import frc.commands.CargoShoot;
 import frc.commands.CargoStop;
 import frc.commands.ArmUpOrDown;
 import frc.commands.ArmUpOrDown.armStatus;
-import frc.commands.ChinUpIntake.IntakeStatus;
-import frc.commands.ChinUpIntake;
+import frc.commands.LiftChinUpMoveToPosition;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -79,10 +78,10 @@ public class OI {
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
     // jsButnChinUpRetract.whenPressed(new ());
     // jsButnChinUpForward.whenPressed(new ());
-    jsButnChinUpOut.whileHeld(new ChinUpIntake(IntakeStatus.INTAKE));
-    jsButnChinUpOut.whenReleased(new ChinUpIntake(IntakeStatus.OFF));
-    jsButnChinUpIn.whileHeld(new ChinUpIntake(IntakeStatus.OUTTAKE));
-    jsButnChinUpIn.whenReleased(new ChinUpIntake(IntakeStatus.OFF));
+    jsButnChinUpOut.whileHeld(new LiftChinUpIntake(IntakeStatus.INTAKE));
+    jsButnChinUpOut.whenReleased(new LiftChinUpIntake(IntakeStatus.OFF));
+    jsButnChinUpIn.whileHeld(new LiftChinUpIntake(IntakeStatus.OUTTAKE));
+    jsButnChinUpIn.whenReleased(new LiftChinUpIntake(IntakeStatus.OFF));
     // jsButnRetractableLegsUp.whenPressed(new ());
     // jsButnRetractableLegsDown.whenPressed(new ());
     jsButnFollowLine.whenPressed(new FollowLine(true));
