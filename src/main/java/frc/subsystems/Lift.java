@@ -19,7 +19,7 @@ public class Lift extends Subsystem {
   DigitalInput limitChinUp;
   TalonSRX ChinUpArm;
   VictorSPX ChinUpIntake;
-  // Solenoid Legs;
+  Solenoid Legs;
   int startPosition;
   int desiredPosition;
   boolean printedZeroing;
@@ -30,7 +30,7 @@ public class Lift extends Subsystem {
     limitChinUp = new DigitalInput(Constants.DIO_CHINUP_LIMIT_BOTTOM);
     ChinUpArm = new TalonSRX(Constants.CAN_CHINUP_ARM);
     ChinUpIntake = new VictorSPX(Constants.CAN_CHINUP_WHEEL_INTAKE);
-    // Legs = new Solenoid(Constants.PCM_RETRACTABLE_LEGS);
+    Solenoid Legs = new Solenoid(Constants.PCM_RETRACTABLE_LEGS);
     ChinUpArm.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);    
   
     System.out.println("Lift Subsystem activated! ");
@@ -159,12 +159,12 @@ public class Lift extends Subsystem {
   }
   public void retractableLegsUp() {
     System.out.println("Bringing RetractableLegs UP.");
-    // Legs.set(false);
+    Legs.set(false);
   }    
 
   public void retractableLegsDown() {
     System.out.println("Bringing RetractableLegs DOWN.");
-    // Legs.set(true);  
+    Legs.set(true);  
   }
 
   //CHIN UP WHEEL INTAKE
