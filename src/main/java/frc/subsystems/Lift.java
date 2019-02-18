@@ -18,8 +18,8 @@ public class Lift extends Subsystem {
   public static enum LiftPushPullDirection { Push, DN };
   DigitalInput limitChinUp;
   TalonSRX ChinUpArm;
-  VictorSPX LiftChinUpIntake;
-  // Solenoid Legs;
+  VictorSPX ChinUpIntake;
+  Solenoid Legs;
   int startPosition;
   int desiredPosition;
   boolean printedZeroing;
@@ -27,8 +27,8 @@ public class Lift extends Subsystem {
   public Lift() {
     limitChinUp = new DigitalInput(Constants.DIO_CHINUP_LIMIT_BOTTOM);
     ChinUpArm = new TalonSRX(Constants.CAN_CHINUP_ARM);
-    LiftChinUpIntake = new VictorSPX(Constants.CAN_CHINUP_WHEEL_INTAKE);
-    // Legs = new Solenoid(Constants.PCM_RETRACTABLE_LEGS);
+    ChinUpIntake = new VictorSPX(Constants.CAN_CHINUP_WHEEL_INTAKE);
+    Solenoid Legs = new Solenoid(Constants.PCM_RETRACTABLE_LEGS);
     ChinUpArm.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);    
   
     System.out.println("Lift Subsystem activated! ");
@@ -85,6 +85,19 @@ public class Lift extends Subsystem {
 		}
     ChinUpArm.set(ControlMode.Position, position);
     this.desiredPosition = position;
+  }
+
+  public void chinUpMoveIncremental(LiftDirection dir) {
+    if (limitChinUp.get()) {
+      setPIDCoefficients(dir);
+      if (dir == LiftDirection.UP) {
+        chinUpSetPosition(getCurrentPosition() + chinUpPositionIncrement);
+      } else {
+        chinUpSetPosition(getCurrentPosition() - chinUpPositionIncrement);
+      }
+    } else {
+      chinUpSetPosition(0);
+    }
   }
 
   public void chinUpMoveToPosition(int desiredPostion) {
@@ -156,12 +169,12 @@ public class Lift extends Subsystem {
   }
   public void retractableLegsUp() {
     System.out.println("Bringing RetractableLegs UP.");
-    // Legs.set(false);
+    Legs.set(false);
   }    
 
   public void retractableLegsDown() {
     System.out.println("Bringing RetractableLegs DOWN.");
-    // Legs.set(true);  
+    Legs.set(true);  
   }
 
   public int chinUpGetLateralPosition() {
