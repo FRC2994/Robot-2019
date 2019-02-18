@@ -173,7 +173,7 @@ public class Lift extends Subsystem {
   public void chinUpMoveOpenLoop(double speed) {
     LiftChinUpIntake.set(ControlMode.PercentOutput, speed);
   }
-
+  
   public void chinUpMoveToPosition(double position) {
     LiftChinUpIntake.set(ControlMode.Position, position);
   }
