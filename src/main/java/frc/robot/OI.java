@@ -14,12 +14,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.subsystems.DriveTrain.GearShiftState;
 import frc.commands.Autonomous;
 import frc.commands.FollowLine;
+import frc.commands.LiftChinUpIntake;
 import frc.commands.ShiftGear;
 import frc.commands.CargoIntake;
 import frc.commands.CargoShoot;
 import frc.commands.CargoStop;
 import frc.commands.ArmUpOrDown;
 import frc.commands.ArmUpOrDown.armStatus;
+import frc.commands.LiftChinUpIntake.IntakeStatus;
 import frc.commands.LiftChinUpMoveToPosition;
 
 /**
