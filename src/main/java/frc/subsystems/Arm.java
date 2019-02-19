@@ -40,42 +40,46 @@ public class Arm extends Subsystem {
      
       // Encoder object created to display and set position values
       m_encoder = motor.getEncoder();
-      //m_encoder.setPosition(); // TODO: Uncomment when release 1.1 is installed.
+      m_encoder.setPosition(0);
 
       motor.restoreFactoryDefaults();
 
       setPIDCoefficients(0);
     }
     
+    public void initialize() {
+      m_encoder.setPosition(0);
+    }
+
     // direction = 0 for down, 1 for up
      private void setPIDCoefficients(int direction) {
-    // PID coefficients
-    kP = 0.1; 
-    kI = 0;
-    kD = 0; 
-    kIz = 0; 
-    kFF = 0; 
-    kMaxOutput = kOutputRange; 
-    kMinOutput = -kOutputRange;
+      // PID coefficients
+      kP = 0.0005; 
+      kI = 0;
+      kD = 0; 
+      kIz = 0; 
+      kFF = 0; 
+      kMaxOutput = kOutputRange; 
+      kMinOutput = -kOutputRange;
 
-    // set PID coefficients
-    m_pidController.setP(kP);
-    m_pidController.setI(kI);
-    m_pidController.setD(kD);
-    m_pidController.setIZone(kIz);
-    m_pidController.setFF(kFF);
-    m_pidController.setOutputRange(kMinOutput, kMaxOutput);
+      // set PID coefficients
+      m_pidController.setP(kP);
+      m_pidController.setI(kI);
+      m_pidController.setD(kD);
+      m_pidController.setIZone(kIz);
+      m_pidController.setFF(kFF);
+      m_pidController.setOutputRange(kMinOutput, kMaxOutput);
 
-    // display PID coefficients on SmartDashboard
-    SmartDashboard.putNumber("P Gain", kP);
-    SmartDashboard.putNumber("I Gain", kI);
-    SmartDashboard.putNumber("D Gain", kD);
-    SmartDashboard.putNumber("I Zone", kIz);
-    SmartDashboard.putNumber("Feed Forward", kFF);
-    SmartDashboard.putNumber("Max Output", kMaxOutput);
-    SmartDashboard.putNumber("Min Output", kMinOutput);
-    SmartDashboard.putNumber("Set Rotations", 0);
-     }
+      // display PID coefficients on SmartDashboard
+      SmartDashboard.putNumber("P Gain", kP);
+      SmartDashboard.putNumber("I Gain", kI);
+      SmartDashboard.putNumber("D Gain", kD);
+      SmartDashboard.putNumber("I Zone", kIz);
+      SmartDashboard.putNumber("Feed Forward", kFF);
+      SmartDashboard.putNumber("Max Output", kMaxOutput);
+      SmartDashboard.putNumber("Min Output", kMinOutput);
+      SmartDashboard.putNumber("Set Rotations", 0);
+    }
 
     public void setRotation(double rotations) {
       m_pidController.setReference(rotations, ControlType.kPosition);
@@ -90,9 +94,10 @@ public class Arm extends Subsystem {
       // if (positionInTicks < 50 && positionInTicks < this.positionInTicks) {
       //			positionInTicks = 50;
       //		}
-      //		System.out.println("Trying to move Arm in Closed Loop... currentPosition " + getDesiredPosition() 
-      //			+ " encPos "  + getDesiredPosition() + " positionInTicks " + positionInTicks + ".");
-      //		System.out.println("New desired: " + (positionInTicks + startPosition));
+      		System.out.println("Trying to move Arm in Closed Loop... currentPosition " + getRealPosition() 
+            + " encPos "  + getEncoderPosition() + " positionInTicks " + positionInTicks + " startPosition "
+            + startPosition + " enc Conv Factor " + m_encoder.getPositionConversionFactor() + ".");
+      		System.out.println("New desired: " + (positionInTicks + startPosition));
       desiredPosition = positionInTicks + startPosition;
       m_pidController.setReference(desiredPosition, ControlType.kPosition);
       m_pidController.setOutputRange(desiredPosition - kOutputRange, desiredPosition + kOutputRange);
@@ -104,6 +109,10 @@ public class Arm extends Subsystem {
     
     public int getRealPosition() {
       return (int)m_encoder.getPosition() - startPosition;
+    }
+
+    public int getEncoderPosition() {
+      return (int)m_encoder.getPosition();
     }
 
     public void stopMotor() {
@@ -128,7 +137,7 @@ public class Arm extends Subsystem {
       //Moves the arm until it touches the limit switch
       do{
         setMotorOpenLoop(1);
-      }while(!LimitArmTop.get());
+      } while(!LimitArmTop.get());
       if(LimitArmTop.get()){
         zero = m_encoder.getPosition();
       }

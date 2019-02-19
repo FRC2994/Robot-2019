@@ -17,6 +17,7 @@ public class ArmUpOrDown extends Command {
     private static final Arm arm = Robot.m_arm;
     public armStatus state;
     private boolean armFinished;
+    private double position;
     
     public ArmUpOrDown(armStatus state) {
         requires(arm);
@@ -28,36 +29,44 @@ public class ArmUpOrDown extends Command {
     protected void initialize() {
         if (state == armStatus.OFF) {
             armFinished = true;
-        }
-        else {
+        } else {
             armFinished = false;
+        }
+        if (state == armStatus.FORWARD) {
+            // arm.setMotorOpenLoop(0.5);
+            position = -30;
+            arm.setPosition(-30);
+
+            // System.out.println("FORWARD");
+        }
+        else if (state == armStatus.BACKWARD) {
+            // arm.setMotorOpenLoop(-0.5);
+            position = 30;
+            arm.setPosition(30);
         }
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (state == armStatus.FORWARD) {
-            arm.setMotorOpenLoop(0.5);
-            // System.out.println("FORWARD");
-        }
-        else if (state == armStatus.BACKWARD) {
-            arm.setMotorOpenLoop(-0.5);
-        }
-        else {
-            armFinished = true;
-        }
+        double diff = Math.abs(arm.getRealPosition()-position);
+        System.out.println("Arm isFinished " + armFinished + " diff " + diff);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
+        double diff = Math.abs(arm.getRealPosition()-position);
+        if (diff == 1 ) {
+            armFinished = true;
+        }
         return armFinished;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        System.out.println("Arm ending...");
         arm.stopMotor();
     }
 
