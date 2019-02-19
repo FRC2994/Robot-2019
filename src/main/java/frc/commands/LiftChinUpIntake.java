@@ -10,9 +10,6 @@ package frc.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 import frc.subsystems.Lift;
-import edu.wpi.first.wpilibj.DigitalInput;
-import frc.utils.Constants;
-
 
 public class LiftChinUpIntake extends InstantCommand {
     public static enum IntakeStatus {INTAKE, OUTTAKE, OFF};
@@ -23,58 +20,50 @@ public class LiftChinUpIntake extends InstantCommand {
     int status;
     private final double defaultSpeed = 0.5;
     private boolean openLoopMode = true;
-    
-public LiftChinUpIntake(IntakeStatus state) {
-    requires(LiftLiftChinUpIntake);
-    this.state = state;
-    openLoopMode = true;
-}
 
-public LiftChinUpIntake(double position) {
-    requires(LiftLiftChinUpIntake);
-    openLoopMode = false;
-}
-
-public LiftChinUpIntake() {
-    requires(LiftLiftChinUpIntake);
-    openLoopMode = false;
-}
-
-// Called just before this Command runs the first time
-@Override
-protected void initialize() {
-    if (openLoopMode) {
-        if (state == IntakeStatus.INTAKE) {
-            LiftLiftChinUpIntake.chinUpMoveOpenLoop(defaultSpeed);
-            System.out.println("CHINUP INTAKING");
-        }
-        else if (state == IntakeStatus.OUTTAKE) {
-            LiftLiftChinUpIntake.chinUpMoveOpenLoop(-defaultSpeed);
-            System.out.println("CHINUP OUTTAKING");
-        }
-        else {
-            LiftLiftChinUpIntake.chinUpMoveOpenLoop(0);
-            System.out.println("CHINUP STOPPING");
-        }
-     } else {
-        if (position == IntakeStatus.INTAKE) {
-            LiftLiftChinUpIntake.chinUpMoveOpenLoop(defaultSpeed);
-            System.out.println("CHINUP INTAKING");
-        }
-        else if (position == IntakeStatus.OUTTAKE) {
-            LiftLiftChinUpIntake.chinUpMoveOpenLoop(-defaultSpeed);
-            System.out.println("CHINUP OUTTAKING");
-        }
-        else {
-            LiftLiftChinUpIntake.chinUpMoveOpenLoop(0);
-            System.out.println("CHINUP STOPPING");
-        }
-    
-    
-    
-    
-    
-    
+    public LiftChinUpIntake(IntakeStatus state) {
+        requires(LiftLiftChinUpIntake);
+        this.state = state;
+        openLoopMode = true;
     }
+
+    public LiftChinUpIntake(double position) {
+        requires(LiftLiftChinUpIntake);
+        openLoopMode = false;
+    }
+
+    public LiftChinUpIntake() {
+        requires(LiftLiftChinUpIntake);
+        openLoopMode = false;
+    }
+
+    // Called just before this Command runs the first time
+    @Override
+    protected void initialize() {
+        if (openLoopMode) {
+            if (state == IntakeStatus.INTAKE) {
+                LiftLiftChinUpIntake.chinUpMoveOpenLoop(defaultSpeed);
+                System.out.println("CHINUP INTAKING");
+            }
+            else if (state == IntakeStatus.OUTTAKE) {
+                LiftLiftChinUpIntake.chinUpMoveOpenLoop(-defaultSpeed);
+                System.out.println("CHINUP OUTTAKING");
+            }
+            else {
+                LiftLiftChinUpIntake.chinUpMoveOpenLoop(0);
+                System.out.println("CHINUP STOPPING");
+            }
+        } else {
+            if (position == IntakeStatus.INTAKE) {
+                LiftLiftChinUpIntake.chinUpMoveOpenLoop(defaultSpeed);
+                System.out.println("CHINUP INTAKING");
+            } else if (position == IntakeStatus.OUTTAKE) {
+                LiftLiftChinUpIntake.chinUpMoveOpenLoop(-defaultSpeed);
+                System.out.println("CHINUP OUTTAKING");
+            } else {
+                LiftLiftChinUpIntake.chinUpMoveOpenLoop(0);
+                System.out.println("CHINUP STOPPING");
+            }
+        }
     }
 }

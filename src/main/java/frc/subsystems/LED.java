@@ -26,9 +26,9 @@ public class LED extends Subsystem {
 		LEDR.set(value);
 	}
 
-	// public void setLEDG(boolean value) {
-	// 	LEDG.set(value);
-	// }
+	public void setLEDG(boolean value) {
+		LEDG.set(value);
+	}
 
 	public void setLEDB(boolean value) {
 		LEDB.set(value);
