@@ -33,7 +33,7 @@ public class GamePieces extends Subsystem{
         cargo.set(ControlMode.PercentOutput, cargoMotorSpeed);
     }
     public void wheelShoot() { 
-        cargo.set(ControlMode.PercentOutput, -cargoMotorSpeed);
+        cargo.set(ControlMode.PercentOutput, -1);
     }
     public void wheelStop() {
         cargo.set(ControlMode.PercentOutput, 0);

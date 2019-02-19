@@ -75,9 +75,9 @@ public class OI {
     final JoystickButton gpButnArmRetract            = new JoystickButton(m_gamepad, 6);  //Gamepad RB button
     final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 5);  //Gamepad LB button
     final JoystickButton gpButnCargoOut              = new JoystickButton(m_gamepad, 4);  //Gamepad Y button
-    final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 3);  //Gamepad B button
-    final JoystickButton gpButnPushHatch             = new JoystickButton(m_gamepad, 2);  //Gamepad A button
-    final JoystickButton gpButnHoldHatch             = new JoystickButton(m_gamepad, 1);  //Gamepad X button
+    final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 2);  //Gamepad B button
+    final JoystickButton gpButnHatchPush             = new JoystickButton(m_gamepad, 3);  //Gamepad A button
+    final JoystickButton gpButnHatchHold             = new JoystickButton(m_gamepad, 1);  //Gamepad X button
 
 
     /* Connect the buttons to commands */
@@ -87,7 +87,7 @@ public class OI {
     jsButnShifter.whenPressed(new ShiftGear(GearShiftState.HI));
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
     jsButnChinUpRetract.whenPressed(new LiftChinUpPullOpenLoop(0.3));
-    jsButnChinUpForward.whenPressed(new LiftChinUpPullOpenLoop(0.3));
+    jsButnChinUpForward.whenPressed(new LiftChinUpPullOpenLoop(-0.3));
     jsButnChinUpOut.whileHeld(new LiftChinUpIntake(IntakeStatus.INTAKE));
     jsButnChinUpOut.whenReleased(new LiftChinUpIntake(IntakeStatus.OFF));
     jsButnChinUpIn.whileHeld(new LiftChinUpIntake(IntakeStatus.OUTTAKE));
@@ -110,8 +110,8 @@ public class OI {
     gpButnArmRetract.whenReleased(new ArmUpOrDown(armStatus.OFF));
     gpButnArmForward.whileHeld(new ArmUpOrDown(armStatus.FORWARD));
     gpButnArmForward.whenReleased(new ArmUpOrDown(armStatus.OFF));
-    gpButnPushHatch.whenPressed(new HatchReleaseOrHold(releaseOrHold.release));
-    gpButnHoldHatch.whenPressed(new HatchReleaseOrHold(releaseOrHold.hold));
+    gpButnHatchPush.whenPressed(new HatchReleaseOrHold(releaseOrHold.release));
+    gpButnHatchHold.whenPressed(new HatchReleaseOrHold(releaseOrHold.hold));
   }
 
   public Joystick getJoystick() {
