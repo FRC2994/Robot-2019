@@ -86,14 +86,14 @@ public class OI {
     jsButnClimb.whenPressed(new LiftUpOrDown(LiftDirection.UP));
     jsButnShifter.whenPressed(new ShiftGear(GearShiftState.HI));
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
-    jsButnChinUpRetract.whenPressed(new LiftChinUpPullOpenLoop(0.3));
-    jsButnChinUpForward.whenPressed(new LiftChinUpPullOpenLoop(-0.3));
+    jsButnChinUpRetract.whenPressed(new LiftChinUpPullOpenLoop(0.1));
+    jsButnChinUpForward.whenPressed(new LiftChinUpPullOpenLoop(-0.1));
     jsButnChinUpOut.whileHeld(new LiftChinUpIntake(IntakeStatus.INTAKE));
     jsButnChinUpOut.whenReleased(new LiftChinUpIntake(IntakeStatus.OFF));
     jsButnChinUpIn.whileHeld(new LiftChinUpIntake(IntakeStatus.OUTTAKE));
     jsButnChinUpIn.whenReleased(new LiftChinUpIntake(IntakeStatus.OFF));
-    // jsButnRetractableLegsUp.whenPressed(new LiftLegsUpOrDown(LiftDirection.UP));
-    // jsButnRetractableLegsDown.whenPressed(new LiftLegsUpOrDown(LiftDirection.DN));
+    jsButnRetractableLegsUp.whenPressed(new LiftLegsUpOrDown(LiftDirection.UP));
+    jsButnRetractableLegsDown.whenPressed(new LiftLegsUpOrDown(LiftDirection.DN));
     jsButnFollowLine.whenPressed(new FollowLine(true));
     jsButnFollowLine.whenReleased(new FollowLine(false));
 

@@ -40,15 +40,15 @@ public class Arm extends Subsystem {
      
       // Encoder object created to display and set position values
       m_encoder = motor.getEncoder();
-      m_encoder.setPosition(0);
+      // m_encoder.setPosition(0);
 
       motor.restoreFactoryDefaults();
 
-      setPIDCoefficients(0);
+      // setPIDCoefficients(0);
     }
     
     public void initialize() {
-      m_encoder.setPosition(0);
+      // m_encoder.setPosition(0);
     }
 
     // direction = 0 for down, 1 for up
