@@ -12,9 +12,9 @@ public class Constants
 	public static final int CAN_RIGHT_FRONT_DRIVE      = 1;
 	public static final int CAN_RIGHT_REAR_DRIVE       = 7;
 	public static final int CAN_LEFT_FRONT_DRIVE       = 3;
-	public static final int CAN_LEFT_REAR_DRIVE        = 4;
+	public static final int CAN_LEFT_REAR_DRIVE        = 6;
 	public static final int CAN_CHINUP_WHEEL_INTAKE    = 5;
-	public static final int CAN_CHINUP_ARM             = 6;
+	public static final int CAN_CHINUP_ARM             = 4;
 	public static final int CAN_ARM                    = 10;
 	public static final int CAN_WHEEL_INTAKE           = 2;
 
@@ -22,10 +22,11 @@ public class Constants
 	public static final int PCM_GEAR_SHIFT                 = 0; // Gear shift defaults to low; single solenoid
 	public static final int PCM_RETRACTABLE_LEGS1          = 1;
 	public static final int PCM_RETRACTABLE_LEGS2          = 2;
-	public static final int PCM_HATCH_FINGER               = 3; // Spring-loaded; single solenoid
-	public static final int PCM_HATCH_PISTON               = 4; // Spring-loaded; single solenoid
-	public static final int PCM_LED_R                      = 5;
-	public static final int PCM_LED_G                      = 6;
+	public static final int PCM_HATCH_FINGER1              = 3; // Spring-loaded; single solenoid
+	public static final int PCM_HATCH_FINGER2              = 4; // Spring-loaded; single solenoid
+	public static final int PCM_HATCH_PISTON               = 5; // Spring-loaded; single solenoid
+	public static final int PCM_LED_R                      = 6;
+	// public static final int PCM_LED_G                      = ;
 	public static final int PCM_LED_B                      = 7;
 
 	// DIO

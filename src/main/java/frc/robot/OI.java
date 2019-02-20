@@ -92,8 +92,8 @@ public class OI {
     jsButnChinUpOut.whenReleased(new LiftChinUpIntake(IntakeStatus.OFF));
     jsButnChinUpIn.whileHeld(new LiftChinUpIntake(IntakeStatus.OUTTAKE));
     jsButnChinUpIn.whenReleased(new LiftChinUpIntake(IntakeStatus.OFF));
-    jsButnRetractableLegsUp.whenPressed(new LiftLegsUpOrDown(LiftDirection.UP));
-    jsButnRetractableLegsDown.whenPressed(new LiftLegsUpOrDown(LiftDirection.DN));
+    // jsButnRetractableLegsUp.whenPressed(new LiftLegsUpOrDown(LiftDirection.UP));
+    // jsButnRetractableLegsDown.whenPressed(new LiftLegsUpOrDown(LiftDirection.DN));
     jsButnFollowLine.whenPressed(new FollowLine(true));
     jsButnFollowLine.whenReleased(new FollowLine(false));
 

@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 
 public class DriveTrain extends Subsystem{
     TalonSRX leftFrontDrive = new TalonSRX(Constants.CAN_LEFT_FRONT_DRIVE);
-	TalonSRX leftRearDrive = new TalonSRX(Constants.CAN_LEFT_REAR_DRIVE);
+	VictorSPX leftRearDrive = new VictorSPX(Constants.CAN_LEFT_REAR_DRIVE);
 	TalonSRX rightFrontDrive = new TalonSRX(Constants.CAN_RIGHT_FRONT_DRIVE);
 	VictorSPX rightRearDrive = new VictorSPX(Constants.CAN_RIGHT_REAR_DRIVE);
 
@@ -202,7 +202,7 @@ public class DriveTrain extends Subsystem{
 		return leftFrontDrive;
 	}
 
-	public TalonSRX getRearLeftMotor() {
+	public VictorSPX getRearLeftMotor() {
 		return leftRearDrive;
 	}
 
