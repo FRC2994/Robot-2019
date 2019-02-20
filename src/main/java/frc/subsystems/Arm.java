@@ -45,7 +45,6 @@ public class Arm extends Subsystem {
       motor.restoreFactoryDefaults();
 
       setPIDCoefficients(0);
-      zero();
     }
     
     public void initialize() {
