@@ -86,8 +86,10 @@ public class OI {
     jsButnClimb.whenPressed(new LiftUpOrDown(LiftDirection.UP));
     jsButnShifter.whenPressed(new ShiftGear(GearShiftState.HI));
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
-    jsButnChinUpRetract.whenPressed(new LiftChinUpPullOpenLoop(0.1));
-    jsButnChinUpForward.whenPressed(new LiftChinUpPullOpenLoop(-0.1));
+    jsButnChinUpRetract.whileHeld(new LiftChinUpPullOpenLoop(0.1));
+    jsButnChinUpRetract.whenReleased(new LiftChinUpPullOpenLoop(0));
+    jsButnChinUpForward.whileHeld(new LiftChinUpPullOpenLoop(-0.1));
+    jsButnChinUpForward.whenReleased(new LiftChinUpPullOpenLoop(0));
     jsButnChinUpOut.whileHeld(new LiftChinUpIntake(IntakeStatus.INTAKE));
     jsButnChinUpOut.whenReleased(new LiftChinUpIntake(IntakeStatus.OFF));
     jsButnChinUpIn.whileHeld(new LiftChinUpIntake(IntakeStatus.OUTTAKE));
