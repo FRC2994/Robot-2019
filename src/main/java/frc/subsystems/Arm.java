@@ -125,7 +125,7 @@ public class Arm extends Subsystem {
           System.out.println("Arm Zeroing!! Old startPosition " + startPosition + " New startPosition " +  getRealPosition());
           printedZeroing = true;
         }
-        // startPosition = getRealPosition();
+        startPosition = getRealPosition();
         // setPosition(0);
         setMotorOpenLoop(1);
       }
