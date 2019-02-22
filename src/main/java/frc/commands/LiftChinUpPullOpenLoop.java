@@ -22,23 +22,23 @@ import frc.subsystems.Lift.LiftPushPullDirection;
  */
 public class LiftChinUpPullOpenLoop extends InstantCommand {
   private Lift m_lift = Robot.m_lift;
-  private int position;
+  private double speed;
 
   /**
    * Create a new DriveStraight command.
    * 
-   * @param position The postion to move to
+   * @param speed The speed to move at
    */
-  public LiftChinUpPullOpenLoop(int position) {
+  public LiftChinUpPullOpenLoop(double speed) {
     super();
-    this.position = position;
+    this.speed = speed;
     requires(Robot.m_lift);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    m_lift.chinUpMoveToPosition(position);
+    m_lift.chinUpMoveOpenLoop(speed);
   }
 
 }

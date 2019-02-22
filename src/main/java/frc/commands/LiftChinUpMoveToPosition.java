@@ -8,11 +8,8 @@
 package frc.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.InstantCommand;
-import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Robot;
 import frc.subsystems.Lift;
-import frc.subsystems.Lift.LiftDirection;
 
 /**
  * Drive the given distance straight (negative values go backwards). Uses a
@@ -22,7 +19,7 @@ import frc.subsystems.Lift.LiftDirection;
  */
 public class LiftChinUpMoveToPosition extends Command {
   private Lift m_lift = Robot.m_lift;
-  private int speed;
+  private double position;
   private int counter = 0;
   private final int countermax = 150;
   boolean limitValue;
@@ -31,22 +28,22 @@ public class LiftChinUpMoveToPosition extends Command {
    * Create a new DriveStraight command.
    * @param position The postion to move to
    */
-  public LiftChinUpMoveToPosition(int speed) {
+  public LiftChinUpMoveToPosition(double position) {
     super();
-    this.speed = speed;
+    this.position = position;
     requires(Robot.m_lift);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    m_lift.chinUpMoveToPosition(speed);
+    // m_lift.chinUpMoveToPosition(position);
   }
 
   // Sets a specfic time until the function stops.
   @Override
   protected void execute() {
-    m_lift.chinUpMoveToPosition(speed);
+    m_lift.chinUpMoveToPosition(position);
     counter++;
   }
 

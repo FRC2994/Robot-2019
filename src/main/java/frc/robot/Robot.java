@@ -72,7 +72,7 @@ public class Robot extends TimedRobot {
 		m_lineFollower = new LineFollower();
 		m_arm = new Arm();
 		m_lift = new Lift();
-		// CameraServer.getInstance().startAutomaticCapture();	
+		CameraServer.getInstance().startAutomaticCapture();	
 		Subsystems.initialize();
 		autonomousCommand = new Autonomous();
 		m_oi = new OI();
@@ -143,24 +143,25 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		LiveWindow.run();
+		// LiveWindow.run();
 		if(count == maxCount){
-			if(ledStatus == 0) {
-				m_LED.setLEDR(true);
-				m_LED.setLEDB(false);
-		//		m_LED.setLEDG(false);
-				ledStatus = 1;
-			} else if (ledStatus == 1) {
-				m_LED.setLEDR(false);
-				m_LED.setLEDB(true);
-		//		m_LED.setLEDG(false);
-				ledStatus = 2;
-			} else if (ledStatus == 2) {
-				m_LED.setLEDR(false);
-				m_LED.setLEDB(false);
-		//		m_LED.setLEDG(true);
-				ledStatus = 0;
-			}
+			System.out.println("ARM Encoder : " + m_arm.getRealPosition());
+			// if(ledStatus == 0) {
+			// 	m_LED.setLEDR(true);
+			// 	m_LED.setLEDB(false);
+			// 	m_LED.setLEDG(false);
+			// 	ledStatus = 1;
+			// } else if (ledStatus == 1) {
+			// 	m_LED.setLEDR(false);
+			// 	m_LED.setLEDB(true);
+			// 	m_LED.setLEDG(false);
+			// 	ledStatus = 2;
+			// } else if (ledStatus == 2) {
+			// 	m_LED.setLEDR(false);
+			// 	m_LED.setLEDB(false);
+			// 	m_LED.setLEDG(true);
+			// 	ledStatus = 0;
+			// }
 			count = 0;
 		  }
 		count = count + 1;

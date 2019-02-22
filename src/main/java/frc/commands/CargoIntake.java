@@ -25,12 +25,12 @@ public class CargoIntake extends InstantCommand {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if (cargo.buttonGet() == true){
-      cargo.wheelStop();
-    }
-    else {
+    // if (cargo.buttonGet() == true){
+    //   cargo.wheelStop();
+    // }
+    // else {
       cargo.wheelIntake();
-      System.out.println("INTAKING");
-   }
+      // System.out.println("INTAKING");
+  //  }
   }
 }
