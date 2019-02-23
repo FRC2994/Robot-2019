@@ -41,8 +41,8 @@ public class LineFollower extends Subsystem {
   
  // String direction;
 
-  public static final double closeDistance = 5.0; // 5 inches
-  public static final double finishDistance = 2.0; // 2 Inches
+  public static final double closeDistance = 6.0; // 6 inches
+  public static final double finishDistance = 3.0; // 3 Inches
   private static boolean rightColorSensorValue;
   private static boolean leftColorSensorValue; 
   private static double rightDistance;
@@ -70,13 +70,13 @@ public class LineFollower extends Subsystem {
       rightDistance = rightUltrasonic.getRangeInches();
       leftDistance = leftUltrasonic.getRangeInches();
 
-      // if (leftColorSensorValue == false || rightColorSensorValue == false && rightDistance <= 2 && leftDistance <= 2) {
-      //     //It is finished
-      //     state = State.finishedState;
-      // } else if (leftColorSensorValue == false || rightColorSensorValue == false && rightDistance <= 5 && leftDistance <=5){
-      //     //Both color sensors sense white and the ultrasonic is within 5 inches
-      //     state = State.almostState;
-      // } 
+      if (rightDistance <= finishDistance && leftDistance <= finishDistance) {
+          //It is finished
+          state = State.finishedState;
+      } else if (leftColorSensorValue == false && rightColorSensorValue == false && rightDistance <= closeDistance && leftDistance <= closeDistance){
+          //Both color sensors sense white and the ultrasonic is within 5 inches
+          state = State.almostState;
+      } 
       if(leftColorSensorValue == true && rightColorSensorValue == false) {
           //Only right sensor sees white so it should go left
           state = State.leftState;

@@ -29,18 +29,24 @@ public class ArmUpOrDown extends Command {
     protected void initialize() {
         if (state == armStatus.OFF) {
             armFinished = true;
+            arm.stopMotor();
         } else {
+            if(arm.getLimitSwitchValue()) {
+                arm.stopMotor();
+            }
+            else {
             armFinished = false;
+            }
         }
         if (state == armStatus.FORWARD) {
-            // arm.setMotorOpenLoop(0.5);
+            //arm.moveUp()
             position = -30;
             arm.setPosition(-30);
 
             // System.out.println("FORWARD");
         }
         else if (state == armStatus.BACKWARD) {
-            // arm.setMotorOpenLoop(-0.5);
+            //arm.moveDown();
             position = 30;
             arm.setPosition(30);
         }

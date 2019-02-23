@@ -7,6 +7,7 @@ import frc.utils.Constants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 
@@ -45,6 +46,9 @@ public class Arm extends Subsystem {
   
   public void setMotorOpenLoop(double percent) {
     motor.set(ControlMode.Position, percent);
+    motor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+    motor.selectProfileSlot(0, 0);
+    stopMotor();
   }
 
   public void setPosition(int positionInTicks) {

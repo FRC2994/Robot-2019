@@ -145,7 +145,7 @@ public class Robot extends TimedRobot {
 	public void testPeriodic() {
 		// LiveWindow.run();
 		if(count == maxCount){
-			System.out.println("ARM Encoder : " + m_arm.getRealPosition());
+			m_arm.printEncoder();
 			// if(ledStatus == 0) {
 			// 	m_LED.setLEDR(true);
 			// 	m_LED.setLEDB(false);
