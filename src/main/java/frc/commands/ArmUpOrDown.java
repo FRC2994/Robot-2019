@@ -31,7 +31,7 @@ public class ArmUpOrDown extends Command {
             armFinished = true;
             arm.stopMotor();
         } else {
-            if(arm.getLimitSwitchValue()) {
+            if(arm.LimitArmTop.get()) {
                 arm.stopMotor();
             }
             else {

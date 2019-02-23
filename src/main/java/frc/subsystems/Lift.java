@@ -124,8 +124,11 @@ public class Lift extends Subsystem {
         System.out.println("Elevator Zeroing!! Old startPosition " + startPosition + " New startPosition " +  armGetCurrentPosition());
         printedZeroing = true;
       }
+      do{
+        chinUpMoveOpenLoop(-0.2);
+      } while(!limitChinUp.get());
+      chinUpMoveOpenLoop(0);
       startPosition = armGetCurrentPosition();
-      chinUpArmSetPosition(0);
       return false;
     } else {
       printedZeroing = false;
@@ -171,7 +174,17 @@ public class Lift extends Subsystem {
 
   //CHIN UP Horizontal Move
   public void chinUpMoveOpenLoop(double speed) {
+    if(limitChinUp.get()){
+      if(speed>0){
+        ChinUpArm.set(ControlMode.PercentOutput, speed);
+      }
+      else {
+      ChinUpArm.set(ControlMode.PercentOutput, 0);
+      }
+    }
+    else{
     ChinUpArm.set(ControlMode.PercentOutput, speed);
+    }
   }
 
   public void chinUpMoveToPosition(double position) {
