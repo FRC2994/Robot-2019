@@ -22,7 +22,7 @@ public class Arm extends Subsystem {
   private final double kError = 1000;
 
   public Arm() {
-    motor = new TalonSRX(Constants.CAN_CHINUP_ARM);
+    motor = new TalonSRX(Constants.CAN_ARM);
     setCurrentLimits();
   }
   
@@ -45,7 +45,7 @@ public class Arm extends Subsystem {
   }
   
   public void setMotorOpenLoop(double percent) {
-    motor.set(ControlMode.Position, percent);
+    motor.set(ControlMode.PercentOutput, percent);
     motor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
     motor.selectProfileSlot(0, 0);
     stopMotor();
