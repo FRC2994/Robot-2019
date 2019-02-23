@@ -135,7 +135,7 @@ public class Robot extends TimedRobot {
 		Subsystems.testInit();
 		ledStatus = 0;
 		count = 0;
-		maxCount = 25;
+		maxCount = 50;
 	}
 
 	/**
@@ -145,7 +145,11 @@ public class Robot extends TimedRobot {
 	public void testPeriodic() {
 		// LiveWindow.run();
 		if(count == maxCount){
-			m_arm.printEncoder();
+			System.out.println("Drive Train: " + m_drivetrain.getLeftEncoderValue() + "  " + m_drivetrain.getRightEncoderValue());
+			System.out.println("Arm Limit Switch: " + m_arm.LimitArmTop.get() + "   Arm Encoder:" + m_arm.motorEncoder());
+			System.out.println("Chinup Limit: "+m_lift.limitChinUp.get() + "	Chinup Rotation: " + m_lift.armGetCurrentPosition());
+			System.out.println("Cargo Intake Limit Switch: "+m_gamePieces.cargoLimit.get());
+			System.out.println("");
 			// if(ledStatus == 0) {
 			// 	m_LED.setLEDR(true);
 			// 	m_LED.setLEDB(false);

@@ -17,13 +17,17 @@ public class Arm extends Subsystem {
 
   private int startPosition = 0;
   private int desiredPosition = 0;
-  public DigitalInput LimitArmTop = new DigitalInput(Constants.DIO_ARM_LIMIT_BOTTOM);
+  public DigitalInput LimitArmTop;
   private boolean printedZeroing;
   private final double kError = 1000;
 
   public Arm() {
     motor = new TalonSRX(Constants.CAN_ARM);
+    LimitArmTop = new DigitalInput(Constants.DIO_ARM_LIMIT_BOTTOM);
+    motor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+    motor.selectProfileSlot(0, 0);
     setCurrentLimits();
+    stopMotor();
   }
   
   private void setPIDCoefficients(ArmMoveDirection dir) {
@@ -46,9 +50,6 @@ public class Arm extends Subsystem {
   
   public void setMotorOpenLoop(double percent) {
     motor.set(ControlMode.PercentOutput, percent);
-    motor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-    motor.selectProfileSlot(0, 0);
-    stopMotor();
   }
 
   public void setPosition(int positionInTicks) {
@@ -142,6 +143,9 @@ public class Arm extends Subsystem {
       return motor.getClosedLoopError(0) < kError;
   }
 
+  public int motorEncoder() {
+    return motor.getSelectedSensorPosition(0);
+  }
   @Override
   protected void initDefaultCommand() {
 

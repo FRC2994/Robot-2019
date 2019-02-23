@@ -26,9 +26,11 @@ public class LiftLegsUpOrDown extends InstantCommand {
   protected void initialize() {
     if (direction == LiftDirection.DN) {
         m_lift.retractableLegsDown();
+        System.out.println("LEGS ARE GOING DOWN!");
     } else {
         m_lift.retractableLegsUp();
-    }
+        System.out.println("LEGS ARE GOING UP!")
+;    }
   }
 
   // Called when another command which requires one or more of the same

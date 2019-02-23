@@ -10,10 +10,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 public class GamePieces extends Subsystem{
-    Solenoid hatch = new Solenoid(Constants.PCM_HATCH_PISTON);
-    DoubleSolenoid finger = new DoubleSolenoid(Constants.PCM_HATCH_FINGER1,Constants.PCM_HATCH_FINGER2);
-    VictorSPX cargo = new VictorSPX(Constants.CAN_WHEEL_INTAKE);
-    DigitalInput cargoLimit = new DigitalInput(Constants.DIO_WHEEL_INTAKE_LIMIT);
+    Solenoid hatch;
+    DoubleSolenoid finger;
+    VictorSPX cargo;
+    public DigitalInput cargoLimit;
 
 
     private static final double cargoMotorSpeed = 0.5;
@@ -22,6 +22,10 @@ public class GamePieces extends Subsystem{
     public GamePieces() {
         System.out.println("Game Piece Subsystem activated! ");
         instance = this;
+        hatch = new Solenoid(Constants.PCM_HATCH_PISTON);
+        finger = new DoubleSolenoid(Constants.PCM_HATCH_FINGER1,Constants.PCM_HATCH_FINGER2);
+        cargo = new VictorSPX(Constants.CAN_WHEEL_INTAKE);
+        cargoLimit = new DigitalInput(Constants.DIO_WHEEL_INTAKE_LIMIT);
     }
 
     public static GamePieces getInstance() {

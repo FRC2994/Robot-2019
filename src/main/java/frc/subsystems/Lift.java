@@ -17,7 +17,7 @@ public class Lift extends Subsystem {
   private static final int chinUpPositionIncrement = 0;
   public static enum LiftDirection { UP, DN };
   public static enum LiftPushPullDirection { Push, DN };
-  DigitalInput limitChinUp;
+  public DigitalInput limitChinUp;
   TalonSRX ChinUpArm;
   VictorSPX LiftChinUpIntake;
   DoubleSolenoid Legs;
@@ -157,12 +157,12 @@ public class Lift extends Subsystem {
   }
   public void retractableLegsUp() {
     System.out.println("Bringing RetractableLegs UP.");
-    Legs.set(DoubleSolenoid.Value.kForward);
+    Legs.set(DoubleSolenoid.Value.kReverse);
   }    
 
   public void retractableLegsDown() {
     System.out.println("Bringing RetractableLegs DOWN.");
-    Legs.set(DoubleSolenoid.Value.kReverse);
+    Legs.set(DoubleSolenoid.Value.kForward);
   }
 
   public int chinUpGetLateralPosition() {
