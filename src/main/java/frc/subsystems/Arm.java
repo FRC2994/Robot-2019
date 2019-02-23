@@ -7,6 +7,7 @@ import frc.utils.Constants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 
@@ -24,10 +25,14 @@ public class Arm extends Subsystem {
   
       // initialize motor
       // motor = new CANSparkMax(Constants.CAN_ARM, MotorType.kBrushless);
-      motor = new TalonSRX(Constants.CAN_CHINUP_ARM);
+      motor = new TalonSRX(Constants.CAN_ARM);
       // m_encoder.setPosition(); // TODO: Uncomment when release 1.1 is installed.
-
+      motor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+      motor.selectProfileSlot(0, 0);
       // setPIDCoefficients(0);
+      // motor.setSensorPhase();
+      // motor.setInverted(false); TODO: Find out if Talon is inverted
+      stopMotor();
     }
     
     private void setPIDCoefficients(ArmMoveDirection dir) {
@@ -49,7 +54,8 @@ public class Arm extends Subsystem {
       }
     
     public void setMotorOpenLoop(double percent) {
-      motor.set(ControlMode.Position, percent);
+      //motor.set(ControlMode.Position, percent);
+      motor.set(ControlMode.PercentOutput, percent);
     }
   
     public void setPosition(int positionInTicks) {
@@ -69,7 +75,7 @@ public class Arm extends Subsystem {
     }
     
     public int getRealPosition() {
-      return (int)motor.getSelectedSensorPosition() - startPosition;
+      return motor.getSelectedSensorPosition(0) - startPosition;
     }
 
     public void stopMotor() {
@@ -131,7 +137,15 @@ public class Arm extends Subsystem {
         return motor.getClosedLoopError(0) < kError;
     }
     
-
+    public void printEncoder() {
+      System.out.println("ARm Encoder:" + getRealPosition());
+    }
+    public void printArmLimitSwitch() {
+      System.out.println("Arm Limit Switch Status: " + LimitArmTop.get());
+    }
+    public boolean getLimitSwitchValue() {
+      return LimitArmTop.get();
+    }
   @Override
   protected void initDefaultCommand() {
 
