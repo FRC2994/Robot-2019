@@ -139,13 +139,14 @@ public class DriveTrain extends Subsystem{
 		rightRearDrive.follow(rightFrontDrive);
 
         differentialDrive = new DifferentialDrive(new TalonWrapperSpeedController(leftFrontDrive), new TalonWrapperSpeedController(rightFrontDrive));
+        setCurrentLimits();
 
 		gyro.calibrate();
 
 		leftFrontDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		leftFrontDrive.setSensorPhase(false);
 		rightFrontDrive.setSensorPhase(false);
-		rightFrontDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		rightFrontDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 
         // Let's name the sensors on the LiveWindow
         addChild("Drive", differentialDrive);
@@ -168,6 +169,10 @@ public class DriveTrain extends Subsystem{
 	
 	
 	public void resetEncoders() {
+		leftFrontDrive.setSensorPhase(false);
+		rightFrontDrive.setSensorPhase(false);
+		leftFrontDrive.configClearPositionOnQuadIdx(false,1000);
+		rightFrontDrive.configClearPositionOnQuadIdx(false,1000);
 		leftFrontDrive.setSelectedSensorPosition(0,0,0);
 		rightFrontDrive.setSelectedSensorPosition(0,0,0);
 		if (getLeftEncoderValue() != 0) {
@@ -176,8 +181,6 @@ public class DriveTrain extends Subsystem{
 		if (getRightEncoderValue() != 0) {
 			System.out.println("ERROR - Could not reset Right encoder!!");
 		}
-		 
-		//TODO: Reverse encoders on talons - how do you do this
 	}
 	
 	public enum BrakeCoastStatus {
@@ -229,6 +232,22 @@ public class DriveTrain extends Subsystem{
 		stopArcadeDrive = value;
 	}
 
+	public void setCurrentLimits() {
+		leftFrontDrive.configContinuousCurrentLimit(15, 0);
+		rightFrontDrive.configContinuousCurrentLimit(15, 0);
+
+		leftFrontDrive.configPeakCurrentLimit(20, 0);
+		rightFrontDrive.configPeakCurrentLimit(20, 0);
+		
+		leftFrontDrive.configPeakCurrentDuration(100, 0);
+		rightFrontDrive.configPeakCurrentDuration(100, 0);
+
+		leftFrontDrive.enableCurrentLimit(true);
+		rightFrontDrive.enableCurrentLimit(true);
+				
+		leftFrontDrive.configOpenloopRamp(1, 0);
+		rightFrontDrive.configOpenloopRamp(1, 0);
+	}
 
     /**
      * This function is called periodically by Scheduler.run
