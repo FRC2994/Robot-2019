@@ -136,6 +136,7 @@ public class Robot extends TimedRobot {
 		ledStatus = 0;
 		count = 0;
 		maxCount = 50;
+		m_lift.chinUpFindLimitSwitch();
 	}
 
 	/**
