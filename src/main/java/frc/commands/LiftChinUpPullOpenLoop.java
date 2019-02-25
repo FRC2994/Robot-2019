@@ -8,7 +8,6 @@
 package frc.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 import frc.subsystems.Lift;
 import frc.subsystems.Lift.LiftDirection;
@@ -20,9 +19,10 @@ import frc.subsystems.Lift.LiftPushPullDirection;
  * command is running. The input is the averaged values of the left and right
  * encoders.
  */
-public class LiftChinUpPullOpenLoop extends InstantCommand {
+public class LiftChinUpPullOpenLoop extends Command {
   private Lift m_lift = Robot.m_lift;
   private double speed;
+  private int duration;
 
   /**
    * Create a new DriveStraight command.
@@ -32,6 +32,20 @@ public class LiftChinUpPullOpenLoop extends InstantCommand {
   public LiftChinUpPullOpenLoop(double speed) {
     super();
     this.speed = speed;
+    this.duration = 1;
+    requires(Robot.m_lift);
+  }
+
+  /**
+   * Create a new DriveStraight command.
+   * 
+   * @param speed The speed to move at
+   * @param duration Number of periodic interavals
+   */
+  public LiftChinUpPullOpenLoop(double speed, int duration) {
+    super();
+    this.speed = speed;
+    this.duration = duration;
     requires(Robot.m_lift);
   }
 
@@ -39,6 +53,17 @@ public class LiftChinUpPullOpenLoop extends InstantCommand {
   @Override
   protected void initialize() {
     m_lift.chinUpMove(speed);
+  }
+
+  // Sets a specfic time until the function stops.
+  @Override
+  protected void execute() {
+    duration--;
+  }
+
+  @Override
+  protected boolean isFinished() {
+    return (duration <= 0);
   }
 
 }

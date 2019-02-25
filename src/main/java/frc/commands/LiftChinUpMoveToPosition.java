@@ -20,9 +20,7 @@ import frc.subsystems.Lift;
 public class LiftChinUpMoveToPosition extends Command {
   private Lift m_lift = Robot.m_lift;
   private double position;
-  private int counter = 0;
-  private final int countermax = 150;
-  boolean limitValue;
+  private boolean isFinished = false ;
 
   /**
    * Create a new DriveStraight command.
@@ -37,19 +35,18 @@ public class LiftChinUpMoveToPosition extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    // m_lift.chinUpMoveToPosition(position);
+    m_lift.chinUpMoveToPosition(position);
   }
 
   // Sets a specfic time until the function stops.
   @Override
   protected void execute() {
-    m_lift.chinUpMoveToPosition(position);
-    counter++;
+     isFinished = m_lift.chinUpOnTarget();
   }
 
   @Override
   protected boolean isFinished() {
-    return counter == countermax;
+    return isFinished;
   }
 
   @Override
@@ -61,4 +58,3 @@ public class LiftChinUpMoveToPosition extends Command {
   }
 
 }
-

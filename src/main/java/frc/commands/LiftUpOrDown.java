@@ -30,7 +30,7 @@ public class LiftUpOrDown extends CommandGroup {
       // TBD addSequential(new LiftChinupMoveToPosition(0));
     } else {
       // Bring chinup to the height of platform
-      addSequential(new LiftChinUpMoveToPosition(chinupOnPlatform+500));
+      addSequential(new LiftChinUpMoveToPosition(chinupOnPlatform-500));
       // Move robot ahaead so chinup can rest on platform
       addSequential(new DriveStraight(2000));
       // Make chinup take some weight off wheels
@@ -39,7 +39,7 @@ public class LiftUpOrDown extends CommandGroup {
       addSequential(new LiftLegsUpOrDown(LiftDirection.UP));
       addParallel(new LiftChinUpMoveToPosition(2000));
       // Move robot on platform;
-      addSequential(new LiftChinUpPullOpenLoop(5000));
+      addSequential(new LiftChinUpPullOpenLoop(0.5,50));
       // Stow chinup
       // TBD addSequential(new LiftChinupMoveToPosition(0));
     }

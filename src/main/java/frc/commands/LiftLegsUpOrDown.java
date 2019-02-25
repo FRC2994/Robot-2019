@@ -17,7 +17,7 @@ public class LiftLegsUpOrDown extends InstantCommand {
   private LiftDirection direction;
   public LiftLegsUpOrDown(LiftDirection direction) {
     // Use requires() here to declare subsystem dependencies
-    // requires(m_lift); DON"T UNCOMMENT BECAUSE LiftChinupUpOrDown is already doing it.
+    // requires(m_lift); DON'T UNCOMMENT BECAUSE LiftChinupUpOrDown is already doing it.
     this.direction = direction;
   }
 
@@ -29,8 +29,8 @@ public class LiftLegsUpOrDown extends InstantCommand {
         System.out.println("LEGS ARE GOING DOWN!");
     } else {
         m_lift.retractableLegsUp();
-        System.out.println("LEGS ARE GOING UP!")
-;    }
+        System.out.println("LEGS ARE GOING UP!");
+    }
   }
 
   // Called when another command which requires one or more of the same
