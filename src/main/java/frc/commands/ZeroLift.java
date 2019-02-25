@@ -24,7 +24,7 @@ public class ZeroLift extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if(arm.limitChinUp.get()){
+    if(arm.limitChinUp.get()==true){
       isFinished = true;
     } else{
       isFinished = false;
@@ -34,7 +34,7 @@ public class ZeroLift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(arm.limitChinUp.get()){
+    if(arm.limitChinUp.get()==true){
       isFinished = true;
       arm.chinUpMoveOpenLoop(0);
     } else{

@@ -10,6 +10,9 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import frc.commands.ZeroLift;
+import edu.wpi.first.wpilibj.command.Command;
+
 import frc.utils.Constants;
 
 public class Lift extends Subsystem {
@@ -21,6 +24,7 @@ public class Lift extends Subsystem {
   TalonSRX ChinUpArm;
   VictorSPX LiftChinUpIntake;
   DoubleSolenoid Legs;
+  Command liftZero;
   public int startPosition;
   int desiredPosition;
   boolean printedZeroing;
@@ -30,9 +34,11 @@ public class Lift extends Subsystem {
     ChinUpArm = new TalonSRX(Constants.CAN_CHINUP_ARM);
     LiftChinUpIntake = new VictorSPX(Constants.CAN_CHINUP_WHEEL_INTAKE);
     Legs = new DoubleSolenoid(Constants.PCM_RETRACTABLE_LEGS1,Constants.PCM_RETRACTABLE_LEGS2);
+    liftZero = new ZeroLift();
     ChinUpArm.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);    
   
     System.out.println("Lift Subsystem activated! ");
+    chinUpFindLimitSwitch();
   }
 
    //CHIN UP BAR
@@ -117,24 +123,25 @@ public class Lift extends Subsystem {
   }
 
   /* Returns true when done */
-  public boolean chinUpFindLimitSwitch() {
-    if (!limitChinUp.get()) {
-      ChinUpArm.setSelectedSensorPosition(0, 0, 20);
-      if (!printedZeroing) {
-        System.out.println("Elevator Zeroing!! Old startPosition " + startPosition + " New startPosition " +  armGetCurrentPosition());
-        printedZeroing = true;
-      }
-      do{
-        chinUpMoveOpenLoop(-0.2);
-      } while(!limitChinUp.get());
-      chinUpMoveOpenLoop(0);
-      startPosition = armGetCurrentPosition();
-      return false;
-    } else {
-      printedZeroing = false;
-      //chinUpSetPosition(getCurrentPosition());
-      return false;
-    }
+  public void chinUpFindLimitSwitch() {
+    // if (!limitChinUp.get()) {
+    //   ChinUpArm.setSelectedSensorPosition(0, 0, 20);
+    //   if (!printedZeroing) {
+    //     System.out.println("Elevator Zeroing!! Old startPosition " + startPosition + " New startPosition " +  armGetCurrentPosition());
+    //     printedZeroing = true;
+    //   }
+    //   do{
+    //     chinUpMoveOpenLoop(-0.2);
+    //   } while(!limitChinUp.get());
+    //   chinUpMoveOpenLoop(0);
+    //   startPosition = armGetCurrentPosition();
+    //   return false;
+    // } else {
+    //   printedZeroing = false;
+    //   //chinUpSetPosition(getCurrentPosition());
+    //   return false;
+    // }
+    liftZero.start();
   }
 
   public boolean armOnTarget() {

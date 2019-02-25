@@ -5,6 +5,7 @@ package frc.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.utils.Constants;
 import frc.commands.ZeroArm;
+import edu.wpi.first.wpilibj.command.Command;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -14,7 +15,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Arm extends Subsystem {
   private static TalonSRX motor;
-  private static ZeroArm armZero;
+  private static Command armZero;
   public static enum ArmMoveDirection { HI, LO };
 
   public int startPosition = 0;
