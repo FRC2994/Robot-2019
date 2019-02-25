@@ -8,15 +8,15 @@
 package frc.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.subsystems.Arm;
+import frc.subsystems.Lift;
 import frc.robot.Robot;
 
-public class ZeroArm extends Command {
-  public final static Arm arm = Robot.m_arm;
+public class ZeroLift extends Command {
+  public final static Lift arm = Robot.m_lift;
   private boolean isFinished;
   public int zero;
 
-  public ZeroArm() {
+  public ZeroLift() {
     // Use requires() here to declare subsystem dependencies
     requires(arm);
   }
@@ -24,7 +24,7 @@ public class ZeroArm extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if(arm.LimitArmTop.get()){
+    if(arm.limitChinUp.get()){
       isFinished = true;
     } else{
       isFinished = false;
@@ -34,12 +34,12 @@ public class ZeroArm extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(arm.LimitArmTop.get()){
+    if(arm.limitChinUp.get()){
       isFinished = true;
-      arm.setMotorOpenLoop(0);
+      arm.chinUpMoveOpenLoop(0);
     } else{
       isFinished = false;
-      arm.setMotorOpenLoop(0.1);
+      arm.chinUpMoveOpenLoop(0.1);
     }
   }
 
@@ -52,8 +52,8 @@ public class ZeroArm extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    arm.setMotorOpenLoop(0);
-    zero = arm.motorEncoder();
+    arm.chinUpMoveOpenLoop(0);
+    zero = arm.getEncoder();
     arm.startPosition = zero;
   }
 
@@ -61,6 +61,6 @@ public class ZeroArm extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    arm.setMotorOpenLoop(0);
+    arm.chinUpMoveOpenLoop(0);
   }
 }

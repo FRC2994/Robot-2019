@@ -21,7 +21,7 @@ public class Lift extends Subsystem {
   TalonSRX ChinUpArm;
   VictorSPX LiftChinUpIntake;
   DoubleSolenoid Legs;
-  int startPosition;
+  public int startPosition;
   int desiredPosition;
   boolean printedZeroing;
   
@@ -173,7 +173,7 @@ public class Lift extends Subsystem {
   }
 
   //CHIN UP Horizontal Move
-  public void chinUpMoveOpenLoop(double speed) {
+  public void chinUpMove(double speed) {
     if(limitChinUp.get()){
       if(speed>0){
         ChinUpArm.set(ControlMode.PercentOutput, speed);
@@ -187,7 +187,14 @@ public class Lift extends Subsystem {
     }
   }
 
+  public void chinUpMoveOpenLoop(double speed) {
+    ChinUpArm.set(ControlMode.PercentOutput, speed);
+  }
+
   public void chinUpMoveToPosition(double position) {
     ChinUpArm.set(ControlMode.Position, position);
+  }
+  public int getEncoder() {
+    return ChinUpArm.getSelectedSensorPosition(0);
   }
 }

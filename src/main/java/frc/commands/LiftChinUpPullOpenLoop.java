@@ -38,7 +38,7 @@ public class LiftChinUpPullOpenLoop extends InstantCommand {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    m_lift.chinUpMoveOpenLoop(speed);
+    m_lift.chinUpMove(speed);
   }
 
 }
