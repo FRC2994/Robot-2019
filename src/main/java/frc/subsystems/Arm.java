@@ -4,6 +4,7 @@ package frc.subsystems;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.utils.Constants;
+import frc.commands.ZeroArm;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -13,9 +14,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Arm extends Subsystem {
   private static TalonSRX motor;
+  private static ZeroArm armZero;
   public static enum ArmMoveDirection { HI, LO };
 
-  private int startPosition = 0;
+  public int startPosition = 0;
   private int desiredPosition = 0;
   public DigitalInput LimitArmTop;
   private boolean printedZeroing;
@@ -49,7 +51,17 @@ public class Arm extends Subsystem {
   }
   
   public void setMotorOpenLoop(double percent) {
-    motor.set(ControlMode.PercentOutput, percent);
+    if(LimitArmTop.get()){
+      if(percent>0){ //TODO: change > to this < if motor is inverted
+        motor.set(ControlMode.PercentOutput, percent);
+      }
+      else {
+      motor.set(ControlMode.PercentOutput, 0);
+      }
+    }
+    else{
+      motor.set(ControlMode.PercentOutput, percent);
+    }
   }
 
   public void setPosition(int positionInTicks) {
@@ -77,21 +89,22 @@ public class Arm extends Subsystem {
   }
   
   public void zero() {
-    if (!LimitArmTop.get()) {
-      if (!printedZeroing) {
-        System.out.println("Arm Zeroing!! Old startPosition " + startPosition + " New startPosition " +  getRealPosition());
-        printedZeroing = true;
-      }
-      motor.setSensorPhase(false);
-      motor.setSelectedSensorPosition(0);
-      motor.configClearPositionOnQuadIdx(false,1000);
-      startPosition = getRealPosition();
-      setPosition(0);
-    }
-    else {
-      printedZeroing = false;
-      setPosition(getRealPosition());
-    }
+    // if (!LimitArmTop.get()) {
+    //   if (!printedZeroing) {
+    //     System.out.println("Arm Zeroing!! Old startPosition " + startPosition + " New startPosition " +  getRealPosition());
+    //     printedZeroing = true;
+    //   }
+    //   motor.setSensorPhase(false);
+    //   motor.setSelectedSensorPosition(0);
+    //   motor.configClearPositionOnQuadIdx(false,1000);
+    //   startPosition = getRealPosition();
+    //   setPosition(0);
+    // }
+    // else {
+    //   printedZeroing = false;
+    //   setPosition(getRealPosition());
+    // }
+    armZero.start();
   }
   
   public void moveDown() {
