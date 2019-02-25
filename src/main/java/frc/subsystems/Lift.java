@@ -38,7 +38,6 @@ public class Lift extends Subsystem {
     ChinUpArm.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);    
   
     System.out.println("Lift Subsystem activated! ");
-    chinUpFindLimitSwitch();
   }
 
    //CHIN UP BAR
