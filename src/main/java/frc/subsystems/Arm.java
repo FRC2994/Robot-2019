@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Arm extends Subsystem {
   private static TalonSRX motor;
-  private static Command armZero;
+  //private static Command armZero;
   public static enum ArmMoveDirection { HI, LO };
 
   public int startPosition = 0;
@@ -31,20 +31,21 @@ public class Arm extends Subsystem {
     motor.selectProfileSlot(0, 0);
     setCurrentLimits();
     stopMotor();
+    resetEncoder();
   }
   
   private void setPIDCoefficients(ArmMoveDirection dir) {
     if (dir == ArmMoveDirection.HI) {
       /* set closed loop gains in slot0, typically kF stays zero. */
       motor.config_kF(0, 0.0, 0);
-      motor.config_kP(0, 0.2, 0);
+      motor.config_kP(0, 0.5, 0);
       motor.config_kI(0, 0.0, 0);
       motor.config_kD(0, 0.0, 0);	
       // motor.configPeakOutputForward(1.0, 0);
     } else {
       /* set closed loop gains in slot0, typically kF stays zero. */
       motor.config_kF(0, 0.0, 0);
-      motor.config_kP(0, 0.1, 0);
+      motor.config_kP(0, 0.3, 0);
       motor.config_kI(0, 0.0, 0);
       motor.config_kD(0, 0.0, 0);
       motor.configPeakOutputReverse(-0.5, 0);
@@ -89,6 +90,11 @@ public class Arm extends Subsystem {
       setMotorOpenLoop(0);
   }
   
+  public void resetEncoder() {
+        motor.setSensorPhase(false);
+    motor.setSelectedSensorPosition(0);
+    motor.configClearPositionOnQuadIdx(false,1000);
+  }
   public void zero() {
     // if (!LimitArmTop.get()) {
     //   if (!printedZeroing) {
@@ -105,7 +111,7 @@ public class Arm extends Subsystem {
     //   printedZeroing = false;
     //   setPosition(getRealPosition());
     // }
-    armZero.start();
+    //armZero.start();
   }
   
   public void moveDown() {

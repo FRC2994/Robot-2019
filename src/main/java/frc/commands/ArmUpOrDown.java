@@ -39,16 +39,17 @@ public class ArmUpOrDown extends Command {
             }
         }
         if (state == armStatus.FORWARD) {
-            //arm.moveUp()
+            // //arm.moveUp()
             position = -30;
             arm.setPosition(-30);
-
+            // arm.setMotorOpenLoop(0.4);
             // System.out.println("FORWARD");
         }
         else if (state == armStatus.BACKWARD) {
-            //arm.moveDown();
+            // //arm.moveDown();
             position = 30;
-            arm.setPosition(30);
+            arm.setPosition(500);
+            // arm.setMotorOpenLoop(-0.4);
         }
     }
 
@@ -66,7 +67,8 @@ public class ArmUpOrDown extends Command {
         if (diff == 1 ) {
             armFinished = true;
         }
-        return armFinished;
+        //return armFinished;
+        return false;
     }
 
     // Called once after isFinished returns true

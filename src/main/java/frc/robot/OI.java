@@ -38,7 +38,7 @@ import frc.commands.LiftUpOrDown;
  */
 public class OI {
   private final Joystick m_joystick = new Joystick(0);
-  private final Joystick m_gamepad = new Joystick(1);
+  private final Joystick m_gamepad = new Joystick(2);
 
 /**
    * Construct the OI and all of the buttons on it.
@@ -75,8 +75,8 @@ public class OI {
     final JoystickButton gpButnArmRetract            = new JoystickButton(m_gamepad, 6);  //Gamepad RB button
     final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 5);  //Gamepad LB button
     final JoystickButton gpButnCargoOut              = new JoystickButton(m_gamepad, 4);  //Gamepad Y button
-    final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 2);  //Gamepad B button
-    final JoystickButton gpButnHatchPush             = new JoystickButton(m_gamepad, 3);  //Gamepad A button
+    final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 3);  //Gamepad B button
+    final JoystickButton gpButnHatchPush             = new JoystickButton(m_gamepad, 2);  //Gamepad A button
     final JoystickButton gpButnHatchHold             = new JoystickButton(m_gamepad, 1);  //Gamepad X button
 
 

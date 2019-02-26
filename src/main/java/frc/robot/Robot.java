@@ -12,7 +12,7 @@ import frc.subsystems.LED;
 import frc.subsystems.Lift;
 import frc.subsystems.Arm;
 import frc.robot.OI;
-
+import frc.commands.ZeroArm;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 public class Robot extends TimedRobot {
 
 	Command autonomousCommand;
+	Command zeroArm;
 	private static Robot instance;
 	public static DriveTrain m_drivetrain;
 
@@ -76,6 +77,7 @@ public class Robot extends TimedRobot {
 		Subsystems.initialize();
 		autonomousCommand = new Autonomous();
 		m_oi = new OI();
+		zeroArm = new ZeroArm();
 	}
 
 	/**
@@ -136,7 +138,8 @@ public class Robot extends TimedRobot {
 		ledStatus = 0;
 		count = 0;
 		maxCount = 50;
-		m_lift.chinUpFindLimitSwitch();
+		//m_lift.chinUpFindLimitSwitch();
+		zeroArm.start();
 	}
 
 	/**

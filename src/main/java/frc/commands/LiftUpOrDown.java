@@ -17,29 +17,29 @@ public class LiftUpOrDown extends CommandGroup {
     final int chinupOnPlatform  = 2000; 
     if (direction==LiftDirection.DN) {
       // Move robot ahaead to get space for chinup
-      addSequential(new DriveStraight(2000));
+      //addSequential(new DriveStraight(2000));
       // Bring legs down and get chinup to rest on platform
-      addSequential(new LiftLegsUpOrDown(LiftDirection.DN));
+      //addSequential(new LiftLegsUpOrDown(LiftDirection.DN));
       addParallel(new LiftChinUpMoveToPosition(2000));
       // Move robot off platform; weight is on chinup and legs
-      addSequential(new DriveStraight(5000));
+      //addSequential(new DriveStraight(5000));
       // Bring robot down
-      addParallel(new LiftChinUpMoveToPosition(0));
-      addSequential(new LiftLegsUpOrDown(LiftDirection.UP));
+      //addParallel(new LiftChinUpMoveToPosition(0));
+      //addSequential(new LiftLegsUpOrDown(LiftDirection.UP));
       // Stow chinup
       // TBD addSequential(new LiftChinupMoveToPosition(0));
     } else {
       // Bring chinup to the height of platform
-      addSequential(new LiftChinUpMoveToPosition(chinupOnPlatform-500));
+      //addSequential(new LiftChinUpMoveToPosition(chinupOnPlatform-500));
       // Move robot ahaead so chinup can rest on platform
-      addSequential(new DriveStraight(2000));
+      //addSequential(new DriveStraight(2000));
       // Make chinup take some weight off wheels
-      addSequential(new LiftChinUpMoveToPosition(chinupOnPlatform));
-      // Extend legs and get chinup to rest on platform
-      addSequential(new LiftLegsUpOrDown(LiftDirection.UP));
+      // addSequential(new LiftChinUpMoveToPosition(chinupOnPlatform));
+      // // Extend legs and get chinup to rest on platform
+      // addSequential(new LiftLegsUpOrDown(LiftDirection.UP));
       addParallel(new LiftChinUpMoveToPosition(2000));
-      // Move robot on platform;
-      addSequential(new LiftChinUpPullOpenLoop(0.5,50));
+      // // Move robot on platform;
+      // addSequential(new LiftChinUpPullOpenLoop(0.5,50));
       // Stow chinup
       // TBD addSequential(new LiftChinupMoveToPosition(0));
     }

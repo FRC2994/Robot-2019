@@ -24,7 +24,7 @@ public class Lift extends Subsystem {
   TalonSRX ChinUpArm;
   VictorSPX LiftChinUpIntake;
   DoubleSolenoid Legs;
-  Command liftZero;
+  //Command liftZero;
   public int startPosition;
   int desiredPosition;
   boolean printedZeroing;
@@ -34,7 +34,7 @@ public class Lift extends Subsystem {
     ChinUpArm = new TalonSRX(Constants.CAN_CHINUP_ARM);
     LiftChinUpIntake = new VictorSPX(Constants.CAN_CHINUP_WHEEL_INTAKE);
     Legs = new DoubleSolenoid(Constants.PCM_RETRACTABLE_LEGS1,Constants.PCM_RETRACTABLE_LEGS2);
-    liftZero = new ZeroLift();
+    //liftZero = new ZeroLift();
     ChinUpArm.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);    
   
     System.out.println("Lift Subsystem activated! ");
@@ -140,7 +140,7 @@ public class Lift extends Subsystem {
     //   //chinUpSetPosition(getCurrentPosition());
     //   return false;
     // }
-    liftZero.start();
+    //liftZero.start();
   }
 
   public boolean armOnTarget() {
