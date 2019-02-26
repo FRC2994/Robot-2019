@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 
@@ -21,7 +22,6 @@ public class Arm extends Subsystem {
   public int startPosition = 0;
   private int desiredPosition = 0;
   public DigitalInput LimitArmTop;
-  private boolean printedZeroing;
   private final double kError = 1000;
 
   public Arm() {
@@ -29,6 +29,7 @@ public class Arm extends Subsystem {
     LimitArmTop = new DigitalInput(Constants.DIO_ARM_LIMIT_BOTTOM);
     motor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
     motor.selectProfileSlot(0, 0);
+    motor.setNeutralMode(NeutralMode.Brake);
     setCurrentLimits();
     stopMotor();
     resetEncoder();
@@ -56,17 +57,15 @@ public class Arm extends Subsystem {
     if(LimitArmTop.get()){
       if(percent>0){ //TODO: change > to this < if motor is inverted
         motor.set(ControlMode.PercentOutput, percent);
+      } else {
+        motor.set(ControlMode.PercentOutput, 0);
       }
-      else {
-      motor.set(ControlMode.PercentOutput, 0);
-      }
-    }
-    else{
+    } else{
       motor.set(ControlMode.PercentOutput, percent);
     }
   }
 
-  public void setPosition(int positionInTicks) {
+  private void setPosition(int positionInTicks) {
     
     // if (positionInTicks < 50 && positionInTicks < this.positionInTicks) {
     //			positionInTicks = 50;
@@ -82,47 +81,55 @@ public class Arm extends Subsystem {
     return desiredPosition;
   }
   
-  public int getRealPosition() {
+  public int getCurrentPosition() {
     return (int)motor.getSelectedSensorPosition() - startPosition;
   }
 
   public void stopMotor() {
-      setMotorOpenLoop(0);
+    setMotorOpenLoop(0);
   }
   
+  public void keepPosition() {
+    moveToPosition(getCurrentPosition());
+  }
+
   public void resetEncoder() {
-        motor.setSensorPhase(false);
+    motor.setSensorPhase(false);
     motor.setSelectedSensorPosition(0);
     motor.configClearPositionOnQuadIdx(false,1000);
+    startPosition = motor.getSelectedSensorPosition();
   }
+
   public void zero() {
     // if (!LimitArmTop.get()) {
     //   if (!printedZeroing) {
-    //     System.out.println("Arm Zeroing!! Old startPosition " + startPosition + " New startPosition " +  getRealPosition());
+    //     System.out.println("Arm Zeroing!! Old startPosition " + startPosition + " New startPosition " +  getCurrentPosition());
     //     printedZeroing = true;
     //   }
     //   motor.setSensorPhase(false);
     //   motor.setSelectedSensorPosition(0);
     //   motor.configClearPositionOnQuadIdx(false,1000);
-    //   startPosition = getRealPosition();
-    //   setPosition(0);
+    //   startPosition = getCurrentPosition();
+    //   moveToPosition(0);
     // }
     // else {
     //   printedZeroing = false;
-    //   setPosition(getRealPosition());
+    //   moveToPosition(getCurrentPosition());
     // }
     //armZero.start();
   }
   
   public void moveDown() {
-    setPIDCoefficients(ArmMoveDirection.LO);
-    setMotorOpenLoop(-0.1);
+    // setPIDCoefficients(ArmMoveDirection.LO);
+    // setPosition(getCurrentPosition()+100);
+    setMotorOpenLoop(-0.4);
   }
   
-  private void moveUp() {
+  public void moveUp() {
     if (LimitArmTop.get()) {
-      setPIDCoefficients(ArmMoveDirection.HI);
-      setMotorOpenLoop(0.1);
+      // setPIDCoefficients(ArmMoveDirection.HI);
+      // setPosition(getCurrentPosition()-100);
+      setMotorOpenLoop(0.4);
     } else {
       zero();
     }
@@ -163,11 +170,7 @@ public class Arm extends Subsystem {
       return motor.getClosedLoopError(0) < kError;
   }
 
-  public int motorEncoder() {
-    return motor.getSelectedSensorPosition(0);
-  }
   @Override
   protected void initDefaultCommand() {
-
   }
 }

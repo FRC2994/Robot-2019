@@ -39,7 +39,7 @@ public class ZeroArm extends Command {
       arm.setMotorOpenLoop(0);
     } else{
       isFinished = false;
-      arm.setMotorOpenLoop(0.1);
+      arm.setMotorOpenLoop(0.4);
     }
   }
 
@@ -53,8 +53,7 @@ public class ZeroArm extends Command {
   @Override
   protected void end() {
     arm.setMotorOpenLoop(0);
-    zero = arm.motorEncoder();
-    arm.startPosition = zero;
+    arm.resetEncoder();
   }
 
   // Called when another command which requires one or more of the same

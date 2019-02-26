@@ -1,23 +1,13 @@
 package frc.subsystems;
 
-import java.util.ArrayList;
-import java.util.List;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.AnalogInput;
 
-import static frc.utils.Constants.DIO_ELEVATOR_LIMIT_BOTTOM;
-import static frc.utils.Constants.USB_CONTROL_GAMEPAD;
-import static frc.utils.Constants.USB_DRIVE_STICK;
-import static frc.utils.Constants.AIO_AUTO_SELECT;
-import frc.utils.DriveTrainCharacterizer;
+// import frc.utils.DriveTrainCharacterizer;
 import frc.utils.ArduinoI2C;
 
 import frc.subsystems.Logger;
-//import frc.subsystems.LineFollower;
-import frc.robot.Robot;
-import frc.utils.Constants;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 
@@ -62,7 +52,7 @@ public class Subsystems {
 	 * This function is called periodically during autonomous
 	 */
 	public static void autonomousPeriodic() {
-	    logger.addRecord();  // Add the line of accumulated records
+	    // logger.addRecord();  // Add the line of accumulated records
 	}
 
 	public static void teleopInit() {
@@ -72,7 +62,7 @@ public class Subsystems {
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
-	    logger.addRecord();  // Add the line of accumulated records
+	    // logger.addRecord();  // Add the line of accumulated records
 	}
 
 	public static void testInit() {
@@ -83,7 +73,7 @@ public class Subsystems {
 	 * This function is called periodically during test mode
 	 */
 	public static void testPeriodic() {
-	    logger.addRecord();  // Add the line of accumulated records
+	    // logger.addRecord();  // Add the line of accumulated records
 	}
 
 }

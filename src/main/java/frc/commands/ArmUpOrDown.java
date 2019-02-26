@@ -10,14 +10,12 @@ package frc.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.subsystems.Arm;
-import frc.utils.Constants;
 
+/* Arm is moved in open loop and is held in place by a closed loop */
 public class ArmUpOrDown extends Command {
     public static enum armStatus {FORWARD, BACKWARD, OFF};
     private static final Arm arm = Robot.m_arm;
     public armStatus state;
-    private boolean armFinished;
-    private double position;
     
     public ArmUpOrDown(armStatus state) {
         requires(arm);
@@ -27,55 +25,35 @@ public class ArmUpOrDown extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        if (state == armStatus.OFF) {
-            armFinished = true;
-            arm.stopMotor();
-        } else {
-            if(arm.LimitArmTop.get()) {
-                arm.stopMotor();
-            }
-            else {
-            armFinished = false;
-            }
-        }
-        if (state == armStatus.FORWARD) {
-            // //arm.moveUp()
-            position = -30;
-            arm.setPosition(-30);
-            // arm.setMotorOpenLoop(0.4);
-            // System.out.println("FORWARD");
-        }
-        else if (state == armStatus.BACKWARD) {
-            // //arm.moveDown();
-            position = 30;
-            arm.setPosition(500);
-            // arm.setMotorOpenLoop(-0.4);
-        }
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double diff = Math.abs(arm.getRealPosition()-position);
-        System.out.println("Arm isFinished " + armFinished + " diff " + diff);
+        if (state == armStatus.OFF) {
+            arm.keepPosition();  // closed loop
+        } else if (state == armStatus.FORWARD) {
+            arm.moveUp(); // open loop
+        } else if (state == armStatus.BACKWARD) {
+            arm.moveDown(); // open loop
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        double diff = Math.abs(arm.getRealPosition()-position);
-        if (diff == 1 ) {
-            armFinished = true;
+        if (state == armStatus.OFF) {
+            return arm.onTarget(); // closed loop
+        } else {
+            return true; // open loop
         }
-        //return armFinished;
-        return false;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
         System.out.println("Arm ending...");
-        arm.stopMotor();
+        // arm.stopMotor();
     }
 
     // Called when another command which requires one or more of the same

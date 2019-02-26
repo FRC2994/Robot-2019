@@ -20,7 +20,7 @@ public class LiftUpOrDown extends CommandGroup {
       //addSequential(new DriveStraight(2000));
       // Bring legs down and get chinup to rest on platform
       //addSequential(new LiftLegsUpOrDown(LiftDirection.DN));
-      addParallel(new LiftChinUpMoveToPosition(2000));
+      // addParallel(new LiftChinUpMoveToPosition(2000));
       // Move robot off platform; weight is on chinup and legs
       //addSequential(new DriveStraight(5000));
       // Bring robot down
