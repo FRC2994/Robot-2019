@@ -58,16 +58,16 @@ public class OI {
     SmartDashboard.putData("Deliver Soda", new Autonomous());
 
     // Create some buttons
-    final JoystickButton jsButnClimb                 = new JoystickButton(m_joystick, 11);
+    final JoystickButton jsButnClimb                 = new JoystickButton(m_joystick, 6);
     final JoystickButton jsButnRecord                = new JoystickButton(m_joystick, 10);
     final JoystickButton jsButnCalibrate             = new JoystickButton(m_joystick, 9);
-    final JoystickButton jsButnShifter               = new JoystickButton(m_joystick, 8);
-    final JoystickButton jsButnChinUpRetract         = new JoystickButton(m_joystick, 7);
-    final JoystickButton jsButnChinUpForward         = new JoystickButton(m_joystick, 6);
+    final JoystickButton jsButnShifter               = new JoystickButton(m_joystick, 7);
+    final JoystickButton jsButnChinUpRetract         = new JoystickButton(m_joystick, 2);
+    final JoystickButton jsButnChinUpForward         = new JoystickButton(m_joystick, 3);
     final JoystickButton jsButnChinUpOut             = new JoystickButton(m_joystick, 5);
     final JoystickButton jsButnChinUpIn              = new JoystickButton(m_joystick, 4);
-    final JoystickButton jsButnRetractableLegsUp     = new JoystickButton(m_joystick, 3);
-    final JoystickButton jsButnRetractableLegsDown   = new JoystickButton(m_joystick, 2);
+    final JoystickButton jsButnRetractableLegsUp     = new JoystickButton(m_joystick, 9);
+    final JoystickButton jsButnRetractableLegsDown   = new JoystickButton(m_joystick, 8);
     final JoystickButton jsButnFollowLine            = new JoystickButton(m_joystick, 1);
     final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 10); //Gamepad Start button
     final JoystickButton gpButnLEDCargo              = new JoystickButton(m_gamepad, 8);  //Gamepad RT button
