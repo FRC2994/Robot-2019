@@ -37,18 +37,22 @@ public class HatchReleaseOrHold extends Command {
     if (relHold == releaseOrHold.hold) {
       if (counter==0) {
         hatch.fingerHold();
+        hatch.pistonReset();
      } else if (counter == counterMax) { // 25*20ms = 0.5s
         hatch.pistonReset();
+        counter = 0;
       }
       hatch.pistonPush();
     } else {
       if (counter==0) {
          hatch.fingerRelease();
+         hatch.pistonPush();
       } else if (counter == counterMax) {
          hatch.pistonPush();
+         counter = 0;
       }
     }
-    counter=(counter+1)%(counterMax+1);
+    counter++;
   }
 
   // Make this return true when this Command no longer needs to run execute()
