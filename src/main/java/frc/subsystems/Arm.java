@@ -39,14 +39,14 @@ public class Arm extends Subsystem {
     if (dir == ArmMoveDirection.HI) {
       /* set closed loop gains in slot0, typically kF stays zero. */
       motor.config_kF(0, 0.0, 0);
-      motor.config_kP(0, 0.5, 0);
+      motor.config_kP(0, 0.3, 0);
       motor.config_kI(0, 0.0, 0);
       motor.config_kD(0, 0.0, 0);	
       // motor.configPeakOutputForward(1.0, 0);
     } else {
       /* set closed loop gains in slot0, typically kF stays zero. */
       motor.config_kF(0, 0.0, 0);
-      motor.config_kP(0, 0.3, 0);
+      motor.config_kP(0, 0.4, 0);
       motor.config_kI(0, 0.0, 0);
       motor.config_kD(0, 0.0, 0);
       motor.configPeakOutputReverse(-0.5, 0);
@@ -63,6 +63,9 @@ public class Arm extends Subsystem {
     } else{
       motor.set(ControlMode.PercentOutput, percent);
     }
+  }
+  public void move(double percent) {
+    motor.set(ControlMode.PercentOutput, percent);
   }
 
   private void setPosition(int positionInTicks) {
@@ -86,7 +89,7 @@ public class Arm extends Subsystem {
   }
 
   public void stopMotor() {
-    setMotorOpenLoop(0);
+    motor.set(ControlMode.PercentOutput, 0);
   }
   
   public void keepPosition() {
@@ -122,22 +125,26 @@ public class Arm extends Subsystem {
   public void moveDown() {
     // setPIDCoefficients(ArmMoveDirection.LO);
     // setPosition(getCurrentPosition()+100);
-    setMotorOpenLoop(-0.4);
+    // setMotorOpenLoop(-0.4);
+    motor.set(ControlMode.PercentOutput, -0.3);
+    System.out.println("MOVING DOWN");
   }
   
   public void moveUp() {
-    if (LimitArmTop.get()) {
+    if (!LimitArmTop.get()) {
       // setPIDCoefficients(ArmMoveDirection.HI);
-      // setPosition(getCurrentPosition()-100);
-      setMotorOpenLoop(0.4);
+      // setPosition(getCurrentPosition()-100)
+      // setMotorOpenLoop(0.4);
+      motor.set(ControlMode.PercentOutput, 0.4);
+      System.out.println("MOVING UP");
     } else {
-      zero();
+      resetEncoder();
     }
   }
 
   public void moveToPosition(int desiredPostion) {
+    setPIDCoefficients(ArmMoveDirection.HI);
     if (LimitArmTop.get()) {
-      setPIDCoefficients(ArmMoveDirection.HI);
       setPosition(desiredPostion - startPosition);
     } else {
       // System.out.println("Arm Zeroing!!");
