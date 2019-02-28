@@ -32,6 +32,8 @@ import frc.commands.LiftChinUpPullOpenLoop;
 import frc.commands.LiftLegsUpOrDown;
 import frc.commands.LiftUpOrDown;
 import frc.commands.ZeroArm;
+import frc.commands.HatchFinger;
+import frc.commands.HatchPiston;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -78,8 +80,8 @@ public class OI {
     final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 5);  //Gamepad LB button
     final JoystickButton gpButnCargoOut              = new JoystickButton(m_gamepad, 4);  //Gamepad Y button
     final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 2);  //Gamepad B button
-    final JoystickButton gpButnHatchPush             = new JoystickButton(m_gamepad, 1);  //Gamepad A button
-    final JoystickButton gpButnHatchHold             = new JoystickButton(m_gamepad, 3);  //Gamepad X button
+    final JoystickButton gpButnHatchPiston           = new JoystickButton(m_gamepad, 1);  //Gamepad A button
+    final JoystickButton gpButnHatchFinger           = new JoystickButton(m_gamepad, 3);  //Gamepad X button
 
 
     /* Connect the buttons to commands */
@@ -115,8 +117,8 @@ public class OI {
     gpButnArmRetract.whenReleased(new ArmUpOrDown(armStatus.OFF));
     gpButnArmForward.whenPressed(new ArmUpOrDown(armStatus.FORWARD));
     gpButnArmForward.whenReleased(new ArmUpOrDown(armStatus.OFF));
-    gpButnHatchPush.whenPressed(new HatchReleaseOrHold(releaseOrHold.release));
-    gpButnHatchHold.whenPressed(new HatchReleaseOrHold(releaseOrHold.hold));
+    gpButnHatchFinger.whenPressed(new HatchFinger());
+    gpButnHatchPiston.whenPressed(new HatchPiston());
   }
 
   public Joystick getJoystick() {
