@@ -194,7 +194,7 @@ public class Lift extends Subsystem {
   }
 
   public void chinUpMoveOpenLoop(double speed) {
-    ChinUpArm.set(ControlMode.PercentOutput, speed);
+    LiftChinUpIntake.set(ControlMode.PercentOutput, speed);
   }
 
   public void chinUpMoveToPosition(double position) {

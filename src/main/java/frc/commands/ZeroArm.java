@@ -19,6 +19,7 @@ public class ZeroArm extends Command {
   public ZeroArm() {
     // Use requires() here to declare subsystem dependencies
     requires(arm);
+    isFinished = false;
   }
 
   // Called just before this Command runs the first time
@@ -36,10 +37,12 @@ public class ZeroArm extends Command {
   protected void execute() {
     if(arm.LimitArmTop.get()){
       isFinished = true;
-      arm.setMotorOpenLoop(0);
+      arm.stopMotor();
+      System.out.println("ZERO STOPPED!");
     } else{
       isFinished = false;
-      arm.setMotorOpenLoop(0.4);
+      arm.move(-0.3);
+      System.out.println("ZERO GOING!");
     }
   }
 
@@ -52,7 +55,7 @@ public class ZeroArm extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    arm.setMotorOpenLoop(0);
+    arm.stopMotor();
     arm.resetEncoder();
   }
 

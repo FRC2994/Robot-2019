@@ -31,6 +31,7 @@ import frc.commands.LiftChinUpIntake.IntakeStatus;
 import frc.commands.LiftChinUpPullOpenLoop;
 import frc.commands.LiftLegsUpOrDown;
 import frc.commands.LiftUpOrDown;
+import frc.commands.ZeroArm;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -38,7 +39,7 @@ import frc.commands.LiftUpOrDown;
  */
 public class OI {
   private final Joystick m_joystick = new Joystick(0);
-  private final Joystick m_gamepad = new Joystick(2);
+  private final Joystick m_gamepad = new Joystick(1);
 
 /**
    * Construct the OI and all of the buttons on it.
@@ -69,15 +70,16 @@ public class OI {
     final JoystickButton jsButnChinUpForward         = new JoystickButton(m_joystick, 3);
     final JoystickButton jsButnChinUpRetract         = new JoystickButton(m_joystick, 2);
     final JoystickButton jsButnFollowLine            = new JoystickButton(m_joystick, 1);
-    final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 10); //Gamepad Start button
-    final JoystickButton gpButnLEDCargo              = new JoystickButton(m_gamepad, 8);  //Gamepad RT button
+    // final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 10); //Gamepad Start button
+    // final JoystickButton gpButnLEDCargo              = new JoystickButton(m_gamepad, 8);  //Gamepad RT button
+    final JoystickButton gpButnArmZero               = new JoystickButton(m_gamepad, 10);
     final JoystickButton gpButnLEDHatch              = new JoystickButton(m_gamepad, 7);  //Gamepad LT button
     final JoystickButton gpButnArmRetract            = new JoystickButton(m_gamepad, 6);  //Gamepad RB button
     final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 5);  //Gamepad LB button
     final JoystickButton gpButnCargoOut              = new JoystickButton(m_gamepad, 4);  //Gamepad Y button
-    final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 3);  //Gamepad B button
-    final JoystickButton gpButnHatchPush             = new JoystickButton(m_gamepad, 2);  //Gamepad A button
-    final JoystickButton gpButnHatchHold             = new JoystickButton(m_gamepad, 1);  //Gamepad X button
+    final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 2);  //Gamepad B button
+    final JoystickButton gpButnHatchPush             = new JoystickButton(m_gamepad, 1);  //Gamepad A button
+    final JoystickButton gpButnHatchHold             = new JoystickButton(m_gamepad, 3);  //Gamepad X button
 
 
     /* Connect the buttons to commands */
@@ -86,9 +88,9 @@ public class OI {
     jsButnClimb.whenPressed(new LiftUpOrDown(LiftDirection.UP));
     jsButnShifter.whenPressed(new ShiftGear(GearShiftState.HI));
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
-    jsButnChinUpRetract.whileHeld(new LiftChinUpPullOpenLoop(0.1));
+    jsButnChinUpRetract.whileHeld(new LiftChinUpPullOpenLoop(0.2));
     jsButnChinUpRetract.whenReleased(new LiftChinUpPullOpenLoop(0));
-    jsButnChinUpForward.whileHeld(new LiftChinUpPullOpenLoop(-0.1));
+    jsButnChinUpForward.whileHeld(new LiftChinUpPullOpenLoop(-0.6));
     jsButnChinUpForward.whenReleased(new LiftChinUpPullOpenLoop(0));
     jsButnChinUpOut.whileHeld(new LiftChinUpIntake(IntakeStatus.INTAKE));
     jsButnChinUpOut.whenReleased(new LiftChinUpIntake(IntakeStatus.OFF));
@@ -101,16 +103,17 @@ public class OI {
 
 
     //GAMEPAD
-    gpButnLEDOff.whenPressed(new LEDcontrol(LEDmode.OFF,LEDcolor.RED));
-    gpButnLEDCargo.whenPressed(new LEDcontrol(LEDmode.SLOW,LEDcolor.RED));
+    // gpButnLEDOff.whenPressed(new LEDcontrol(LEDmode.OFF,LEDcolor.RED));
+    // gpButnLEDCargo.whenPressed(new LEDcontrol(LEDmode.SLOW,LEDcolor.RED));
+    gpButnArmZero.whenPressed(new ZeroArm());
     gpButnLEDHatch.whenPressed(new LEDcontrol(LEDmode.SLOW,LEDcolor.BLUE));
     gpButnCargoIn.whileHeld(new CargoIntake());
     gpButnCargoIn.whenReleased(new CargoStop());
     gpButnCargoOut.whileHeld(new CargoShoot());
     gpButnCargoOut.whenReleased(new CargoStop());
-    gpButnArmRetract.whileHeld(new ArmUpOrDown(armStatus.BACKWARD));
+    gpButnArmRetract.whenPressed(new ArmUpOrDown(armStatus.BACKWARD));
     gpButnArmRetract.whenReleased(new ArmUpOrDown(armStatus.OFF));
-    gpButnArmForward.whileHeld(new ArmUpOrDown(armStatus.FORWARD));
+    gpButnArmForward.whenPressed(new ArmUpOrDown(armStatus.FORWARD));
     gpButnArmForward.whenReleased(new ArmUpOrDown(armStatus.OFF));
     gpButnHatchPush.whenPressed(new HatchReleaseOrHold(releaseOrHold.release));
     gpButnHatchHold.whenPressed(new HatchReleaseOrHold(releaseOrHold.hold));

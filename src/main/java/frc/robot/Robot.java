@@ -77,7 +77,6 @@ public class Robot extends TimedRobot {
 		Subsystems.initialize();
 		autonomousCommand = new Autonomous();
 		m_oi = new OI();
-		zeroArm = new ZeroArm();
 	}
 
 	/**
@@ -139,7 +138,6 @@ public class Robot extends TimedRobot {
 		count = 0;
 		maxCount = 50;
 		//m_lift.chinUpFindLimitSwitch();
-		zeroArm.start();
 	}
 
 	/**
@@ -150,11 +148,12 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		// LiveWindow.run();
 		if(count == maxCount){
-			System.out.println("Drive Train: " + m_drivetrain.getLeftEncoderValue() + "  " + m_drivetrain.getRightEncoderValue());
-			System.out.println("Arm Limit Switch: " + m_arm.LimitArmTop.get() + "   Arm Encoder:" + m_arm.getCurrentPosition());
-			System.out.println("Chinup Limit: "+m_lift.limitChinUp.get() + "	Chinup Rotation: " + m_lift.armGetCurrentPosition());
-			System.out.println("Cargo Intake Limit Switch: "+m_gamePieces.cargoLimit.get());
-			System.out.println("");
+			// System.out.println("Drive Train: " + m_drivetrain.getLeftEncoderValue() + "  " + m_drivetrain.getRightEncoderValue());
+			// System.out.println("Arm Limit Switch: " + m_arm.LimitArmTop.get() + "   Arm Encoder:" + m_arm.getCurrentPosition());
+			// System.out.println("Chinup Limit: "+m_lift.limitChinUp.get() + "	Chinup Rotation: " + m_lift.armGetCurrentPosition());
+			// System.out.println("Cargo Intake Limit Switch: "+m_gamePieces.cargoLimit.get());
+			// System.out.println("");
+			m_lineFollower.debugUS();
 			// if(ledStatus == 0) {
 			// 	m_LED.setLEDR(true);
 			// 	m_LED.setLEDB(false);

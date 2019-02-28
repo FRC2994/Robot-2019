@@ -55,9 +55,11 @@ public class GamePieces extends Subsystem{
     }
     public void pistonPush() {
         hatch.set(true);
+        System.out.println("PUSHED PISTON");
     }
     public void pistonReset() {
         hatch.set(false);
+        System.out.println("RESET PISTON");
     }
 
     @Override

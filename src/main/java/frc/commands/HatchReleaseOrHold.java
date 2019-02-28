@@ -18,6 +18,7 @@ public class HatchReleaseOrHold extends Command {
   private releaseOrHold relHold;
   private int counter;
   private static final int counterMax = 25;
+  private boolean isFinished;
 
   public HatchReleaseOrHold(releaseOrHold relHold) {
     // Use requires() here to declare subsystem dependencies
@@ -28,6 +29,7 @@ public class HatchReleaseOrHold extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    isFinished = false;
     counter = 0;
   }
 
@@ -37,19 +39,16 @@ public class HatchReleaseOrHold extends Command {
     if (relHold == releaseOrHold.hold) {
       if (counter==0) {
         hatch.fingerHold();
-        hatch.pistonReset();
      } else if (counter == counterMax) { // 25*20ms = 0.5s
         hatch.pistonReset();
-        counter = 0;
+        isFinished = true;
       }
-      hatch.pistonPush();
     } else {
       if (counter==0) {
          hatch.fingerRelease();
-         hatch.pistonPush();
       } else if (counter == counterMax) {
          hatch.pistonPush();
-         counter = 0;
+         isFinished = true;
       }
     }
     counter++;
@@ -58,12 +57,13 @@ public class HatchReleaseOrHold extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return counter==counterMax;
+    return isFinished;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    System.out.println("STOPPED");
   }
 
   // Called when another command which requires one or more of the same
