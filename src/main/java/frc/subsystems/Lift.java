@@ -28,6 +28,7 @@ public class Lift extends Subsystem {
   public int startPosition;
   int desiredPosition;
   boolean printedZeroing;
+  public final int kTickIncrement = 4200; //536,000/3/50 OLD: 2,680
   
   public Lift() {
     limitChinUp = new DigitalInput(Constants.DIO_CHINUP_LIMIT_BOTTOM);
@@ -38,6 +39,7 @@ public class Lift extends Subsystem {
     ChinUpArm.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);    
   
     System.out.println("Lift Subsystem activated! ");
+    resetEncoder();
   }
 
    //CHIN UP BAR
@@ -80,17 +82,17 @@ public class Lift extends Subsystem {
 
   private void chinUpArmSetPosition(int desiredPosition) {
     int position;
-    if ( (desiredPosition +armGetDesiredPosition()) < (startPosition + Constants.ARM_POSITION_MINIMUM)) {
-			position = startPosition + Constants.ARM_POSITION_MINIMUM;
-		}
-		else if ( (desiredPosition + armGetDesiredPosition()) > ( startPosition + Constants.ARM_POSITION_MAXIMUM) ) { 
-			position = startPosition + Constants.ARM_POSITION_MAXIMUM;
-		}
-		else {
-			position = desiredPosition;
-		}
+    // if ( (desiredPosition +armGetDesiredPosition()) < (startPosition + Constants.ARM_POSITION_MINIMUM)) {
+		// 	position = startPosition + Constants.ARM_POSITION_MINIMUM;
+		// }
+		// else if ( (desiredPosition + armGetDesiredPosition()) > ( startPosition + Constants.ARM_POSITION_MAXIMUM) ) { 
+		// 	position = startPosition + Constants.ARM_POSITION_MAXIMUM;
+		// }
+		// else {
+		// 	position = desiredPosition;
+    // }
+    position = desiredPosition;
     ChinUpArm.set(ControlMode.Position, position);
-    this.desiredPosition = position;
   }
 
   public void chinUpMoveToPosition(int desiredPostion) {
@@ -102,6 +104,30 @@ public class Lift extends Subsystem {
     }
   }
   
+  public void moveUp() {
+    armSetPIDCoefficients(LiftDirection.UP);
+    chinUpArmSetPosition(armGetCurrentPosition() + kTickIncrement);
+    // setMotorOpenLoop(-0.4);
+    //motor.set(ControlMode.PercentOutput, -0.3);
+    System.out.println("MOVING UP");
+  }
+  
+  public void moveDown() {
+    if (!limitChinUp.get()) {
+      armSetPIDCoefficients(LiftDirection.DN);
+      chinUpArmSetPosition(armGetCurrentPosition()-kTickIncrement);
+      // setMotorOpenLoop(0.4);
+      //motor.set(ControlMode.PercentOutput, 0.4);
+      System.out.println("MOVING Down");
+    } 
+  }
+
+  void resetEncoder() {
+    ChinUpArm.setSensorPhase(false);
+    ChinUpArm.setSelectedSensorPosition(0);
+    ChinUpArm.configClearPositionOnQuadIdx(false,1000);
+    startPosition = ChinUpArm.getSelectedSensorPosition();
+  }
   public void chinUpArmRunOpenLoop(LiftDirection dir, double speed) {
     armSetPIDCoefficients(dir);
     if (!limitChinUp.get()) {
@@ -148,15 +174,7 @@ public class Lift extends Subsystem {
     System.out.println("CL_ERR: " + Math.abs(cl_err) + " motorOut: " + ChinUpArm.getMotorOutputPercent()
     + " Enc: " + ChinUpArm.getSelectedSensorPosition(0) + " startPosition " + startPosition
     + " getDesiredPosition " + armGetDesiredPosition());
-    return ChinUpArm.getClosedLoopError(0) < 2000;
-  }
-
-  public boolean chinUpOnTarget() {
-    int cl_err = ChinUpArm.getClosedLoopError(0);
-    System.out.println("CL_ERR: " + Math.abs(cl_err) + " motorOut: " + ChinUpArm.getMotorOutputPercent()
-    + " Enc: " + ChinUpArm.getSelectedSensorPosition(0) + " startPosition " + startPosition
-    + " getDesiredPosition " + armGetDesiredPosition());
-    return ChinUpArm.getClosedLoopError(0) < 2000;
+    return ChinUpArm.getClosedLoopError(0) < 200;
   }
 
   //RETRACTABLE LEGS

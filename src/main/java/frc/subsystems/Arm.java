@@ -22,12 +22,15 @@ public class Arm extends Subsystem {
   public int startPosition = 0;
   private int desiredPosition = 0;
   public DigitalInput LimitArmTop;
-  private final double kError = 1000;
+  private final int kTickIncrement = 30;
+  private final int kError = (int)(kTickIncrement*0.02);
 
   public Arm() {
     motor = new TalonSRX(Constants.CAN_ARM);
     LimitArmTop = new DigitalInput(Constants.DIO_ARM_LIMIT_BOTTOM);
     motor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+    motor.configAllowableClosedloopError(0, kError, 0);
+		motor.enableCurrentLimit(false);
     motor.selectProfileSlot(0, 0);
     motor.setNeutralMode(NeutralMode.Brake);
     setCurrentLimits();
@@ -39,17 +42,17 @@ public class Arm extends Subsystem {
     if (dir == ArmMoveDirection.HI) {
       /* set closed loop gains in slot0, typically kF stays zero. */
       motor.config_kF(0, 0.0, 0);
-      motor.config_kP(0, 0.3, 0);
+      motor.config_kP(0, 0.9, 0);
       motor.config_kI(0, 0.0, 0);
       motor.config_kD(0, 0.0, 0);	
       // motor.configPeakOutputForward(1.0, 0);
     } else {
       /* set closed loop gains in slot0, typically kF stays zero. */
       motor.config_kF(0, 0.0, 0);
-      motor.config_kP(0, 0.4, 0);
+      motor.config_kP(0, 0.9, 0);
       motor.config_kI(0, 0.0, 0);
       motor.config_kD(0, 0.0, 0);
-      motor.configPeakOutputReverse(-0.5, 0);
+      // motor.configPeakOutputReverse(-0.5, 0);
     }
   }
   
@@ -123,22 +126,20 @@ public class Arm extends Subsystem {
   }
   
   public void moveDown() {
-    // setPIDCoefficients(ArmMoveDirection.LO);
-    // setPosition(getCurrentPosition()+100);
+    setPIDCoefficients(ArmMoveDirection.LO);
+    setPosition(getCurrentPosition()+kTickIncrement);
     // setMotorOpenLoop(-0.4);
-    motor.set(ControlMode.PercentOutput, -0.3);
-    System.out.println("MOVING DOWN");
+    // motor.set(ControlMode.PercentOutput, -0.4);
+    System.out.println("MOVING DOWN " + getCurrentPosition());
   }
   
   public void moveUp() {
     if (!LimitArmTop.get()) {
-      // setPIDCoefficients(ArmMoveDirection.HI);
-      // setPosition(getCurrentPosition()-100)
+      setPIDCoefficients(ArmMoveDirection.HI);
+      setPosition(getCurrentPosition()-kTickIncrement);
       // setMotorOpenLoop(0.4);
-      motor.set(ControlMode.PercentOutput, 0.4);
-      System.out.println("MOVING UP");
-    } else {
-      resetEncoder();
+      //motor.set(ControlMode.PercentOutput, 0.4);
+      System.out.println("MOVING UP " + getCurrentPosition());
     }
   }
 
@@ -153,28 +154,21 @@ public class Arm extends Subsystem {
   }
         
 	public void setCurrentLimits() {
-		motor.configContinuousCurrentLimit(15, 0);
-		motor.configContinuousCurrentLimit(15, 0);
-
-		motor.configPeakCurrentLimit(20, 0);
-		motor.configPeakCurrentLimit(20, 0);
-		
+		motor.configContinuousCurrentLimit(30, 0);
+		motor.configPeakCurrentLimit(40, 0);
 		motor.configPeakCurrentDuration(100, 0);
-		motor.configPeakCurrentDuration(100, 0);
-
 		motor.enableCurrentLimit(true);
-		motor.enableCurrentLimit(true);
-				
-		motor.configOpenloopRamp(1, 0);
 		motor.configOpenloopRamp(1, 0);
 	}
 
   public boolean onTarget() {
-      int cl_err = motor.getClosedLoopError(0);
-      System.out.println("CL_ERR: " + Math.abs(cl_err) + " motorOut: " + motor.getMotorOutputPercent()
+      //int cl_err = Math.abs(motor.getClosedLoopError(0));
+      int cl_err = Math.abs(getCurrentPosition()-getDesiredPosition());
+      System.out.println("CL_ERR: " + cl_err + " kError " +kError + " motorVoltage: " + motor.getMotorOutputVoltage()
       + " Enc: " + motor.getSelectedSensorPosition(0) + " startPosition " + startPosition
       + " getDesiredPosition " + getDesiredPosition());
-      return motor.getClosedLoopError(0) < kError;
+      // return cl_err <= kError;
+      return true;
   }
 
   @Override

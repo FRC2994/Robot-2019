@@ -32,7 +32,8 @@ import frc.commands.LiftChinUpPullOpenLoop;
 import frc.commands.LiftLegsUpOrDown;
 import frc.commands.LiftUpOrDown;
 import frc.commands.ZeroArm;
-
+import frc.commands.LiftChinUpClosedLoop;
+import frc.commands.LiftChinUpClosedLoop.chinUpDirection;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -88,10 +89,8 @@ public class OI {
     jsButnClimb.whenPressed(new LiftUpOrDown(LiftDirection.UP));
     jsButnShifter.whenPressed(new ShiftGear(GearShiftState.HI));
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
-    jsButnChinUpRetract.whileHeld(new LiftChinUpPullOpenLoop(0.2));
-    jsButnChinUpRetract.whenReleased(new LiftChinUpPullOpenLoop(0));
-    jsButnChinUpForward.whileHeld(new LiftChinUpPullOpenLoop(-0.6));
-    jsButnChinUpForward.whenReleased(new LiftChinUpPullOpenLoop(0));
+    jsButnChinUpRetract.whileHeld(new LiftChinUpClosedLoop(chinUpDirection.UP));
+    jsButnChinUpForward.whileHeld(new LiftChinUpClosedLoop(chinUpDirection.DOWN));
     jsButnChinUpOut.whileHeld(new LiftChinUpIntake(IntakeStatus.INTAKE));
     jsButnChinUpOut.whenReleased(new LiftChinUpIntake(IntakeStatus.OFF));
     jsButnChinUpIn.whileHeld(new LiftChinUpIntake(IntakeStatus.OUTTAKE));
@@ -111,9 +110,9 @@ public class OI {
     gpButnCargoIn.whenReleased(new CargoStop());
     gpButnCargoOut.whileHeld(new CargoShoot());
     gpButnCargoOut.whenReleased(new CargoStop());
-    gpButnArmRetract.whenPressed(new ArmUpOrDown(armStatus.BACKWARD));
+    gpButnArmRetract.whileHeld(new ArmUpOrDown(armStatus.BACKWARD));
     gpButnArmRetract.whenReleased(new ArmUpOrDown(armStatus.OFF));
-    gpButnArmForward.whenPressed(new ArmUpOrDown(armStatus.FORWARD));
+    gpButnArmForward.whileHeld(new ArmUpOrDown(armStatus.FORWARD));
     gpButnArmForward.whenReleased(new ArmUpOrDown(armStatus.OFF));
     gpButnHatchPush.whenPressed(new HatchReleaseOrHold(releaseOrHold.release));
     gpButnHatchHold.whenPressed(new HatchReleaseOrHold(releaseOrHold.hold));

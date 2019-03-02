@@ -16,6 +16,7 @@ public class ArmUpOrDown extends Command {
     public static enum armStatus {FORWARD, BACKWARD, OFF};
     private static final Arm arm = Robot.m_arm;
     public armStatus state;
+    boolean isFinished;
     
     public ArmUpOrDown(armStatus state) {
         requires(arm);
@@ -25,6 +26,7 @@ public class ArmUpOrDown extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        isFinished = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -32,6 +34,8 @@ public class ArmUpOrDown extends Command {
     protected void execute() {
         if (state == armStatus.OFF) {
             arm.keepPosition();  // closed loop
+            arm.stopMotor();
+            isFinished = true;
         } else if (state == armStatus.FORWARD) {
             arm.moveUp(); // open loop
         } else if (state == armStatus.BACKWARD) {
@@ -42,11 +46,12 @@ public class ArmUpOrDown extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if (state == armStatus.OFF) {
-            return arm.onTarget(); // closed loop
-        } else {
-            return true; // open loop
-        }
+        // if (state == armStatus.OFF) {
+        return arm.onTarget(); // closed loop
+        // } else {
+        //     return true; // open loop
+        // }
+        // return true;
     }
 
     // Called once after isFinished returns true

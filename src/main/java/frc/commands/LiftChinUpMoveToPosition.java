@@ -41,7 +41,7 @@ public class LiftChinUpMoveToPosition extends Command {
   // Sets a specfic time until the function stops.
   @Override
   protected void execute() {
-     isFinished = m_lift.chinUpOnTarget();
+     isFinished = m_lift.armOnTarget();
   }
 
   @Override

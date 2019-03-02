@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 public class GamePieces extends Subsystem{
@@ -26,6 +27,7 @@ public class GamePieces extends Subsystem{
         finger = new DoubleSolenoid(Constants.PCM_HATCH_FINGER1,Constants.PCM_HATCH_FINGER2);
         cargo = new VictorSPX(Constants.CAN_WHEEL_INTAKE);
         cargoLimit = new DigitalInput(Constants.DIO_WHEEL_INTAKE_LIMIT);
+        cargo.setNeutralMode(NeutralMode.Brake);
     }
 
     public static GamePieces getInstance() {
