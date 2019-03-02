@@ -171,10 +171,12 @@ public class Lift extends Subsystem {
 
   public boolean armOnTarget() {
     int cl_err = ChinUpArm.getClosedLoopError(0);
-    System.out.println("CL_ERR: " + Math.abs(cl_err) + " motorOut: " + ChinUpArm.getMotorOutputPercent()
+    System.out.println("armOnTarget... CL_ERR " + Math.abs(cl_err) 
+    + " motorOutputVoltage " + ChinUpArm.getMotorOutputVoltage() + " motorBusVoltage "  + ChinUpArm.getBusVoltage()
     + " Enc: " + ChinUpArm.getSelectedSensorPosition(0) + " startPosition " + startPosition
     + " getDesiredPosition " + armGetDesiredPosition());
-    return ChinUpArm.getClosedLoopError(0) < 200;
+    // return ChinUpArm.getClosedLoopError(0) < 200;
+    return true;
   }
 
   //RETRACTABLE LEGS

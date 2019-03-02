@@ -17,7 +17,9 @@ import frc.commands.Autonomous;
 import frc.commands.FollowLine;
 import frc.commands.HatchReleaseOrHold;
 import frc.commands.LEDcontrol;
+import frc.commands.LiftChinUpClosedLoop;
 import frc.commands.LEDcontrol.LEDmode;
+import frc.commands.LiftChinUpClosedLoop.chinUpDirection;
 import frc.commands.LEDcontrol.LEDcolor;
 import frc.commands.LiftChinUpIntake;
 import frc.commands.ShiftGear;
@@ -32,8 +34,9 @@ import frc.commands.LiftChinUpPullOpenLoop;
 import frc.commands.LiftLegsUpOrDown;
 import frc.commands.LiftUpOrDown;
 import frc.commands.ZeroArm;
-import frc.commands.LiftChinUpClosedLoop;
-import frc.commands.LiftChinUpClosedLoop.chinUpDirection;
+import frc.commands.HatchFinger;
+import frc.commands.HatchPiston;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -79,8 +82,8 @@ public class OI {
     final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 5);  //Gamepad LB button
     final JoystickButton gpButnCargoOut              = new JoystickButton(m_gamepad, 4);  //Gamepad Y button
     final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 2);  //Gamepad B button
-    final JoystickButton gpButnHatchPush             = new JoystickButton(m_gamepad, 1);  //Gamepad A button
-    final JoystickButton gpButnHatchHold             = new JoystickButton(m_gamepad, 3);  //Gamepad X button
+    final JoystickButton gpButnHatchPiston           = new JoystickButton(m_gamepad, 1);  //Gamepad A button
+    final JoystickButton gpButnHatchFinger           = new JoystickButton(m_gamepad, 3);  //Gamepad X button
 
 
     /* Connect the buttons to commands */
@@ -111,11 +114,11 @@ public class OI {
     gpButnCargoOut.whileHeld(new CargoShoot());
     gpButnCargoOut.whenReleased(new CargoStop());
     gpButnArmRetract.whileHeld(new ArmUpOrDown(armStatus.BACKWARD));
-    gpButnArmRetract.whenReleased(new ArmUpOrDown(armStatus.OFF));
+    // gpButnArmRetract.whenReleased(new ArmUpOrDown(armStatus.OFF));
     gpButnArmForward.whileHeld(new ArmUpOrDown(armStatus.FORWARD));
-    gpButnArmForward.whenReleased(new ArmUpOrDown(armStatus.OFF));
-    gpButnHatchPush.whenPressed(new HatchReleaseOrHold(releaseOrHold.release));
-    gpButnHatchHold.whenPressed(new HatchReleaseOrHold(releaseOrHold.hold));
+    // gpButnArmForward.whenReleased(new ArmUpOrDown(armStatus.OFF));
+    gpButnHatchFinger.whenPressed(new HatchFinger());
+    gpButnHatchPiston.whenPressed(new HatchPiston());
   }
 
   public Joystick getJoystick() {

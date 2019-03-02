@@ -33,13 +33,13 @@ public class ArmUpOrDown extends Command {
     @Override
     protected void execute() {
         if (state == armStatus.OFF) {
-            arm.keepPosition();  // closed loop
-            arm.stopMotor();
+            arm.keepPosition();
+            // arm.stopMotor();
             isFinished = true;
         } else if (state == armStatus.FORWARD) {
-            arm.moveUp(); // open loop
+            arm.moveUp();
         } else if (state == armStatus.BACKWARD) {
-            arm.moveDown(); // open loop
+            arm.moveDown();
         }
     }
 
