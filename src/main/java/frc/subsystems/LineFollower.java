@@ -67,16 +67,16 @@ public class LineFollower extends Subsystem {
   public State getState() {
       rightColorSensorValue = rightColorSensor.get();
       leftColorSensorValue = leftColorSensor.get(); 
-      rightDistance = rightUltrasonic.getRangeInches();
-      leftDistance = leftUltrasonic.getRangeInches();
+      // rightDistance = rightUltrasonic.getRangeInches();
+      // leftDistance = leftUltrasonic.getRangeInches();
 
-      if (rightDistance <= finishDistance && leftDistance <= finishDistance) {
-          //It is finished
-          state = State.finishedState;
-      } else if (leftColorSensorValue == false && rightColorSensorValue == false && rightDistance <= closeDistance && leftDistance <= closeDistance){
-          //Both color sensors sense white and the ultrasonic is within 5 inches
-          state = State.almostState;
-      } 
+      // if (rightDistance <= finishDistance && leftDistance <= finishDistance) {
+      //     //It is finished
+      //     state = State.finishedState;
+      // } else if (leftColorSensorValue == false && rightColorSensorValue == false && rightDistance <= closeDistance && leftDistance <= closeDistance){
+      //     //Both color sensors sense white and the ultrasonic is within 5 inches
+      //     state = State.almostState;
+      // } 
       if(leftColorSensorValue == true && rightColorSensorValue == false) {
           //Only right sensor sees white so it should go left
           state = State.leftState;
@@ -100,7 +100,8 @@ public class LineFollower extends Subsystem {
 
 public void debugColor() {
   // System.out.println(leftColorSensor.get() + " "+ rightColorSensor.get());
-  System.out.println(getState());
+  System.out.println("Left Color: " + leftColorSensor.get());
+  System.out.println("Right Color: "+ rightColorSensor.get());
 }
 public void debugUS() {
   System.out.println("Right Ultrasonic: " + rightUltrasonic.getRangeInches());

@@ -17,7 +17,7 @@ public class GamePieces extends Subsystem{
     public DigitalInput cargoLimit;
 
 
-    private static final double cargoMotorSpeed = 0.5;
+    private static final double cargoMotorSpeed = 0.3;
     private static GamePieces instance;
 
     public GamePieces() {
@@ -28,6 +28,7 @@ public class GamePieces extends Subsystem{
         cargo = new VictorSPX(Constants.CAN_WHEEL_INTAKE);
         cargoLimit = new DigitalInput(Constants.DIO_WHEEL_INTAKE_LIMIT);
         cargo.setNeutralMode(NeutralMode.Brake);
+        cargo.configOpenloopRamp(0, 0);
     }
 
     public static GamePieces getInstance() {

@@ -16,11 +16,11 @@ import frc.subsystems.Lift.LiftDirection;
 import frc.commands.Autonomous;
 import frc.commands.FollowLine;
 import frc.commands.HatchReleaseOrHold;
-import frc.commands.LEDcontrol;
+// import frc.commands.LEDcontrol;
 import frc.commands.LiftChinUpClosedLoop;
-import frc.commands.LEDcontrol.LEDmode;
+// import frc.commands.LEDcontrol.LEDmode;
 import frc.commands.LiftChinUpClosedLoop.chinUpDirection;
-import frc.commands.LEDcontrol.LEDcolor;
+// import frc.commands.LEDcontrol.LEDcolor;
 import frc.commands.LiftChinUpIntake;
 import frc.commands.ShiftGear;
 import frc.commands.CargoIntake;
@@ -60,7 +60,7 @@ public class OI {
     // SmartDashboard.putData("Open Claw", new OpenClaw());
     // SmartDashboard.putData("Close Claw", new CloseClaw());
 
-    SmartDashboard.putData("Deliver Soda", new Autonomous());
+    //SmartDashboard.putData("Deliver Soda", new Autonomous());
 
     // Create some buttons
     final JoystickButton jsButnRecord                = new JoystickButton(m_joystick, 11);
@@ -76,14 +76,14 @@ public class OI {
     final JoystickButton jsButnFollowLine            = new JoystickButton(m_joystick, 1);
     // final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 10); //Gamepad Start button
     // final JoystickButton gpButnLEDCargo              = new JoystickButton(m_gamepad, 8);  //Gamepad RT button
-    final JoystickButton gpButnArmZero               = new JoystickButton(m_gamepad, 10);
+    final JoystickButton gpButnArmZero               = new JoystickButton(m_gamepad, 12);
     final JoystickButton gpButnLEDHatch              = new JoystickButton(m_gamepad, 7);  //Gamepad LT button
-    final JoystickButton gpButnArmRetract            = new JoystickButton(m_gamepad, 6);  //Gamepad RB button
-    final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 5);  //Gamepad LB button
+    final JoystickButton gpButnArmRetract            = new JoystickButton(m_gamepad, 5);  //Gamepad RB button
+    final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 6);  //Gamepad LB button
     final JoystickButton gpButnCargoOut              = new JoystickButton(m_gamepad, 4);  //Gamepad Y button
-    final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 2);  //Gamepad B button
-    final JoystickButton gpButnHatchPiston           = new JoystickButton(m_gamepad, 1);  //Gamepad A button
-    final JoystickButton gpButnHatchFinger           = new JoystickButton(m_gamepad, 3);  //Gamepad X button
+    final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 3);  //Gamepad A button
+    final JoystickButton gpButnHatchPiston           = new JoystickButton(m_gamepad, 2);  //Gamepad X button
+    final JoystickButton gpButnHatchFinger           = new JoystickButton(m_gamepad, 1);  //Gamepad B button
 
 
     /* Connect the buttons to commands */
@@ -108,7 +108,7 @@ public class OI {
     // gpButnLEDOff.whenPressed(new LEDcontrol(LEDmode.OFF,LEDcolor.RED));
     // gpButnLEDCargo.whenPressed(new LEDcontrol(LEDmode.SLOW,LEDcolor.RED));
     gpButnArmZero.whenPressed(new ZeroArm());
-    gpButnLEDHatch.whenPressed(new LEDcontrol(LEDmode.SLOW,LEDcolor.BLUE));
+    //gpButnLEDHatch.whenPressed(new LEDcontrol(LEDmode.SLOW,LEDcolor.BLUE));
     gpButnCargoIn.whileHeld(new CargoIntake());
     gpButnCargoIn.whenReleased(new CargoStop());
     gpButnCargoOut.whileHeld(new CargoShoot());

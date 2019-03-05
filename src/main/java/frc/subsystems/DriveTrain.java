@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 import frc.commands.DriveWithJoystick;
 import frc.subsystems.DriveTrain;
+import frc.robot.Robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -39,7 +40,8 @@ public class DriveTrain extends Subsystem{
 	private static final double rightDistancePerPulse = (4.0 / 12.0 * Math.PI) / 360.0;
 
 	public static DriveTrain instance;
-	
+
+	private Joystick joystickValues;
 	public class TalonWrapperSpeedController implements SpeedController {
 		private TalonSRX talon;
 		
@@ -139,7 +141,7 @@ public class DriveTrain extends Subsystem{
 		rightRearDrive.follow(rightFrontDrive);
 
         differentialDrive = new DifferentialDrive(new TalonWrapperSpeedController(leftFrontDrive), new TalonWrapperSpeedController(rightFrontDrive));
-        setCurrentLimits();
+        // setCurrentLimits();
 
 		gyro.calibrate();
 
@@ -150,7 +152,16 @@ public class DriveTrain extends Subsystem{
 
         // Let's name the sensors on the LiveWindow
         addChild("Drive", differentialDrive);
-        addChild("Gyro", gyro);
+		addChild("Gyro", gyro);
+
+		rightFrontDrive.setNeutralMode(NeutralMode.Brake);
+		rightRearDrive.setNeutralMode(NeutralMode.Brake);
+		leftFrontDrive.setNeutralMode(NeutralMode.Brake);
+		leftRearDrive.setNeutralMode(NeutralMode.Brake);
+		leftFrontDrive.configOpenloopRamp(0.1, 0);
+		rightFrontDrive.configOpenloopRamp(0.1, 0);
+		leftFrontDrive.enableCurrentLimit(false);
+		rightFrontDrive.enableCurrentLimit(false);
 	}
 	
 	public void driveWithCurve(double speed, double turn, boolean isQuickTurn) {
@@ -161,6 +172,11 @@ public class DriveTrain extends Subsystem{
         if (!stopArcadeDrive) {
 			differentialDrive.arcadeDrive(driveJoystick.getY(),-driveJoystick.getX());
 		}
+	}
+
+	public void getJoystickValues() {
+		joystickValues = Robot.m_oi.getJoystick();
+		System.out.println("Y VALUE: " +joystickValues.getY() + " X VALUE: " + joystickValues.getX());
 	}
 	
 	public void tankDrive(double leftSpeed, double rightSpeed) {
@@ -233,20 +249,20 @@ public class DriveTrain extends Subsystem{
 	}
 
 	public void setCurrentLimits() {
-		leftFrontDrive.configContinuousCurrentLimit(15, 0);
-		rightFrontDrive.configContinuousCurrentLimit(15, 0);
+		leftFrontDrive.configContinuousCurrentLimit(30, 0);
+		rightFrontDrive.configContinuousCurrentLimit(30, 0);
 
-		leftFrontDrive.configPeakCurrentLimit(20, 0);
-		rightFrontDrive.configPeakCurrentLimit(20, 0);
+		leftFrontDrive.configPeakCurrentLimit(40, 0);
+		rightFrontDrive.configPeakCurrentLimit(40, 0);
 		
 		leftFrontDrive.configPeakCurrentDuration(100, 0);
 		rightFrontDrive.configPeakCurrentDuration(100, 0);
 
-		leftFrontDrive.enableCurrentLimit(true);
-		rightFrontDrive.enableCurrentLimit(true);
+		leftFrontDrive.enableCurrentLimit(false);
+		rightFrontDrive.enableCurrentLimit(false);
 				
-		leftFrontDrive.configOpenloopRamp(1, 0);
-		rightFrontDrive.configOpenloopRamp(1, 0);
+		leftFrontDrive.configOpenloopRamp(0, 0);
+		rightFrontDrive.configOpenloopRamp(0, 0);
 	}
 
     /**
@@ -281,7 +297,7 @@ public class DriveTrain extends Subsystem{
 		rightFrontDrive.setInverted(false);
 		// rightRearDrive.setInverted(true);
 		// rightFrontDrive.setInverted(true);
-		setBrakeCoast(BrakeCoastStatus.BRAKE);
+		//setBrakeCoast(BrakeCoastStatus.BRAKE);
 		setGear(GearShiftState.LO);
 		zero();
         Logger.appendRecord("dtLmtr\tdtRmtr\tdtLenc\tdtRenc\tdtGyro\t");

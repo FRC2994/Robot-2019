@@ -8,7 +8,7 @@ import frc.subsystems.LineFollower;
 // import frc.subsystems.Logger;
 import frc.subsystems.Subsystems;
 import frc.subsystems.GamePieces;
-import frc.subsystems.LED;
+//import frc.subsystems.LED;
 import frc.subsystems.Lift;
 import frc.subsystems.Arm;
 import frc.robot.OI;
@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
 	public static AnalogInput m_autoSelectSwitch;
 	public static LineFollower m_lineFollower;
 	public static GamePieces m_gamePieces;
-	public static LED m_LED;
+	//public static LED m_LED;
 	public static Lift m_lift;
 	public static Arm m_arm;
 
@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		// this.kDefaultPeriod = Constants.TIMED_ROBOT_PERIOD;
 		m_drivetrain = new DriveTrain();
-		m_LED = new LED();
+		//m_LED = new LED();
 		m_gamePieces = new GamePieces();
 		m_lineFollower = new LineFollower();
 		m_arm = new Arm();
@@ -149,11 +149,14 @@ public class Robot extends TimedRobot {
 		// LiveWindow.run();
 		if(count == maxCount){
 			// System.out.println("Drive Train: " + m_drivetrain.getLeftEncoderValue() + "  " + m_drivetrain.getRightEncoderValue());
-			System.out.println("Arm Limit Switch: " + m_arm.LimitArmTop.get() + "   Arm Encoder:" + m_arm.getCurrentPosition());
-			System.out.println("Chinup Limit: "+m_lift.limitChinUp.get() + "	Chinup Rotation: " + m_lift.armGetCurrentPosition());
+			//System.out.println("Arm Limit Switch: " + m_arm.LimitArmTop.get() + "   Arm Encoder:" + m_arm.getCurrentPosition());
+			//System.out.println("Chinup Limit: "+m_lift.limitChinUp.get() + "	Chinup Rotation: " + m_lift.armGetCurrentPosition());
+			// m_drivetrain.getJoystickValues();
 			// System.out.println("Cargo Intake Limit Switch: "+m_gamePieces.cargoLimit.get());
 			// System.out.println("");
-			m_lineFollower.debugUS();
+			// m_lineFollower.debugUS();
+			//m_lineFollower.debugColor();
+			m_lineFollower.debugColor();
 			// if(ledStatus == 0) {
 			// 	m_LED.setLEDR(true);
 			// 	m_LED.setLEDB(false);

@@ -8,9 +8,8 @@
 package frc.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.subsystems.Subsystems;
 import frc.subsystems.DriveTrain;
-import frc.subsystems.LED;
+//import frc.subsystems.LED;
 import frc.subsystems.LineFollower;
 import frc.subsystems.LineFollower.State;
 import frc.robot.Robot;
@@ -21,45 +20,52 @@ public class FollowLine extends Command {
   private static final double slowDownSpeed = 0.1;
   private static final DriveTrain drivetrain = Robot.m_drivetrain;
   private static final LineFollower lineFollower = Robot.m_lineFollower;
-  private static final LED led = Robot.m_LED;
+  //private static final LED led = Robot.m_LED;
   private boolean isFinished = false;
+  private boolean isNotFinished = true;
   State direction;
 
   public FollowLine(boolean isNotFinished) {
     requires(lineFollower);
-    this.isFinished = !isNotFinished;
+    this.isNotFinished = isNotFinished;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    led.setLEDR(false);
-    led.setLEDB(false);
+    // led.setLEDR(false);
+    // led.setLEDB(false);
+    if(isNotFinished == true){
+      isFinished = false;
+    }
+    else {
+      isFinished = true;
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-        direction = Robot.m_lineFollower.getState();
+        direction = lineFollower.getState();
 
         if(direction == State.noneState) {
           //return control to joystick
           isFinished = true;
           System.out.println("Going Nowhere");
         } 
-        else if (direction == State.almostState) {
-          //Makes robot slow down as it approaches 
-          drivetrain.tankDrive(0.3, 0.3);
-          isFinished = false;
-          System.out.println("Approaching!");
-        }
+        // else if (direction == State.almostState) {
+        //   //Makes robot slow down as it approaches 
+        //   drivetrain.tankDrive(0.3, 0.3);
+        //   isFinished = false;
+        //   System.out.println("Approaching!");
+        // }
 
-        else if (direction == State.finishedState)
-        {
-          //disable control from joystick
-          isFinished = true;
-          System.out.println("Finished");
-        }
+        // else if (direction == State.finishedState)
+        // {
+        //   //disable control from joystick
+        //   isFinished = true;
+        //   System.out.println("Finished");
+        // }
 
         else if (direction == State.leftState)
         {
@@ -68,8 +74,8 @@ public class FollowLine extends Command {
           //Make robot go Right by increasing left motor speed and decreasing right motor speed
           drivetrain.tankDrive(averageSpeed+correctionSpeed, averageSpeed-correctionSpeed);
           System.out.println("Going Left");
-          led.setLEDR(true);
-          led.setLEDB(false);
+          // led.setLEDR(true);
+          // led.setLEDB(false);
         }
 
         else if (direction == State.rightState)
@@ -79,8 +85,8 @@ public class FollowLine extends Command {
           //Make robot go Left by decreasing left motor speed and increasing right motor speed
           drivetrain.tankDrive(averageSpeed-correctionSpeed, averageSpeed+correctionSpeed);
           System.out.println("Going Right");
-          led.setLEDR(false);
-          led.setLEDB(true);
+          // led.setLEDR(false);
+          // led.setLEDB(true);
         }
 
         else if (direction == State.centreState)
@@ -90,8 +96,8 @@ public class FollowLine extends Command {
           //Keep robot going straight with same speed on both motors
           drivetrain.tankDrive(0.5, 0.5);
           System.out.println("Going Straight");
-          led.setLEDR(true);
-          led.setLEDB(true);
+          // led.setLEDR(true);
+          // led.setLEDB(true);
         }
 
         // else 
@@ -115,8 +121,8 @@ public class FollowLine extends Command {
       drivetrain.setStopArcadeDrive(false);
       drivetrain.tankDrive(0,0);
       System.out.println("STOPPED LINE FOLLOWER");
-      led.setLEDB(false);
-      led.setLEDR(false);
+      // led.setLEDB(false);
+      // led.setLEDR(false);
   }
 
   // Called when another command which requires one or more of the same

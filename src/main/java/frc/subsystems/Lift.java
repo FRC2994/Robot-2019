@@ -28,7 +28,7 @@ public class Lift extends Subsystem {
   public int startPosition;
   int desiredPosition;
   boolean printedZeroing;
-  public final int kTickIncrement = 4200; //536,000/3/50 OLD: 2,680
+  public final int kTickIncrement = 4500; //536,000/3/50 OLD: 2,680
   
   public Lift() {
     limitChinUp = new DigitalInput(Constants.DIO_CHINUP_LIMIT_BOTTOM);
@@ -40,6 +40,7 @@ public class Lift extends Subsystem {
   
     System.out.println("Lift Subsystem activated! ");
     resetEncoder();
+    retractableLegsUp();
   }
 
    //CHIN UP BAR
@@ -120,6 +121,9 @@ public class Lift extends Subsystem {
       //motor.set(ControlMode.PercentOutput, 0.4);
       System.out.println("MOVING Down");
     } 
+    else {
+      chinUpArmSetPosition(armGetCurrentPosition()+1000);
+    }
   }
 
   void resetEncoder() {

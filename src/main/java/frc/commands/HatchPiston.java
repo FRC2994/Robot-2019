@@ -28,7 +28,7 @@ public class HatchPiston extends Command {
   protected void initialize() {
     isFinished = false;
     count = 0;
-    maxCount = 25; //0.5 seconds
+    maxCount = 14; //0.5 seconds
   }
 
   // Called repeatedly when this Command is scheduled to run

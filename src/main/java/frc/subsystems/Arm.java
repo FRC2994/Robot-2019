@@ -22,7 +22,7 @@ public class Arm extends Subsystem {
   public int startPosition = 0;
   private int desiredPosition = 0;
   public DigitalInput LimitArmTop;
-  private final int kTickIncrement = 30;
+  private final int kTickIncrement = 300;
   // private final int kError = (int)(kTickIncrement*0.02);
   private final int kError = 1;
 
@@ -129,7 +129,7 @@ public class Arm extends Subsystem {
     setPIDCoefficients(ArmMoveDirection.LO);
     setPosition(getCurrentPosition()+kTickIncrement);
     // setMotorOpenLoop(-0.4);
-    // motor.set(ControlMode.PercentOutput, -0.4);
+    //motor.set(ControlMode.PercentOutput, -0.4);
     int cl_err = Math.abs(getCurrentPosition()-getDesiredPosition());
     System.out.println("MOVING DOWN... CL_ERR: " + cl_err + " kError " +kError 
     + " motorOutputVoltage " + motor.getMotorOutputVoltage() + " motorBusVoltage "  + motor.getBusVoltage()
