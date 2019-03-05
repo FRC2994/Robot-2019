@@ -16,7 +16,6 @@ public class GamePieces extends Subsystem{
     DoubleSolenoid finger;
     VictorSPX cargo;
     public DigitalInput cargoLimit;
-    private boolean fingerOut;
 
 
     private static final double cargoMotorSpeed = 0.3;
@@ -34,8 +33,7 @@ public class GamePieces extends Subsystem{
         cargo.configOpenloopRamp(0, 0);
 
         fingerHold();
-        fingerOut = false;
-        SmartDashboard.putBoolean("Finger is Out", fingerOut);
+        SmartDashboard.putString("Hatch Finger", "HOLD");
     }
 
     public static GamePieces getInstance() {
@@ -59,13 +57,11 @@ public class GamePieces extends Subsystem{
     //Finger
     public void fingerHold() {
         finger.set(DoubleSolenoid.Value.kForward);
-        fingerOut = false;
-        SmartDashboard.putBoolean("Finger is Out", fingerOut);
+        SmartDashboard.putString("Hatch Finger", "HOLD");
     }
     public void fingerRelease() {
         finger.set(DoubleSolenoid.Value.kReverse);
-        fingerOut = true;
-        SmartDashboard.putBoolean("Finger is Out", fingerOut);
+        SmartDashboard.putString("Hatch Finger", "RELEASED");
     }
     //Hatch
     public void pistonPush() {
