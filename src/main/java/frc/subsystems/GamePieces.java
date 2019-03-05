@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -15,6 +16,7 @@ public class GamePieces extends Subsystem{
     DoubleSolenoid finger;
     VictorSPX cargo;
     public DigitalInput cargoLimit;
+    private boolean fingerOut;
 
 
     private static final double cargoMotorSpeed = 0.3;
@@ -27,8 +29,13 @@ public class GamePieces extends Subsystem{
         finger = new DoubleSolenoid(Constants.PCM_HATCH_FINGER1,Constants.PCM_HATCH_FINGER2);
         cargo = new VictorSPX(Constants.CAN_WHEEL_INTAKE);
         cargoLimit = new DigitalInput(Constants.DIO_WHEEL_INTAKE_LIMIT);
+
         cargo.setNeutralMode(NeutralMode.Brake);
         cargo.configOpenloopRamp(0, 0);
+
+        fingerHold();
+        fingerOut = false;
+        SmartDashboard.putBoolean("Finger is Out", fingerOut);
     }
 
     public static GamePieces getInstance() {
@@ -49,13 +56,18 @@ public class GamePieces extends Subsystem{
         return cargoLimit.get();
     }
 
-    // //HATCH CONTROL
+    //Finger
     public void fingerHold() {
         finger.set(DoubleSolenoid.Value.kForward);
+        fingerOut = false;
+        SmartDashboard.putBoolean("Finger is Out", fingerOut);
     }
     public void fingerRelease() {
         finger.set(DoubleSolenoid.Value.kReverse);
+        fingerOut = true;
+        SmartDashboard.putBoolean("Finger is Out", fingerOut);
     }
+    //Hatch
     public void pistonPush() {
         hatch.set(true);
         System.out.println("PUSHED PISTON");
