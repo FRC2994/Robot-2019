@@ -15,6 +15,7 @@ import frc.subsystems.DriveTrain.GearShiftState;
 import frc.subsystems.Lift.LiftDirection;
 import frc.commands.Autonomous;
 import frc.commands.FollowLine;
+import frc.commands.FollowLine.lineGo;
 import frc.commands.HatchReleaseOrHold;
 // import frc.commands.LEDcontrol;
 import frc.commands.LiftChinUpClosedLoop;
@@ -100,8 +101,8 @@ public class OI {
     jsButnChinUpIn.whenReleased(new LiftChinUpIntake(IntakeStatus.OFF));
     jsButnRetractableLegsUp.whenPressed(new LiftLegsUpOrDown(LiftDirection.UP));
     jsButnRetractableLegsDown.whenPressed(new LiftLegsUpOrDown(LiftDirection.DN));
-    jsButnFollowLine.whenPressed(new FollowLine(true));
-    jsButnFollowLine.whenReleased(new FollowLine(false));
+    jsButnFollowLine.whileHeld(new FollowLine(lineGo.GO));
+    jsButnFollowLine.whenReleased(new FollowLine(lineGo.STOP));
 
 
     //GAMEPAD

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.subsystems.Logger;
 import frc.utils.Constants;
 import static frc.utils.Constants.*;
@@ -37,6 +38,9 @@ public class LineFollower extends Subsystem {
 
     rightUltrasonic.setAutomaticMode(true);
     leftUltrasonic.setAutomaticMode(true);
+
+    SmartDashboard.putBoolean("Left Color Sensor", false);
+    SmartDashboard.putBoolean("Right Color Sensor", false);
   }
   
  // String direction;
@@ -48,6 +52,7 @@ public class LineFollower extends Subsystem {
   private static double rightDistance;
   private static double leftDistance;
   private static State state;
+  private State status;
 
   public enum State {
     rightState,
@@ -98,6 +103,26 @@ public class LineFollower extends Subsystem {
       return state;
     }
 
+    public void updateDashboard() {
+      status = getState();
+      if(status == State.centreState){
+        SmartDashboard.putBoolean("Left Color Sensor", true);
+        SmartDashboard.putBoolean("Right Color Sensor", true);
+      }
+      else if(status == State.leftState) {
+        SmartDashboard.putBoolean("Left Color Sensor", false);
+        SmartDashboard.putBoolean("Right Color Sensor", true);
+      }
+      else if(status == State.rightState) {
+        SmartDashboard.putBoolean("Left Color Sensor", true);
+        SmartDashboard.putBoolean("Right Color Sensor", false);
+      }
+      else {
+        SmartDashboard.putBoolean("Left Color Sensor", false);
+        SmartDashboard.putBoolean("Right Color Sensor", false);
+      }
+    }
+    
 public void debugColor() {
   // System.out.println(leftColorSensor.get() + " "+ rightColorSensor.get());
   System.out.println("Left Color: " + leftColorSensor.get());

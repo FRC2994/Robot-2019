@@ -130,11 +130,12 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		// m_lineFollower.debugUS();
+		m_lineFollower.updateDashboard();
 	}
 	@Override
 	public void testInit() {
 		Subsystems.testInit();
-		ledStatus = 0;
+		// ledStatus = 0;
 		count = 0;
 		maxCount = 50;
 		//m_lift.chinUpFindLimitSwitch();

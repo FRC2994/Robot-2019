@@ -21,13 +21,14 @@ public class FollowLine extends Command {
   private static final DriveTrain drivetrain = Robot.m_drivetrain;
   private static final LineFollower lineFollower = Robot.m_lineFollower;
   //private static final LED led = Robot.m_LED;
-  private boolean isFinished = false;
-  private boolean isNotFinished = true;
+  private boolean isFinished;
   State direction;
+  public enum lineGo {GO, STOP};
+  public lineGo lineState;
 
-  public FollowLine(boolean isNotFinished) {
+  public FollowLine(lineGo lineState) {
     requires(lineFollower);
-    this.isNotFinished = isNotFinished;
+    this.lineState = lineState;
   }
 
   // Called just before this Command runs the first time
@@ -35,10 +36,10 @@ public class FollowLine extends Command {
   protected void initialize() {
     // led.setLEDR(false);
     // led.setLEDB(false);
-    if(isNotFinished == true){
+    if(lineState == lineGo.GO){
       isFinished = false;
     }
-    else {
+    else{
       isFinished = true;
     }
   }
@@ -49,8 +50,7 @@ public class FollowLine extends Command {
         direction = lineFollower.getState();
 
         if(direction == State.noneState) {
-          //return control to joystick
-          isFinished = true;
+
           System.out.println("Going Nowhere");
         } 
         // else if (direction == State.almostState) {
@@ -66,7 +66,6 @@ public class FollowLine extends Command {
         //   isFinished = true;
         //   System.out.println("Finished");
         // }
-
         else if (direction == State.leftState)
         {
           //disable control from joystick
@@ -105,7 +104,6 @@ public class FollowLine extends Command {
         //   //return control to joystick
         //   isFinished = true;
         // }
-
   }
 
   // Make this return true when this Command no longer needs to run execute()
