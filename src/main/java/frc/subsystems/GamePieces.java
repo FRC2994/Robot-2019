@@ -14,11 +14,13 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 public class GamePieces extends Subsystem{
     Solenoid hatch;
     DoubleSolenoid finger;
-    VictorSPX cargo;
+    VictorSPX cargoMotor1;
+    VictorSPX cargoMotor2;
     public DigitalInput cargoLimit;
 
 
-    private static final double cargoMotorSpeed = 0.3;
+    private static final double cargoIntakeSpeed = 0.3;
+    private static final double cargoShootSpeed = -1;
     private static GamePieces instance;
 
     public GamePieces() {
@@ -26,13 +28,18 @@ public class GamePieces extends Subsystem{
         instance = this;
         hatch = new Solenoid(Constants.PCM_HATCH_PISTON);
         finger = new DoubleSolenoid(Constants.PCM_HATCH_FINGER1,Constants.PCM_HATCH_FINGER2);
-        cargo = new VictorSPX(Constants.CAN_WHEEL_INTAKE);
+        cargoMotor1 = new VictorSPX(Constants.CAN_WHEEL_INTAKE_1);
+        cargoMotor2 = new VictorSPX(Constants.CAN_WHEEL_INTAKE_2);
         cargoLimit = new DigitalInput(Constants.DIO_WHEEL_INTAKE_LIMIT);
 
-        cargo.setNeutralMode(NeutralMode.Brake);
-        cargo.configOpenloopRamp(0, 0);
+        cargoMotor1.setNeutralMode(NeutralMode.Brake);
+        cargoMotor2.setNeutralMode(NeutralMode.Brake);
+
+        cargoMotor1.configOpenloopRamp(0, 0);
+        cargoMotor2.configOpenloopRamp(0, 0);
 
         fingerHold();
+        cargoMotor2.setInverted(true);
         SmartDashboard.putString("Hatch Finger", "HOLD");
     }
 
@@ -42,13 +49,16 @@ public class GamePieces extends Subsystem{
 
     //CARGO CONTROL
     public void wheelIntake() { 
-        cargo.set(ControlMode.PercentOutput, cargoMotorSpeed);
+        cargoMotor1.set(ControlMode.PercentOutput, cargoIntakeSpeed);
+        cargoMotor2.set(ControlMode.PercentOutput, cargoIntakeSpeed);
     }
     public void wheelShoot() { 
-        cargo.set(ControlMode.PercentOutput, -1);
+        cargoMotor1.set(ControlMode.PercentOutput, cargoShootSpeed);
+        cargoMotor2.set(ControlMode.PercentOutput, cargoShootSpeed);
     }
     public void wheelStop() {
-        cargo.set(ControlMode.PercentOutput, 0);
+        cargoMotor1.set(ControlMode.PercentOutput, 0);
+        cargoMotor2.set(ControlMode.PercentOutput, 0);
     }
     public boolean buttonGet() {
         return cargoLimit.get();
