@@ -11,6 +11,7 @@ import frc.subsystems.GamePieces;
 import frc.subsystems.LED;
 import frc.subsystems.Lift;
 import frc.subsystems.Arm;
+import frc.subsystems.Vision;
 import frc.robot.OI;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -43,6 +44,7 @@ public class Robot extends TimedRobot {
 	public static LED m_LED;
 	public static Lift m_lift;
 	public static Arm m_arm;
+	public static Vision m_vision;
 
 
 	public int ledStatus;
@@ -72,7 +74,7 @@ public class Robot extends TimedRobot {
 		m_lineFollower = new LineFollower();
 		m_arm = new Arm();
 		m_lift = new Lift();
-		CameraServer.getInstance().startAutomaticCapture();	
+		m_vision = new Vision();
 		Subsystems.initialize();
 		autonomousCommand = new Autonomous();
 		m_oi = new OI();
