@@ -9,30 +9,34 @@ package frc.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.cscore.VideoSink;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.networktables.*;
 
 public class Vision extends Subsystem {
     UsbCamera armCam;
     UsbCamera floorCam;
-    public CameraServer dashboardCameraServer;
+    VideoSink server;
     public enum selectedCamera {ARM,FLOOR};
     
     public Vision() {
       armCam = CameraServer.getInstance().startAutomaticCapture("armCam", 0);
       floorCam = CameraServer.getInstance().startAutomaticCapture("floorCam", 1);
+      server = CameraServer.getInstance().getServer();
     }
 
     /*
     Code from 6333
     */
-    
+
     public void switchCamera(selectedCamera camera){
         if (camera == selectedCamera.ARM){
-            NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").setString(armCam.getName());
+            // NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").setString(armCam.getName());
+            server.setSource(armCam);
         }
         else if (camera == selectedCamera.FLOOR){
-            NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").setString(floorCam.getName());
+            // NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").setString(floorCam.getName());
+            server.setSource(floorCam);
         }
     }
 
