@@ -27,6 +27,7 @@ public class DriveTrain extends Subsystem{
 
 	Solenoid gearShiftSolenoid = new Solenoid(Constants.CAN_PCM,Constants.PCM_GEAR_SHIFT);
 	public static enum GearShiftState { HI, LO };
+	public static enum driveStatus {FORWARD, REVERSE};
 
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	public DifferentialDrive differentialDrive;
@@ -211,6 +212,11 @@ public class DriveTrain extends Subsystem{
 	public void setGear(GearShiftState state) {
 	   System.out.println("Trying to shift to gear state " + state);
 	   gearShiftSolenoid.set(state==GearShiftState.HI?true:false);
+	}
+
+	public void reverseDrive(driveStatus state) {
+		rightFrontDrive.setInverted(state==driveStatus.REVERSE?true:false);
+		leftFrontDrive.setInverted(state==driveStatus.REVERSE?true:false);
 	}
 	
 	public void resetGyro() {

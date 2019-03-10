@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.subsystems.DriveTrain.GearShiftState;
 import frc.subsystems.Lift.LiftDirection;
+import frc.subsystems.DriveTrain.driveStatus;
 import frc.commands.Autonomous;
 import frc.commands.FollowLine;
 import frc.commands.FollowLine.lineGo;
@@ -37,7 +38,7 @@ import frc.commands.LiftUpOrDown;
 import frc.commands.ZeroArm;
 import frc.commands.HatchFinger;
 import frc.commands.HatchPiston;
-
+import frc.commands.DriveReverse;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -64,6 +65,7 @@ public class OI {
     //SmartDashboard.putData("Deliver Soda", new Autonomous());
 
     // Create some buttons
+    //Joystick
     final JoystickButton jsButnRecord                = new JoystickButton(m_joystick, 11);
     final JoystickButton jsButnCalibrate             = new JoystickButton(m_joystick, 10);
     final JoystickButton jsButnRetractableLegsUp     = new JoystickButton(m_joystick, 9);
@@ -75,6 +77,9 @@ public class OI {
     final JoystickButton jsButnChinUpForward         = new JoystickButton(m_joystick, 3);
     final JoystickButton jsButnChinUpRetract         = new JoystickButton(m_joystick, 2);
     final JoystickButton jsButnFollowLine            = new JoystickButton(m_joystick, 1);
+    final JoystickButton jsButnReverse               = new JoystickButton(m_joystick, 12); //Button needs to be changed
+
+    //GamePad
     // final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 10); //Gamepad Start button
     // final JoystickButton gpButnLEDCargo              = new JoystickButton(m_gamepad, 8);  //Gamepad RT button
     final JoystickButton gpButnArmZero               = new JoystickButton(m_gamepad, 12);
@@ -103,7 +108,8 @@ public class OI {
     jsButnRetractableLegsDown.whenPressed(new LiftLegsUpOrDown(LiftDirection.DN));
     jsButnFollowLine.whileHeld(new FollowLine(lineGo.GO));
     jsButnFollowLine.whenReleased(new FollowLine(lineGo.STOP));
-
+    jsButnReverse.whileHeld(new DriveReverse(driveStatus.REVERSE));
+    jsButnReverse.whenReleased(new DriveReverse(driveStatus.FORWARD));
 
     //GAMEPAD
     // gpButnLEDOff.whenPressed(new LEDcontrol(LEDmode.OFF,LEDcolor.RED));
