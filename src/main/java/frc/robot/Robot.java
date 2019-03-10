@@ -8,7 +8,7 @@ import frc.subsystems.LineFollower;
 // import frc.subsystems.Logger;
 import frc.subsystems.Subsystems;
 import frc.subsystems.GamePieces;
-//import frc.subsystems.LED;
+import frc.subsystems.LED;
 import frc.subsystems.Lift;
 import frc.subsystems.Arm;
 import frc.robot.OI;
@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
 	public static AnalogInput m_autoSelectSwitch;
 	public static LineFollower m_lineFollower;
 	public static GamePieces m_gamePieces;
-	//public static LED m_LED;
+	public static LED m_LED;
 	public static Lift m_lift;
 	public static Arm m_arm;
 

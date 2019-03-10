@@ -18,9 +18,9 @@ import frc.commands.Autonomous;
 import frc.commands.FollowLine;
 import frc.commands.FollowLine.lineGo;
 import frc.commands.HatchReleaseOrHold;
-// import frc.commands.LEDcontrol;
+import frc.commands.LEDcontrol;
+import frc.commands.LEDcontrol.LEDstate;
 import frc.commands.LiftChinUpClosedLoop;
-// import frc.commands.LEDcontrol.LEDmode;
 import frc.commands.LiftChinUpClosedLoop.chinUpDirection;
 // import frc.commands.LEDcontrol.LEDcolor;
 import frc.commands.LiftChinUpIntake;
@@ -77,11 +77,11 @@ public class OI {
     final JoystickButton jsButnChinUpForward         = new JoystickButton(m_joystick, 3);
     final JoystickButton jsButnChinUpRetract         = new JoystickButton(m_joystick, 2);
     final JoystickButton jsButnFollowLine            = new JoystickButton(m_joystick, 1);
-    final JoystickButton jsButnReverse               = new JoystickButton(m_joystick, 12); //Button needs to be changed
+    final JoystickButton jsButnReverse               = new JoystickButton(m_joystick, 12); //TODO: Button needs to be changed
 
     //GamePad
-    // final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 10); //Gamepad Start button
-    // final JoystickButton gpButnLEDCargo              = new JoystickButton(m_gamepad, 8);  //Gamepad RT button
+    final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 10); //Gamepad Start button TODO: change
+    final JoystickButton gpButnLED                   = new JoystickButton(m_gamepad, 9);  //Gamepad Back button TODO: change 
     // final JoystickButton gpButnArmZero               = new JoystickButton(m_gamepad, 12);
     final JoystickButton gpButnLEDHatch              = new JoystickButton(m_gamepad, 7);  //Gamepad LT button
     final JoystickButton gpButnArmRetract            = new JoystickButton(m_gamepad, 5);  //Gamepad RB button
@@ -112,10 +112,9 @@ public class OI {
     jsButnReverse.whenReleased(new DriveReverse(driveStatus.FORWARD));
 
     //GAMEPAD
-    // gpButnLEDOff.whenPressed(new LEDcontrol(LEDmode.OFF,LEDcolor.RED));
-    // gpButnLEDCargo.whenPressed(new LEDcontrol(LEDmode.SLOW,LEDcolor.RED));
+    gpButnLEDOff.whenPressed(new LEDcontrol(LEDstate.OFF));
+    gpButnLED.whenPressed(new LEDcontrol(LEDstate.ON));
     // gpButnArmZero.whenPressed(new ZeroArm());
-    //gpButnLEDHatch.whenPressed(new LEDcontrol(LEDmode.SLOW,LEDcolor.BLUE));
     gpButnCargoIn.whileHeld(new CargoIntake());
     gpButnCargoIn.whenReleased(new CargoStop());
     gpButnCargoOut.whileHeld(new CargoShoot());

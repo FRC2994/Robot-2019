@@ -53,6 +53,11 @@ public class Constants
 	public static final int USB_DRIVE_STICK             = 0;
 	public static final int USB_CONTROL_GAMEPAD         = 1;
 
+	// Relay
+	public static final int RELAY_LEDR					= 0;
+	public static final int RELAY_LEDB					= 1;
+	public static final int RELAY_LEDG					= 2;
+
     // Gamepad
 	// public static final int GAMEPAD_PICKUP_IN             = 5; 
 	// public static final int GAMEPAD_PICKUP_OUT            = 7; 
