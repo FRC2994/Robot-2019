@@ -15,7 +15,7 @@ public class Constants
 	public static final int CAN_LEFT_REAR_DRIVE        = 6;
 	public static final int CAN_CHINUP_WHEEL_INTAKE    = 5;
 	public static final int CAN_CHINUP_ARM             = 4;
-	public static final int CAN_ARM                    = 10;
+	// public static final int CAN_ARM                    = 10;
 	public static final int CAN_WHEEL_INTAKE_1         = 2;
 	public static final int CAN_WHEEL_INTAKE_2		   = 11; //TODO: CHANGE CAN ID
 
@@ -26,9 +26,8 @@ public class Constants
 	public static final int PCM_HATCH_FINGER1              = 3; // Spring-loaded; single solenoid Forward
 	public static final int PCM_HATCH_FINGER2              = 4; // Spring-loaded; single solenoid Backward
 	public static final int PCM_HATCH_PISTON               = 5; // Spring-loaded; single solenoid
-	public static final int PCM_LED_R                      = 6;
-	// public static final int PCM_LED_G                      = ;
-	public static final int PCM_LED_B                      = 7;
+	public static final int PCM_ARM_OUT				  	   = 6; // This is for when the arm is idle
+	public static final int PCM_ARM_IN				       = 7; // Arm shoot position
 
 	// DIO
 	public static final int DIO_CUBE_PICKUP            	= 2;

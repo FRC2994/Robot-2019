@@ -7,63 +7,28 @@
 
 package frc.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.subsystems.Arm;
+import frc.robot.Robot;
+public class ArmUpOrDown extends InstantCommand {
+  private static final Arm arm = Robot.m_arm;
+  public static enum armStatus {FORWARD, BACKWARD};
+  private armStatus state;
+  public ArmUpOrDown(armStatus state) {
+    super();
+    requires(arm);
+    this.state = state;
+  }
 
-/* Arm is moved in open loop and is held in place by a closed loop */
-public class ArmUpOrDown extends Command {
-    public static enum armStatus {FORWARD, BACKWARD, OFF};
-    private static final Arm arm = Robot.m_arm;
-    public armStatus state;
-    boolean isFinished;
-    
-    public ArmUpOrDown(armStatus state) {
-        requires(arm);
-        this.state = state;
+  // Called once when the command executes
+  @Override
+  protected void initialize() {
+    if (state==armStatus.FORWARD) {
+      arm.armDown();
     }
+    if (state==armStatus.BACKWARD){
+      arm.armUp();
+    }
+  }
 
-    // Called just before this Command runs the first time
-    @Override
-    protected void initialize() {
-        isFinished = false;
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    @Override
-    protected void execute() {
-        if (state == armStatus.OFF) {
-            arm.keepPosition();
-            // arm.stopMotor();
-            isFinished = true;
-        } else if (state == armStatus.FORWARD) {
-            arm.moveUp();
-        } else if (state == armStatus.BACKWARD) {
-            arm.moveDown();
-        }
-    }
-
-    // Make this return true when this Command no longer needs to run execute()
-    @Override
-    protected boolean isFinished() {
-        // if (state == armStatus.OFF) {
-        return arm.onTarget(); // closed loop
-        // } else {
-        //     return true; // open loop
-        // }
-        // return true;
-    }
-
-    // Called once after isFinished returns true
-    @Override
-    protected void end() {
-        System.out.println("Arm ending...");
-        // arm.stopMotor();
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    @Override
-    protected void interrupted() {
-    }
 }

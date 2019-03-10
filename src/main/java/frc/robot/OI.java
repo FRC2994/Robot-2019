@@ -35,7 +35,7 @@ import frc.commands.LiftChinUpIntake.IntakeStatus;
 import frc.commands.LiftChinUpPullOpenLoop;
 import frc.commands.LiftLegsUpOrDown;
 import frc.commands.LiftUpOrDown;
-import frc.commands.ZeroArm;
+// import frc.commands.ZeroArm;
 import frc.commands.HatchFinger;
 import frc.commands.HatchPiston;
 import frc.commands.DriveReverse;
@@ -82,7 +82,7 @@ public class OI {
     //GamePad
     // final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 10); //Gamepad Start button
     // final JoystickButton gpButnLEDCargo              = new JoystickButton(m_gamepad, 8);  //Gamepad RT button
-    final JoystickButton gpButnArmZero               = new JoystickButton(m_gamepad, 12);
+    // final JoystickButton gpButnArmZero               = new JoystickButton(m_gamepad, 12);
     final JoystickButton gpButnLEDHatch              = new JoystickButton(m_gamepad, 7);  //Gamepad LT button
     final JoystickButton gpButnArmRetract            = new JoystickButton(m_gamepad, 5);  //Gamepad RB button
     final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 6);  //Gamepad LB button
@@ -114,15 +114,15 @@ public class OI {
     //GAMEPAD
     // gpButnLEDOff.whenPressed(new LEDcontrol(LEDmode.OFF,LEDcolor.RED));
     // gpButnLEDCargo.whenPressed(new LEDcontrol(LEDmode.SLOW,LEDcolor.RED));
-    gpButnArmZero.whenPressed(new ZeroArm());
+    // gpButnArmZero.whenPressed(new ZeroArm());
     //gpButnLEDHatch.whenPressed(new LEDcontrol(LEDmode.SLOW,LEDcolor.BLUE));
     gpButnCargoIn.whileHeld(new CargoIntake());
     gpButnCargoIn.whenReleased(new CargoStop());
     gpButnCargoOut.whileHeld(new CargoShoot());
     gpButnCargoOut.whenReleased(new CargoStop());
-    gpButnArmRetract.whileHeld(new ArmUpOrDown(armStatus.BACKWARD));
+    gpButnArmRetract.whenPressed(new ArmUpOrDown(armStatus.BACKWARD));
     // gpButnArmRetract.whenReleased(new ArmUpOrDown(armStatus.OFF));
-    gpButnArmForward.whileHeld(new ArmUpOrDown(armStatus.FORWARD));
+    gpButnArmForward.whenPressed(new ArmUpOrDown(armStatus.FORWARD));
     // gpButnArmForward.whenReleased(new ArmUpOrDown(armStatus.OFF));
     gpButnHatchFinger.whenPressed(new HatchFinger());
     gpButnHatchPiston.whenPressed(new HatchPiston());
