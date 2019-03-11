@@ -39,6 +39,7 @@ public class GamePieces extends Subsystem{
         cargoMotor2.configOpenloopRamp(0, 0);
 
         fingerHold();
+        cargoMotor2.follow(cargoMotor1);
         cargoMotor2.setInverted(true);
         SmartDashboard.putString("Hatch Finger", "HOLD");
     }
@@ -50,15 +51,12 @@ public class GamePieces extends Subsystem{
     //CARGO CONTROL
     public void wheelIntake() { 
         cargoMotor1.set(ControlMode.PercentOutput, cargoIntakeSpeed);
-        cargoMotor2.set(ControlMode.PercentOutput, cargoIntakeSpeed);
     }
     public void wheelShoot() { 
         cargoMotor1.set(ControlMode.PercentOutput, cargoShootSpeed);
-        cargoMotor2.set(ControlMode.PercentOutput, cargoShootSpeed);
     }
     public void wheelStop() {
         cargoMotor1.set(ControlMode.PercentOutput, 0);
-        cargoMotor2.set(ControlMode.PercentOutput, 0);
     }
     public boolean buttonGet() {
         return cargoLimit.get();

@@ -8,7 +8,7 @@ import java.util.Properties;
 public class Constants
 {
 	// CAN
-	public static final int CAN_PCM                    = 8;
+	public static final int CAN_PCM                    = 0;
 	public static final int CAN_RIGHT_FRONT_DRIVE      = 1;
 	public static final int CAN_RIGHT_REAR_DRIVE       = 7;
 	public static final int CAN_LEFT_FRONT_DRIVE       = 3;
@@ -17,7 +17,7 @@ public class Constants
 	public static final int CAN_CHINUP_ARM             = 4;
 	// public static final int CAN_ARM                    = 10;
 	public static final int CAN_WHEEL_INTAKE_1         = 2;
-	public static final int CAN_WHEEL_INTAKE_2		   = 11; //TODO: CHANGE CAN ID
+	public static final int CAN_WHEEL_INTAKE_2		   = 8; //TODO: CHANGE CAN ID
 
 	// PCM (Solenoid, LEDs, etc...)
 	public static final int PCM_GEAR_SHIFT                 = 0; // Gear shift defaults to low; single solenoid

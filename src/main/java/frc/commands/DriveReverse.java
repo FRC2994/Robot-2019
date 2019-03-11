@@ -9,13 +9,13 @@ package frc.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.subsystems.DriveTrain;
-import frc.subsystems.DriveTrain.driveStatus;
+//import frc.subsystems.DriveTrain.driveStatus;
 import frc.robot.Robot;
 
 public class DriveReverse extends InstantCommand {
   private final DriveTrain drivetrain = Robot.m_drivetrain;
-  private driveStatus state;
-  public DriveReverse(driveStatus state) {
+  private boolean state;
+  public DriveReverse(boolean state) {
     super();
     requires(drivetrain);
     this.state = state;

@@ -27,7 +27,7 @@ public class DriveTrain extends Subsystem{
 
 	Solenoid gearShiftSolenoid = new Solenoid(Constants.CAN_PCM,Constants.PCM_GEAR_SHIFT);
 	public static enum GearShiftState { HI, LO };
-	public static enum driveStatus {FORWARD, REVERSE};
+	//public static enum driveStatus {FORWARD, REVERSE};
 
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	public DifferentialDrive differentialDrive;
@@ -35,6 +35,7 @@ public class DriveTrain extends Subsystem{
 	private int startPosition;
 	private int desiredPosition = 0;
 	private boolean stopArcadeDrive;
+	private boolean reverse;
 	
     // Circumference in ft = 4in/12(in/ft)*PI
 	private static final double leftDistancePerPulse = (4.0 / 12.0 * Math.PI) / 360.0;
@@ -163,6 +164,7 @@ public class DriveTrain extends Subsystem{
 		rightFrontDrive.configOpenloopRamp(0.1, 0);
 		leftFrontDrive.enableCurrentLimit(false);
 		rightFrontDrive.enableCurrentLimit(false);
+		reverse = false;
 	}
 	
 	public void driveWithCurve(double speed, double turn, boolean isQuickTurn) {
@@ -171,7 +173,12 @@ public class DriveTrain extends Subsystem{
 	
 	public void arcadeDrive(Joystick driveJoystick) {
         if (!stopArcadeDrive) {
-			differentialDrive.arcadeDrive(driveJoystick.getY(),-driveJoystick.getX());
+			if(reverse = false){
+				differentialDrive.arcadeDrive(driveJoystick.getY(),-driveJoystick.getX());
+			}
+			else {
+				differentialDrive.arcadeDrive(-driveJoystick.getY(),-driveJoystick.getX());
+			}
 		}
 	}
 
@@ -214,9 +221,8 @@ public class DriveTrain extends Subsystem{
 	   gearShiftSolenoid.set(state==GearShiftState.HI?true:false);
 	}
 
-	public void reverseDrive(driveStatus state) {
-		rightFrontDrive.setInverted(state==driveStatus.REVERSE?true:false);
-		leftFrontDrive.setInverted(state==driveStatus.REVERSE?true:false);
+	public void reverseDrive(boolean state) {
+		reverse = state;
 	}
 	
 	public void resetGyro() {

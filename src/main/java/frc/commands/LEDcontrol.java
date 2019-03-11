@@ -37,6 +37,7 @@ public class LEDcontrol extends Command {
         isFinished = true;
     }
     else {
+        isFinished = false;
         if(piece == GamePieces.CARGO) {
             piece = GamePieces.HATCH;
 
@@ -46,8 +47,8 @@ public class LEDcontrol extends Command {
         }
         led.setLEDR(false);
         led.setLEDB(false);
-        isFinished = false;
         count = 0;
+        LEDstatus = false;
     }
   }
 
@@ -60,12 +61,14 @@ public class LEDcontrol extends Command {
   @Override
   protected void execute() {
     if(count == maxCount){
-        if(LEDstatus = false) {
+        if(LEDstatus == false) {
             if(piece == GamePieces.CARGO){
                 led.setLEDR(true);
+                System.out.println("CARGO LED");
             }
             if(piece == GamePieces.HATCH){
                 led.setLEDB(true);
+                System.out.println("HATCH LED");
             }
             LEDstatus = true;
         }
@@ -81,6 +84,7 @@ public class LEDcontrol extends Command {
         count = 0;
     }
     count++;
+    System.out.println(piece);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -94,6 +98,7 @@ public class LEDcontrol extends Command {
   protected void end() {
     led.setLEDR(false);
     led.setLEDB(false);
+    System.out.println("LED OFF");
   }
 
   // Called when another command which requires one or more of the same

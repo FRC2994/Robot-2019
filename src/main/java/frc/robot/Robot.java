@@ -69,7 +69,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		// this.kDefaultPeriod = Constants.TIMED_ROBOT_PERIOD;
 		m_drivetrain = new DriveTrain();
-		//m_LED = new LED();
+		m_LED = new LED();
 		m_gamePieces = new GamePieces();
 		m_lineFollower = new LineFollower();
 		m_arm = new Arm();

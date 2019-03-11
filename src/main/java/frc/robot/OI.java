@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.subsystems.DriveTrain.GearShiftState;
 import frc.subsystems.Lift.LiftDirection;
-import frc.subsystems.DriveTrain.driveStatus;
+//import frc.subsystems.DriveTrain.driveStatus;
 import frc.commands.Autonomous;
 import frc.commands.FollowLine;
 import frc.commands.FollowLine.lineGo;
@@ -66,18 +66,19 @@ public class OI {
 
     // Create some buttons
     //Joystick
-    final JoystickButton jsButnRecord                = new JoystickButton(m_joystick, 11);
-    final JoystickButton jsButnCalibrate             = new JoystickButton(m_joystick, 10);
-    final JoystickButton jsButnRetractableLegsUp     = new JoystickButton(m_joystick, 9);
-    final JoystickButton jsButnRetractableLegsDown   = new JoystickButton(m_joystick, 8);
-    final JoystickButton jsButnShifter               = new JoystickButton(m_joystick, 7);
-    final JoystickButton jsButnClimb                 = new JoystickButton(m_joystick, 6);
-    final JoystickButton jsButnChinUpOut             = new JoystickButton(m_joystick, 5);
-    final JoystickButton jsButnChinUpIn              = new JoystickButton(m_joystick, 4);
-    final JoystickButton jsButnChinUpForward         = new JoystickButton(m_joystick, 3);
-    final JoystickButton jsButnChinUpRetract         = new JoystickButton(m_joystick, 2);
+    // final JoystickButton jsButnRecord                = new JoystickButton(m_joystick, 11);
+    // final JoystickButton jsButnCalibrate             = new JoystickButton(m_joystick, 10);
+    final JoystickButton jsButnShifter               = new JoystickButton(m_joystick, 12);
+    final JoystickButton jsButnClimb                 = new JoystickButton(m_joystick, 11);
+    final JoystickButton jsButnChinUpRetract         = new JoystickButton(m_joystick, 10);    
+    final JoystickButton jsButnChinUpForward         = new JoystickButton(m_joystick, 9);    
+    final JoystickButton jsButnRetractableLegsDown   = new JoystickButton(m_joystick, 8);    
+    final JoystickButton jsButnRetractableLegsUp     = new JoystickButton(m_joystick, 7);
+    final JoystickButton jsButnChinUpOut             = new JoystickButton(m_joystick, 4);
+    final JoystickButton jsButnChinUpIn              = new JoystickButton(m_joystick, 3);
+    final JoystickButton jsButnReverse               = new JoystickButton(m_joystick, 2);    
     final JoystickButton jsButnFollowLine            = new JoystickButton(m_joystick, 1);
-    final JoystickButton jsButnReverse               = new JoystickButton(m_joystick, 12); //TODO: Button needs to be changed
+
 
     //GamePad
     final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 10); //Gamepad Start button TODO: change
@@ -95,21 +96,21 @@ public class OI {
     /* Connect the buttons to commands */
     
     //JOYSTICK
-    jsButnClimb.whenPressed(new LiftUpOrDown(LiftDirection.UP));
+    //jsButnClimb.whenPressed(new LiftUpOrDown(LiftDirection.UP));
     jsButnShifter.whenPressed(new ShiftGear(GearShiftState.HI));
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
     jsButnChinUpRetract.whileHeld(new LiftChinUpClosedLoop(chinUpDirection.UP));
     jsButnChinUpForward.whileHeld(new LiftChinUpClosedLoop(chinUpDirection.DOWN));
-    jsButnChinUpOut.whileHeld(new LiftChinUpIntake(IntakeStatus.INTAKE));
+    jsButnChinUpOut.whileHeld(new LiftChinUpIntake(IntakeStatus.OUTTAKE));
     jsButnChinUpOut.whenReleased(new LiftChinUpIntake(IntakeStatus.OFF));
-    jsButnChinUpIn.whileHeld(new LiftChinUpIntake(IntakeStatus.OUTTAKE));
+    jsButnChinUpIn.whileHeld(new LiftChinUpIntake(IntakeStatus.INTAKE));
     jsButnChinUpIn.whenReleased(new LiftChinUpIntake(IntakeStatus.OFF));
     jsButnRetractableLegsUp.whenPressed(new LiftLegsUpOrDown(LiftDirection.UP));
     jsButnRetractableLegsDown.whenPressed(new LiftLegsUpOrDown(LiftDirection.DN));
     jsButnFollowLine.whileHeld(new FollowLine(lineGo.GO));
     jsButnFollowLine.whenReleased(new FollowLine(lineGo.STOP));
-    jsButnReverse.whileHeld(new DriveReverse(driveStatus.REVERSE));
-    jsButnReverse.whenReleased(new DriveReverse(driveStatus.FORWARD));
+    jsButnReverse.whileHeld(new DriveReverse(true));
+    jsButnReverse.whenReleased(new DriveReverse(false));
 
     //GAMEPAD
     gpButnLEDOff.whenPressed(new LEDcontrol(LEDstate.OFF));
