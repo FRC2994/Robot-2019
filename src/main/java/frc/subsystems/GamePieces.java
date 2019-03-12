@@ -19,7 +19,7 @@ public class GamePieces extends Subsystem{
     public DigitalInput cargoLimit;
 
 
-    private static final double cargoIntakeSpeed = 0.3;
+    private static final double cargoIntakeSpeed = 0.5;
     private static final double cargoShootSpeed = -1;
     private static GamePieces instance;
 
