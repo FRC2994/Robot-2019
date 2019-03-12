@@ -25,10 +25,12 @@ public class CameraSwitch extends InstantCommand {
     if(cameraChoice == 0) {
       vision.switchCamera(selectedCamera.ARM);
       cameraChoice = 1;
+      System.out.println("SWITCHED TO ARM CAMERA");
     }
     else{
       vision.switchCamera(selectedCamera.FLOOR);
       cameraChoice = 2;
+      System.out.println("SWITCH TO FLOOR CAMERA");
     }
   }
 

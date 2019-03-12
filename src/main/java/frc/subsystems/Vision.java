@@ -23,6 +23,7 @@ public class Vision extends Subsystem {
       armCam = CameraServer.getInstance().startAutomaticCapture("armCam", 0);
       floorCam = CameraServer.getInstance().startAutomaticCapture("floorCam", 1);
       server = CameraServer.getInstance().getServer();
+      armCam.setResolution(240, 180);
     }
 
     /*
@@ -31,12 +32,12 @@ public class Vision extends Subsystem {
 
     public void switchCamera(selectedCamera camera){
         if (camera == selectedCamera.ARM){
-            // NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").setString(armCam.getName());
-            server.setSource(armCam);
+            NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").setString(armCam.getName());
+            // server.setSource(armCam);
         }
         else if (camera == selectedCamera.FLOOR){
-            // NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").setString(floorCam.getName());
-            server.setSource(floorCam);
+            NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").setString(floorCam.getName());
+            // server.setSource(floorCam);
         }
     }
 

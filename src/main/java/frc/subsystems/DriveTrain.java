@@ -21,9 +21,11 @@ import edu.wpi.first.wpilibj.SpeedController;
 
 public class DriveTrain extends Subsystem{
     TalonSRX leftFrontDrive = new TalonSRX(Constants.CAN_LEFT_FRONT_DRIVE);
-	VictorSPX leftRearDrive = new VictorSPX(Constants.CAN_LEFT_REAR_DRIVE);
+	// VictorSPX leftRearDrive = new VictorSPX(Constants.CAN_LEFT_REAR_DRIVE);
+	TalonSRX leftRearDrive = new TalonSRX(Constants.CAN_LEFT_REAR_DRIVE);
 	TalonSRX rightFrontDrive = new TalonSRX(Constants.CAN_RIGHT_FRONT_DRIVE);
-	VictorSPX rightRearDrive = new VictorSPX(Constants.CAN_RIGHT_REAR_DRIVE);
+	// VictorSPX rightRearDrive = new VictorSPX(Constants.CAN_RIGHT_REAR_DRIVE);
+	TalonSRX rightRearDrive = new TalonSRX(Constants.CAN_RIGHT_REAR_DRIVE);
 
 	Solenoid gearShiftSolenoid = new Solenoid(Constants.CAN_PCM,Constants.PCM_GEAR_SHIFT);
 	public static enum GearShiftState { HI, LO };
@@ -173,11 +175,11 @@ public class DriveTrain extends Subsystem{
 	
 	public void arcadeDrive(Joystick driveJoystick) {
         if (!stopArcadeDrive) {
-			if(reverse = false){
+			if(Robot.m_oi.getJoystick().getRawButton(2) == false){
 				differentialDrive.arcadeDrive(driveJoystick.getY(),-driveJoystick.getX());
 			}
 			else {
-				differentialDrive.arcadeDrive(-driveJoystick.getY(),-driveJoystick.getX());
+				differentialDrive.arcadeDrive(-driveJoystick.getY(),driveJoystick.getX());
 			}
 		}
 	}
@@ -233,7 +235,8 @@ public class DriveTrain extends Subsystem{
 		return leftFrontDrive;
 	}
 
-	public VictorSPX getRearLeftMotor() {
+	//public VictorSPX getRearLeftMotor() {
+	public TalonSRX getRearLeftMotor() {
 		return leftRearDrive;
 	}
 
@@ -241,7 +244,8 @@ public class DriveTrain extends Subsystem{
 		return rightFrontDrive;
 	}
 
-	public VictorSPX getRearRightMotor() {
+	//public VictorSPX getRearRightMotor() {
+	public TalonSRX getRearRightMotor() {
 		return rightRearDrive;
 	}
 

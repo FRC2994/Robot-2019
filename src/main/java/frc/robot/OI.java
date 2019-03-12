@@ -39,6 +39,7 @@ import frc.commands.LiftUpOrDown;
 import frc.commands.HatchFinger;
 import frc.commands.HatchPiston;
 import frc.commands.DriveReverse;
+import frc.commands.CameraSwitch;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -69,7 +70,8 @@ public class OI {
     // final JoystickButton jsButnRecord                = new JoystickButton(m_joystick, 11);
     // final JoystickButton jsButnCalibrate             = new JoystickButton(m_joystick, 10);
     final JoystickButton jsButnShifter               = new JoystickButton(m_joystick, 12);
-    final JoystickButton jsButnClimb                 = new JoystickButton(m_joystick, 11);
+    // final JoystickButton jsButnClimb                 = new JoystickButton(m_joystick, 11);
+    final JoystickButton jsButnSwitchCamera          = new JoystickButton(m_joystick, 11);
     final JoystickButton jsButnChinUpRetract         = new JoystickButton(m_joystick, 10);    
     final JoystickButton jsButnChinUpForward         = new JoystickButton(m_joystick, 9);    
     final JoystickButton jsButnRetractableLegsDown   = new JoystickButton(m_joystick, 8);    
@@ -81,22 +83,22 @@ public class OI {
 
 
     //GamePad
-    final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 10); //Gamepad Start button TODO: change
-    final JoystickButton gpButnLED                   = new JoystickButton(m_gamepad, 9);  //Gamepad Back button TODO: change 
+    final JoystickButton gpButnLEDOff                = new JoystickButton(m_gamepad, 7); //Gamepad Back button
+    final JoystickButton gpButnLED                   = new JoystickButton(m_gamepad, 8);  //Gamepad Start button
     // final JoystickButton gpButnArmZero               = new JoystickButton(m_gamepad, 12);
-    final JoystickButton gpButnLEDHatch              = new JoystickButton(m_gamepad, 7);  //Gamepad LT button
-    final JoystickButton gpButnArmRetract            = new JoystickButton(m_gamepad, 5);  //Gamepad RB button
-    final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 6);  //Gamepad LB button
+    final JoystickButton gpButnArmRetract            = new JoystickButton(m_gamepad, 6);  //Gamepad RB button
+    final JoystickButton gpButnArmForward            = new JoystickButton(m_gamepad, 5);  //Gamepad LB button
     final JoystickButton gpButnCargoOut              = new JoystickButton(m_gamepad, 4);  //Gamepad Y button
-    final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 3);  //Gamepad A button
-    final JoystickButton gpButnHatchPiston           = new JoystickButton(m_gamepad, 2);  //Gamepad X button
-    final JoystickButton gpButnHatchFinger           = new JoystickButton(m_gamepad, 1);  //Gamepad B button
+    final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 2);  //Gamepad B button
+    final JoystickButton gpButnHatchPiston           = new JoystickButton(m_gamepad, 1);  //Gamepad A button
+    final JoystickButton gpButnHatchFinger           = new JoystickButton(m_gamepad, 3);  //Gamepad X button
 
 
     /* Connect the buttons to commands */
     
     //JOYSTICK
     //jsButnClimb.whenPressed(new LiftUpOrDown(LiftDirection.UP));
+    jsButnSwitchCamera.whenPressed(new CameraSwitch());
     jsButnShifter.whenPressed(new ShiftGear(GearShiftState.HI));
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
     jsButnChinUpRetract.whileHeld(new LiftChinUpClosedLoop(chinUpDirection.UP));
@@ -109,8 +111,8 @@ public class OI {
     jsButnRetractableLegsDown.whenPressed(new LiftLegsUpOrDown(LiftDirection.DN));
     jsButnFollowLine.whileHeld(new FollowLine(lineGo.GO));
     jsButnFollowLine.whenReleased(new FollowLine(lineGo.STOP));
-    jsButnReverse.whileHeld(new DriveReverse(true));
-    jsButnReverse.whenReleased(new DriveReverse(false));
+    // jsButnReverse.whileHeld(new DriveReverse(true));
+    // jsButnReverse.whenReleased(new DriveReverse(false));
 
     //GAMEPAD
     gpButnLEDOff.whenPressed(new LEDcontrol(LEDstate.OFF));

@@ -14,16 +14,17 @@ import edu.wpi.first.wpilibj.Relay;
 
 public class LED extends Subsystem {
 
-	Relay LEDR, LEDG, LEDB;
+	public Relay LEDR, LEDG, LEDB;
 
 	public LED() {
 		LEDR = new Relay(Constants.RELAY_LEDR);
         LEDG = new Relay(Constants.RELAY_LEDG);
         LEDB = new Relay(Constants.RELAY_LEDB);
         
-        setLEDR(false);
-        setLEDG(false);
-        setLEDB(false);
+        // setLEDR(false);
+        // setLEDG(false);
+		// setLEDB(false);
+		// LEDR.set(Relay.Value.kForward);
     }
 
 	public void setLEDR(boolean value) {

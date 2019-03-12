@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 // import edu.wpi.first.wpilibj.Counter;
 // import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.Relay;
 
 /**
  * creating this project, you must also update the manifest file in the resource
@@ -131,7 +132,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		// m_lineFollower.debugUS();
-		m_lineFollower.updateDashboard();
+		//m_lineFollower.updateDashboard();
 	}
 	@Override
 	public void testInit() {
