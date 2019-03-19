@@ -98,7 +98,7 @@ public class OI {
     
     //JOYSTICK
     //jsButnClimb.whenPressed(new LiftUpOrDown(LiftDirection.UP));
-    jsButnSwitchCamera.whenPressed(new CameraSwitch());
+    // jsButnSwitchCamera.whenPressed(new CameraSwitch());
     jsButnShifter.whenPressed(new ShiftGear(GearShiftState.HI));
     jsButnShifter.whenReleased(new ShiftGear(GearShiftState.LO));
     jsButnChinUpRetract.whileHeld(new LiftChinUpClosedLoop(chinUpDirection.UP));

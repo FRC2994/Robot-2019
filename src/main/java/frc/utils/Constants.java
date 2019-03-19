@@ -16,8 +16,8 @@ public class Constants
 	public static final int CAN_CHINUP_WHEEL_INTAKE    = 5;
 	public static final int CAN_CHINUP_ARM             = 4;
 	// public static final int CAN_ARM                    = 10;
-	public static final int CAN_WHEEL_INTAKE_1         = 2;
-	public static final int CAN_WHEEL_INTAKE_2		   = 8; //TODO: CHANGE CAN ID
+	public static final int CAN_WHEEL_INTAKE	       = 2;
+	// public static final int CAN_WHEEL_INTAKE_2		   = 8; //Removed
 
 	// PCM (Solenoid, LEDs, etc...)
 	public static final int PCM_GEAR_SHIFT                 = 0; // Gear shift defaults to low; single solenoid

@@ -15,8 +15,8 @@ public class GamePieces extends Subsystem{
     Solenoid hatch;
     DoubleSolenoid finger;
     VictorSPX cargoMotor1;
-    VictorSPX cargoMotor2;
-    public DigitalInput cargoLimit;
+    // VictorSPX cargoMotor2;
+    // public DigitalInput cargoLimit;
 
 
     private static final double cargoIntakeSpeed = 0.5;
@@ -28,19 +28,19 @@ public class GamePieces extends Subsystem{
         instance = this;
         hatch = new Solenoid(Constants.PCM_HATCH_PISTON);
         finger = new DoubleSolenoid(Constants.PCM_HATCH_FINGER1,Constants.PCM_HATCH_FINGER2);
-        cargoMotor1 = new VictorSPX(Constants.CAN_WHEEL_INTAKE_1);
-        cargoMotor2 = new VictorSPX(Constants.CAN_WHEEL_INTAKE_2);
-        cargoLimit = new DigitalInput(Constants.DIO_WHEEL_INTAKE_LIMIT);
+        cargoMotor1 = new VictorSPX(Constants.CAN_WHEEL_INTAKE);
+        // cargoMotor2 = new VictorSPX(Constants.CAN_WHEEL_INTAKE_2);
+        // cargoLimit = new DigitalInput(Constants.DIO_WHEEL_INTAKE_LIMIT);
 
         cargoMotor1.setNeutralMode(NeutralMode.Brake);
-        cargoMotor2.setNeutralMode(NeutralMode.Brake);
-
+        // cargoMotor2.setNeutralMode(NeutralMode.Brake);
+ 
         cargoMotor1.configOpenloopRamp(0, 0);
-        cargoMotor2.configOpenloopRamp(0, 0);
+        // cargoMotor2.configOpenloopRamp(0, 0);
 
         fingerHold();
-        cargoMotor2.follow(cargoMotor1);
-        cargoMotor2.setInverted(true);
+        // cargoMotor2.follow(cargoMotor1);
+        // cargoMotor2.setInverted(true);
         SmartDashboard.putString("Hatch Finger", "HOLD");
     }
 
@@ -58,9 +58,10 @@ public class GamePieces extends Subsystem{
     public void wheelStop() {
         cargoMotor1.set(ControlMode.PercentOutput, 0);
     }
+    /*
     public boolean buttonGet() {
         return cargoLimit.get();
-    }
+    }*/
 
     //Finger
     public void fingerHold() {
@@ -71,7 +72,7 @@ public class GamePieces extends Subsystem{
         finger.set(DoubleSolenoid.Value.kReverse);
         SmartDashboard.putString("Hatch Finger", "RELEASED");
     }
-    //Hatch
+    //Piston
     public void pistonPush() {
         hatch.set(true);
         System.out.println("PUSHED PISTON");
