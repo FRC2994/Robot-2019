@@ -38,6 +38,7 @@ import frc.commands.LiftUpOrDown;
 // import frc.commands.ZeroArm;
 import frc.commands.HatchFinger;
 import frc.commands.HatchPiston;
+import frc.commands.HatchPiston.state;
 import frc.commands.DriveReverse;
 import frc.commands.CameraSwitch;
 /**
@@ -127,7 +128,8 @@ public class OI {
     gpButnArmForward.whenPressed(new ArmUpOrDown(armStatus.FORWARD));
     // gpButnArmForward.whenReleased(new ArmUpOrDown(armStatus.OFF));
     gpButnHatchFinger.whenPressed(new HatchFinger());
-    gpButnHatchPiston.whenPressed(new HatchPiston());
+    gpButnHatchPiston.whileHeld(new HatchPiston(state.PUSHED));
+    gpButnHatchPiston.whenReleased(new HatchPiston(state.RESET));
   }
 
   public Joystick getJoystick() {

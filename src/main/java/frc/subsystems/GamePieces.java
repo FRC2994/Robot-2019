@@ -40,7 +40,7 @@ public class GamePieces extends Subsystem{
 
         fingerHold();
         // cargoMotor2.follow(cargoMotor1);
-        // cargoMotor2.setInverted(true);
+        cargoMotor1.setInverted(true);
         SmartDashboard.putString("Hatch Finger", "HOLD");
     }
 

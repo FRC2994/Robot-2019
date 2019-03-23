@@ -7,59 +7,30 @@
 
 package frc.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 import frc.subsystems.GamePieces;
-
-
-public class HatchPiston extends Command {
-  private static final GamePieces piston = Robot.m_gamePieces;
-  private boolean isFinished;
-  private int count;
-  private int maxCount;
-  public HatchPiston() {
+public class HatchPiston extends InstantCommand {
+  private final GamePieces piston = Robot.m_gamePieces;
+  public static enum state {PUSHED, RESET};
+  private state hatchState;
+  public HatchPiston(state hatchState) {
+    super();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(piston);
+    this.hatchState = hatchState;
   }
 
-  // Called just before this Command runs the first time
+  // Called once when the command executes
   @Override
   protected void initialize() {
-    isFinished = false;
-    count = 0;
-    maxCount = 14; //0.5 seconds
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    if (count == 0) {
+    if(hatchState == state.PUSHED) {
       piston.pistonPush();
-      isFinished = false;
     }
-    else if (count == maxCount) {
+    else if(hatchState == state.RESET) {
       piston.pistonReset();
-      isFinished = true;
     }
-    count++;
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return isFinished;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-    piston.pistonReset();
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
 }
