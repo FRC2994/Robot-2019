@@ -132,7 +132,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		// m_lineFollower.debugUS();
-		//m_lineFollower.updateDashboard();
+		m_lineFollower.updateDashboard();
 	}
 	@Override
 	public void testInit() {
@@ -153,7 +153,7 @@ public class Robot extends TimedRobot {
 		if(count == maxCount){
 			// System.out.println("Drive Train: " + m_drivetrain.getLeftEncoderValue() + "  " + m_drivetrain.getRightEncoderValue());
 			//System.out.println("Arm Limit Switch: " + m_arm.LimitArmTop.get() + "   Arm Encoder:" + m_arm.getCurrentPosition());
-			//System.out.println("Chinup Limit: "+m_lift.limitChinUp.get() + "	Chinup Rotation: " + m_lift.armGetCurrentPosition());
+			System.out.println( "Chinup Rotation: " + m_lift.armGetCurrentPosition());
 			// m_drivetrain.getJoystickValues();
 			// System.out.println("Cargo Intake Limit Switch: "+m_gamePieces.cargoLimit.get());
 			// System.out.println("");

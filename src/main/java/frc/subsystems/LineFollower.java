@@ -104,23 +104,8 @@ public class LineFollower extends Subsystem {
     }
 
     public void updateDashboard() {
-      status = getState();
-      if(status == State.centreState){
-        SmartDashboard.putBoolean("Left Color Sensor", true);
-        SmartDashboard.putBoolean("Right Color Sensor", true);
-      }
-      else if(status == State.leftState) {
-        SmartDashboard.putBoolean("Left Color Sensor", false);
-        SmartDashboard.putBoolean("Right Color Sensor", true);
-      }
-      else if(status == State.rightState) {
-        SmartDashboard.putBoolean("Left Color Sensor", true);
-        SmartDashboard.putBoolean("Right Color Sensor", false);
-      }
-      else {
-        SmartDashboard.putBoolean("Left Color Sensor", false);
-        SmartDashboard.putBoolean("Right Color Sensor", false);
-      }
+        SmartDashboard.putBoolean("Left Color Sensor", leftColorSensor.get());
+        SmartDashboard.putBoolean("Right Color Sensor", rightColorSensor.get());
     }
     
 public void debugColor() {

@@ -18,7 +18,7 @@ public class LiftChinUpIntake extends InstantCommand {
     public IntakeStatus position;
     boolean limitValue;
     int status;
-    private final double defaultSpeed = 0.2;
+    private final double defaultSpeed = 1;
     private boolean openLoopMode = true;
 
     public LiftChinUpIntake(IntakeStatus state) {

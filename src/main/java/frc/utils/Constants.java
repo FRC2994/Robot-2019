@@ -15,6 +15,7 @@ public class Constants
 	public static final int CAN_LEFT_REAR_DRIVE        = 6;
 	public static final int CAN_CHINUP_WHEEL_INTAKE    = 5;
 	public static final int CAN_CHINUP_ARM             = 4;
+	public static final int CAN_CHINUP_ARM_2		   = 8;
 	// public static final int CAN_ARM                    = 10;
 	public static final int CAN_WHEEL_INTAKE	       = 2;
 	// public static final int CAN_WHEEL_INTAKE_2		   = 8; //Removed
