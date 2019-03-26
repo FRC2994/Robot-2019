@@ -39,7 +39,6 @@ import frc.commands.LiftLegsUpOrDown;
 import frc.commands.HatchFinger;
 import frc.commands.HatchPiston;
 import frc.commands.HatchPiston.state;
-import frc.commands.DriveReverse;
 import frc.commands.CameraSwitch;
 /**
  * This class is the glue that binds the controls on the physical operator
