@@ -24,6 +24,7 @@ public class Vision extends Subsystem {
       // floorCam = CameraServer.getInstance().startAutomaticCapture("floorCam", 1);
       server = CameraServer.getInstance().getServer();
       armCam.setResolution(240, 180);
+      armCam.setFPS(30);
     }
 
     /*

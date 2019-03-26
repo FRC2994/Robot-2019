@@ -33,7 +33,7 @@ public class LiftChinUpClosedLoop extends Command {
     if (direction == chinUpDirection.UP) {
       arm.moveUp();
     }
-    if (direction == chinUpDirection.DOWN) {
+    else if (direction == chinUpDirection.DOWN) {
       arm.moveDown();
     }
   }

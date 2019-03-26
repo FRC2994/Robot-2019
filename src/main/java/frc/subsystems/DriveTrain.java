@@ -24,8 +24,8 @@ public class DriveTrain extends Subsystem{
 	VictorSPX leftRearDrive = new VictorSPX(Constants.CAN_LEFT_REAR_DRIVE);
 	//TalonSRX leftRearDrive = new TalonSRX(Constants.CAN_LEFT_REAR_DRIVE);
 	TalonSRX rightFrontDrive = new TalonSRX(Constants.CAN_RIGHT_FRONT_DRIVE);
-	// VictorSPX rightRearDrive = new VictorSPX(Constants.CAN_RIGHT_REAR_DRIVE);
-	TalonSRX rightRearDrive = new TalonSRX(Constants.CAN_RIGHT_REAR_DRIVE);
+	VictorSPX rightRearDrive = new VictorSPX(Constants.CAN_RIGHT_REAR_DRIVE);
+	//TalonSRX rightRearDrive = new TalonSRX(Constants.CAN_RIGHT_REAR_DRIVE);
 
 	Solenoid gearShiftSolenoid = new Solenoid(Constants.CAN_PCM,Constants.PCM_GEAR_SHIFT);
 	public static enum GearShiftState { HI, LO };
@@ -244,8 +244,8 @@ public class DriveTrain extends Subsystem{
 		return rightFrontDrive;
 	}
 
-	//public VictorSPX getRearRightMotor() {
-	public TalonSRX getRearRightMotor() {
+	public VictorSPX getRearRightMotor() {
+	//public TalonSRX getRearRightMotor() {
 		return rightRearDrive;
 	}
 

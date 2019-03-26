@@ -29,7 +29,7 @@ public class Lift extends Subsystem {
   public int startPosition;
   int desiredPosition;
   boolean printedZeroing;
-  public final int kTickIncrement = 4200; //536,000/3/50 OLD: 2,680
+  public final int kTickIncrement = 3500; //3500
   
   public Lift() {
     limitChinUp = new DigitalInput(Constants.DIO_CHINUP_LIMIT_BOTTOM);
@@ -54,14 +54,14 @@ public class Lift extends Subsystem {
     if (dir == LiftDirection.UP) {
       /* set closed loop gains in slot0, typically kF stays zero. */
       ChinUpArm.config_kF(0, 0.0, 0);
-      ChinUpArm.config_kP(0, 0.6, 0);
+      ChinUpArm.config_kP(0, 0.3, 0);
       ChinUpArm.config_kI(0, 0.0, 0);
       ChinUpArm.config_kD(0, 0.0, 0);	
       ChinUpArm.configPeakOutputForward(1.0, 0);
     } else {
       /* set closed loop gains in slot0, typically kF stays zero. */
       ChinUpArm.config_kF(0, 0.0, 0);
-      ChinUpArm.config_kP(0, 0.4, 0);
+      ChinUpArm.config_kP(0, 0.2, 0);
       ChinUpArm.config_kI(0, 0.0, 0);
       ChinUpArm.config_kD(0, 0.0, 0);
       ChinUpArm.configPeakOutputReverse(-0.5, 0);
@@ -126,9 +126,6 @@ public class Lift extends Subsystem {
       //motor.set(ControlMode.PercentOutput, 0.4);
       System.out.println("MOVING Down");
     } 
-    else {
-      chinUpArmSetPosition(armGetCurrentPosition()+1000);
-    }
   }
 
   void resetEncoder() {
@@ -153,7 +150,7 @@ public class Lift extends Subsystem {
   }
   
   public int armGetCurrentPosition() {
-    return ChinUpArm.getSelectedSensorPosition(0) - startPosition;
+    return ChinUpArm.getSelectedSensorPosition(0);
   }
 
   /* Returns true when done */
