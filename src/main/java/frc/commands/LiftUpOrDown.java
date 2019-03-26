@@ -37,7 +37,7 @@ public class LiftUpOrDown extends CommandGroup {
       // addSequential(new LiftChinUpMoveToPosition(chinupOnPlatform));
       // // Extend legs and get chinup to rest on platform
       // addSequential(new LiftLegsUpOrDown(LiftDirection.UP));
-      addParallel(new LiftChinUpMoveToPosition(2000));
+      // addParallel(new LiftChinUpMoveToPosition(2000));
       // // Move robot on platform;
       // addSequential(new LiftChinUpPullOpenLoop(0.5,50));
       // Stow chinup

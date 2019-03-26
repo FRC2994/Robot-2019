@@ -34,7 +34,7 @@ import frc.commands.HatchReleaseOrHold.releaseOrHold;
 import frc.commands.LiftChinUpIntake.IntakeStatus;
 import frc.commands.LiftChinUpPullOpenLoop;
 import frc.commands.LiftLegsUpOrDown;
-import frc.commands.LiftUpOrDown;
+// import frc.commands.LiftUpOrDown;
 // import frc.commands.ZeroArm;
 import frc.commands.HatchFinger;
 import frc.commands.HatchPiston;
