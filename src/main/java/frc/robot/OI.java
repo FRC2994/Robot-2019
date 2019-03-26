@@ -72,11 +72,11 @@ public class OI {
     // final JoystickButton jsButnCalibrate             = new JoystickButton(m_joystick, 10);
     final JoystickButton jsButnShifter               = new JoystickButton(m_joystick, 12);
     // final JoystickButton jsButnClimb                 = new JoystickButton(m_joystick, 11);
-    final JoystickButton jsButnSwitchCamera          = new JoystickButton(m_joystick, 11);
-    final JoystickButton jsButnChinUpRetract         = new JoystickButton(m_joystick, 10);    
-    final JoystickButton jsButnChinUpForward         = new JoystickButton(m_joystick, 9);    
-    final JoystickButton jsButnRetractableLegsDown   = new JoystickButton(m_joystick, 8);    
-    final JoystickButton jsButnRetractableLegsUp     = new JoystickButton(m_joystick, 7);
+    // final JoystickButton jsButnSwitchCamera          = new JoystickButton(m_joystick, 11);
+    final JoystickButton jsButnChinUpRetract         = new JoystickButton(m_joystick, 9);    
+    final JoystickButton jsButnChinUpForward         = new JoystickButton(m_joystick, 10);    
+    final JoystickButton jsButnRetractableLegsDown   = new JoystickButton(m_joystick, 7);    
+    final JoystickButton jsButnRetractableLegsUp     = new JoystickButton(m_joystick, 8);
     final JoystickButton jsButnChinUpOut             = new JoystickButton(m_joystick, 4);
     final JoystickButton jsButnChinUpIn              = new JoystickButton(m_joystick, 3);
     final JoystickButton jsButnReverse               = new JoystickButton(m_joystick, 2);    
@@ -112,8 +112,6 @@ public class OI {
     jsButnRetractableLegsDown.whenPressed(new LiftLegsUpOrDown(LiftDirection.DN));
     jsButnFollowLine.whileHeld(new FollowLine(lineGo.GO));
     jsButnFollowLine.whenReleased(new FollowLine(lineGo.STOP));
-    // jsButnReverse.whileHeld(new DriveReverse(true));
-    // jsButnReverse.whenReleased(new DriveReverse(false));
 
     //GAMEPAD
     gpButnLEDOff.whenPressed(new LEDcontrol(LEDstate.OFF));
