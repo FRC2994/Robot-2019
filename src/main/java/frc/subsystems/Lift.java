@@ -28,7 +28,7 @@ public class Lift extends Subsystem {
   public int startPosition;
   int desiredPosition;
   boolean printedZeroing;
-  public final int kTickIncrement = 3500; //3500
+  public final int kTickIncrement = 5500; //3500
   
   public Lift() {
     limitChinUp = new DigitalInput(Constants.DIO_CHINUP_LIMIT_BOTTOM);

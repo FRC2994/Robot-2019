@@ -8,30 +8,21 @@
 package frc.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.subsystems.Vision;
-import frc.subsystems.Vision.selectedCamera;
 import frc.robot.Robot;
-public class CameraSwitch extends InstantCommand {
-  private final Vision vision = Robot.m_vision;
-  private int cameraChoice = 0;
-
-  public CameraSwitch() {
+import frc.subsystems.LED;
+public class LEDTESTALL extends InstantCommand {
+  public final LED led = Robot.m_LED;
+  public LEDTESTALL() {
     super();
+    // Use requires() here to declare subsystem dependencies
+    requires(led);
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    if(cameraChoice == 0) {
-      vision.switchCamera(selectedCamera.ARM);
-      cameraChoice = 1;
-      System.out.println("SWITCHED TO ARM CAMERA");
-    }
-    else{
-      vision.switchCamera(selectedCamera.FLOOR);
-      cameraChoice = 2;
-      System.out.println("SWITCH TO FLOOR CAMERA");
-    }
+    led.rightRGB(true, true, true);
+		led.leftRGB(true, true, true);
   }
 
 }

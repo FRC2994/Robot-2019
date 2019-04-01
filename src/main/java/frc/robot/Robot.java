@@ -11,7 +11,6 @@ import frc.subsystems.GamePieces;
 import frc.subsystems.LED;
 import frc.subsystems.Lift;
 import frc.subsystems.Arm;
-import frc.subsystems.Vision;
 import frc.subsystems.LiftIntake;
 import frc.robot.OI;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -19,7 +18,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.command.Command;
-
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 // import edu.wpi.first.wpilibj.Counter;
@@ -47,8 +46,7 @@ public class Robot extends TimedRobot {
 	public static Lift m_lift;
 	public static LiftIntake m_liftIntake;
 	public static Arm m_arm;
-	public static Vision m_vision;
-
+	public static UsbCamera camera;
 
 	public int ledStatus;
 	public int count;
@@ -78,7 +76,7 @@ public class Robot extends TimedRobot {
 		m_arm = new Arm();
 		m_lift = new Lift();
 		m_liftIntake = new LiftIntake();
-		m_vision = new Vision();
+		CameraServer.getInstance().startAutomaticCapture();
 		Subsystems.initialize();
 		autonomousCommand = new Autonomous();
 		m_oi = new OI();
@@ -136,6 +134,7 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		// m_lineFollower.debugUS();
 		m_lineFollower.updateDashboard();
+		m_lineFollower.updateLED();
 	}
 	@Override
 	public void testInit() {
@@ -152,7 +151,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testPeriodic() {
 		Scheduler.getInstance().run();
-		// LiveWindow.run();
 		if(count == maxCount){
 			// System.out.println("Drive Train: " + m_drivetrain.getLeftEncoderValue() + "  " + m_drivetrain.getRightEncoderValue());
 			//System.out.println("Arm Limit Switch: " + m_arm.LimitArmTop.get() + "   Arm Encoder:" + m_arm.getCurrentPosition());

@@ -1,109 +1,109 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+// /*----------------------------------------------------------------------------*/
+// /* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+// /* Open Source Software - may be modified and shared by FRC teams. The code   */
+// /* must be accompanied by the FIRST BSD license file in the root directory of */
+// /* the project.                                                               */
+// /*----------------------------------------------------------------------------*/
 
-package frc.commands;
+// package frc.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.subsystems.LED;
-import frc.robot.Robot;
+// import edu.wpi.first.wpilibj.command.Command;
+// import frc.subsystems.LED;
+// import frc.robot.Robot;
 
-public class LEDcontrol extends Command {
-  private int maxCount = 50; //Every 1 second
-  private int count;
-  private boolean LEDstatus = false;
-  private static final LED led = Robot.m_LED;
+// public class LEDcontrol extends Command {
+//   private int maxCount = 50; //Every 1 second
+//   private int count;
+//   private boolean LEDstatus = false;
+//   private static final LED led = Robot.m_LED;
 
-  public enum LEDstate {ON, OFF};
-  private LEDstate status;
+//   public enum LEDstate {ON, OFF};
+//   private LEDstate status;
 
-  public static enum GamePieces {HATCH, CARGO};
-  private GamePieces piece;
+//   public static enum GamePieces {HATCH, CARGO};
+//   private GamePieces piece;
 
-  private boolean isFinished;
+//   private boolean isFinished;
 
-  public LEDcontrol(LEDstate status) {
-    requires(led);
-    this.status = status;
-  }
+//   public LEDcontrol(LEDstate status) {
+//     requires(led);
+//     this.status = status;
+//   }
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-    if (status == LEDstate.OFF) {
-        isFinished = true;
-    }
-    else {
-        isFinished = false;
-        if(piece == GamePieces.CARGO) {
-            piece = GamePieces.HATCH;
+//   // Called just before this Command runs the first time
+//   @Override
+//   protected void initialize() {
+//     if (status == LEDstate.OFF) {
+//         isFinished = true;
+//     }
+//     else {
+//         isFinished = false;
+//         if(piece == GamePieces.CARGO) {
+//             piece = GamePieces.HATCH;
 
-        }
-        else{
-            piece = GamePieces.CARGO;
-        }
-        led.setLEDR(false);
-        led.setLEDB(false);
-        count = 0;
-        LEDstatus = false;
-    }
-  }
+//         }
+//         else{
+//             piece = GamePieces.CARGO;
+//         }
+//         led.setLEDR(false);
+//         led.setLEDB(false);
+//         count = 0;
+//         LEDstatus = false;
+//     }
+//   }
 
-  /*
-  RED MEANS CARGO
-  BLUE MEANS HATCH
-  */
+//   /*
+//   RED MEANS CARGO
+//   BLUE MEANS HATCH
+//   */
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    if(count == maxCount){
-        if(LEDstatus == false) {
-            if(piece == GamePieces.CARGO){
-                led.setLEDR(true);
-                System.out.println("CARGO LED");
-            }
-            if(piece == GamePieces.HATCH){
-                led.setLEDB(true);
-                System.out.println("HATCH LED");
-            }
-            LEDstatus = true;
-        }
-        else {
-            if(piece == GamePieces.CARGO){
-                led.setLEDR(false);
-            }
-            if(piece == GamePieces.HATCH){
-                led.setLEDB(false);
-            }
-            LEDstatus = false;
-        }
-        count = 0;
-    }
-    count++;
-    System.out.println(piece);
-  }
+//   // Called repeatedly when this Command is scheduled to run
+//   @Override
+//   protected void execute() {
+//     if(count == maxCount){
+//         if(LEDstatus == false) {
+//             if(piece == GamePieces.CARGO){
+//                 led.setLEDR(true);
+//                 System.out.println("CARGO LED");
+//             }
+//             if(piece == GamePieces.HATCH){
+//                 led.setLEDB(true);
+//                 System.out.println("HATCH LED");
+//             }
+//             LEDstatus = true;
+//         }
+//         else {
+//             if(piece == GamePieces.CARGO){
+//                 led.setLEDR(false);
+//             }
+//             if(piece == GamePieces.HATCH){
+//                 led.setLEDB(false);
+//             }
+//             LEDstatus = false;
+//         }
+//         count = 0;
+//     }
+//     count++;
+//     System.out.println(piece);
+//   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-      return isFinished;
-  }
+//   // Make this return true when this Command no longer needs to run execute()
+//   @Override
+//   protected boolean isFinished() {
+//       return isFinished;
+//   }
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-    led.setLEDR(false);
-    led.setLEDB(false);
-    System.out.println("LED OFF");
-  }
+//   // Called once after isFinished returns true
+//   @Override
+//   protected void end() {
+//     led.setLEDR(false);
+//     led.setLEDB(false);
+//     System.out.println("LED OFF");
+//   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
-}
+//   // Called when another command which requires one or more of the same
+//   // subsystems is scheduled to run
+//   @Override
+//   protected void interrupted() {
+//   }
+// }

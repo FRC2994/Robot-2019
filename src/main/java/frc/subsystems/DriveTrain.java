@@ -220,7 +220,7 @@ public class DriveTrain extends Subsystem{
 
 	public void setGear(GearShiftState state) {
 	   System.out.println("Trying to shift to gear state " + state);
-	   gearShiftSolenoid.set(state==GearShiftState.HI?true:false);
+	   gearShiftSolenoid.set(state==GearShiftState.HI?false:true);
 	}
 
 	public void reverseDrive(boolean state) {

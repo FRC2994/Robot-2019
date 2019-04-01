@@ -18,11 +18,12 @@ import frc.commands.Autonomous;
 import frc.commands.FollowLine;
 import frc.commands.FollowLine.lineGo;
 import frc.commands.HatchReleaseOrHold;
-import frc.commands.LEDcontrol;
-import frc.commands.LEDcontrol.LEDstate;
+// import frc.commands.LEDcontrol;
+// import frc.commands.LEDcontrol.LEDstate;
 import frc.commands.LiftChinUpClosedLoop;
 import frc.commands.LiftChinUpClosedLoop.chinUpDirection;
 // import frc.commands.LEDcontrol.LEDcolor;
+import frc.commands.LEDTest;
 import frc.commands.LiftChinUpIntake;
 import frc.commands.ShiftGear;
 import frc.commands.CargoIntake;
@@ -39,7 +40,7 @@ import frc.commands.LiftLegsUpOrDown;
 import frc.commands.HatchFinger;
 import frc.commands.HatchPiston;
 import frc.commands.HatchPiston.state;
-import frc.commands.CameraSwitch;
+import frc.commands.LEDTESTALL;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -92,6 +93,7 @@ public class OI {
     final JoystickButton gpButnCargoIn               = new JoystickButton(m_gamepad, 2);  //Gamepad B button
     final JoystickButton gpButnHatchPiston           = new JoystickButton(m_gamepad, 1);  //Gamepad A button
     final JoystickButton gpButnHatchFinger           = new JoystickButton(m_gamepad, 3);  //Gamepad X button
+    final JoystickButton gpButnLEDTest               = new JoystickButton(m_gamepad, 10);
 
 
     /* Connect the buttons to commands */
@@ -113,8 +115,8 @@ public class OI {
     jsButnFollowLine.whenReleased(new FollowLine(lineGo.STOP));
 
     //GAMEPAD
-    gpButnLEDOff.whenPressed(new LEDcontrol(LEDstate.OFF));
-    gpButnLED.whenPressed(new LEDcontrol(LEDstate.ON));
+    // gpButnLEDOff.whenPressed(new LEDcontrol(LEDstate.OFF));
+    // gpButnLED.whenPressed(new LEDcontrol(LEDstate.ON));
     // gpButnArmZero.whenPressed(new ZeroArm());
     gpButnCargoIn.whileHeld(new CargoIntake());
     gpButnCargoIn.whenReleased(new CargoStop());
@@ -127,6 +129,7 @@ public class OI {
     gpButnHatchFinger.whenPressed(new HatchFinger());
     gpButnHatchPiston.whileHeld(new HatchPiston(state.PUSHED));
     gpButnHatchPiston.whenReleased(new HatchPiston(state.RESET));
+    gpButnLEDTest.whenPressed(new LEDTESTALL());
   }
 
   public Joystick getJoystick() {

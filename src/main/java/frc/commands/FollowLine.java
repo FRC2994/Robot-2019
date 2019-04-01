@@ -15,9 +15,9 @@ import frc.subsystems.LineFollower.State;
 import frc.robot.Robot;
 
 public class FollowLine extends Command {
-  private static final double averageSpeed = 0.3;
-  private static final double correctionSpeed = 0.2;
-  private static final double slowDownSpeed = 0.1;
+  private static final double averageSpeed = 0.5;
+  private static final double correctionSpeed = 0.5; //0.2
+  private static final double slowDownSpeed = 0.3;
   private static final DriveTrain drivetrain = Robot.m_drivetrain;
   private static final LineFollower lineFollower = Robot.m_lineFollower;
   //private static final LED led = Robot.m_LED;
@@ -71,7 +71,7 @@ public class FollowLine extends Command {
           //disable control from joystick
           drivetrain.setStopArcadeDrive(true);
           //Make robot go Right by increasing left motor speed and decreasing right motor speed
-          drivetrain.tankDrive(averageSpeed+correctionSpeed, averageSpeed-correctionSpeed);
+          drivetrain.tankDrive(correctionSpeed, slowDownSpeed);
           System.out.println("Going Left");
           // led.setLEDR(true);
           // led.setLEDB(false);
@@ -82,7 +82,7 @@ public class FollowLine extends Command {
           //disable control from joystick
           drivetrain.setStopArcadeDrive(true);
           //Make robot go Left by decreasing left motor speed and increasing right motor speed
-          drivetrain.tankDrive(averageSpeed-correctionSpeed, averageSpeed+correctionSpeed);
+          drivetrain.tankDrive(slowDownSpeed, correctionSpeed);
           System.out.println("Going Right");
           // led.setLEDR(false);
           // led.setLEDB(true);

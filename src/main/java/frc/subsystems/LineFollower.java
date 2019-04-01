@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.subsystems.Logger;
 import frc.utils.Constants;
 import static frc.utils.Constants.*;
+import frc.subsystems.LED;
+import frc.robot.Robot;
 
 /**
  * Add your docs here.
@@ -28,6 +30,7 @@ public class LineFollower extends Subsystem {
   private static DigitalInput leftColorSensor;
   private static Ultrasonic   rightUltrasonic;
   private static Ultrasonic   leftUltrasonic;
+  private final LED led;
 
   public LineFollower() {
     instance = this;
@@ -35,6 +38,7 @@ public class LineFollower extends Subsystem {
     leftColorSensor = new DigitalInput(Constants.DIO_LEFT_COLOUR_SENSOR);
     rightUltrasonic = new Ultrasonic(Constants.DIO_RUS_ECHO, Constants.DIO_RUS_TRIG);
     leftUltrasonic = new Ultrasonic(Constants.DIO_LUS_ECHO, Constants.DIO_LUS_TRIG);
+    led = Robot.m_LED;
 
     rightUltrasonic.setAutomaticMode(true);
     leftUltrasonic.setAutomaticMode(true);
@@ -106,6 +110,26 @@ public class LineFollower extends Subsystem {
     public void updateDashboard() {
         SmartDashboard.putBoolean("Left Color Sensor", leftColorSensor.get());
         SmartDashboard.putBoolean("Right Color Sensor", rightColorSensor.get());
+    }
+
+    public void updateLED() {
+      status = getState();
+      if (status == state.leftState) { //RIGHT SENSOR
+        led.leftRGB(true, false, false);
+        led.rightRGB(true, true, false);
+      }
+      else if (status == state.rightState) { //LEFT SENSOR
+        led.leftRGB(true, false, true);
+        led.rightRGB(true, false, false);
+      }
+      else if (status == state.centreState) {
+        led.leftRGB(true, false, true);
+        led.rightRGB(true, true, false);
+      }
+      else if (status == state.noneState) {
+        led.leftRGB(true, false, false);
+        led.rightRGB(true, false, false);
+      }
     }
     
 public void debugColor() {
