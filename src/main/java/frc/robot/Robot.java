@@ -20,16 +20,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalInput;
 // import edu.wpi.first.wpilibj.Counter;
 // import edu.wpi.first.wpilibj.DigitalSource;
-import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.Relay;
-
-import jaci.pathfinder.Pathfinder;
-import jaci.pathfinder.PathfinderFRC;
-import jaci.pathfinder.Trajectory;
-import jaci.pathfinder.followers.EncoderFollower;
 
 import frc.commands.TestPath;
 /**
@@ -39,7 +31,6 @@ import frc.commands.TestPath;
 public class Robot extends TimedRobot {
 
 	Command autonomousCommand;
-	Command zeroArm;
 	private static Robot instance;
 	public static DriveTrain m_drivetrain;
 
@@ -85,8 +76,8 @@ public class Robot extends TimedRobot {
 		camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setFPS(30);
 		Subsystems.initialize();
-		autonomousCommand = new TestPath();
 		m_oi = new OI();
+		autonomousCommand = new TestPath();
 	}
 
 	/**
@@ -117,10 +108,15 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand.start();
-		// String path_name = "src/main/java/frc/PathWeave/Paths/Unnamed.path";
-		// Trajectory left_trajectory = PathfinderFRC.getTrajectory(path_name + ".left");
-		// Trajectory right_trajectory = PathfinderFRC.getTrajectory(path_name + ".right");
+		if (autonomousCommand != null)
+		{
+			autonomousCommand.start();
+		} 
+		else
+		{
+			System.out.println("AUTONOMOUS COMMAND IS NULL!");
+		}
+
 	}   
 
 	/**

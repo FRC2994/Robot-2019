@@ -41,7 +41,6 @@ import frc.commands.HatchFinger;
 import frc.commands.HatchPiston;
 import frc.commands.HatchPiston.state;
 import frc.commands.LEDTESTALL;
-import frc.commands.Drive2Revs;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -72,7 +71,7 @@ public class OI {
     // final JoystickButton jsButnRecord                = new JoystickButton(m_joystick, 11);
     // final JoystickButton jsButnCalibrate             = new JoystickButton(m_joystick, 10);
     final JoystickButton jsButnShifter               = new JoystickButton(m_joystick, 12);
-    final JoystickButton jsButnMoveStraight          = new JoystickButton(m_joystick, 11);
+    // final JoystickButton jsButnMoveStraight          = new JoystickButton(m_joystick, 11);
     // final JoystickButton jsButnSwitchCamera          = new JoystickButton(m_joystick, 11);
     final JoystickButton jsButnChinUpRetract         = new JoystickButton(m_joystick, 9);    
     final JoystickButton jsButnChinUpForward         = new JoystickButton(m_joystick, 10);    
@@ -114,7 +113,6 @@ public class OI {
     jsButnRetractableLegsDown.whenPressed(new LiftLegsUpOrDown(LiftDirection.DN));
     jsButnFollowLine.whileHeld(new FollowLine(lineGo.GO));
     jsButnFollowLine.whenReleased(new FollowLine(lineGo.STOP));
-    jsButnMoveStraight.whenPressed(new Drive2Revs());
 
     //GAMEPAD
     // gpButnLEDOff.whenPressed(new LEDcontrol(LEDstate.OFF));

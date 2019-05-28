@@ -31,7 +31,7 @@ public class DriveTrain extends Subsystem{
 	public static enum GearShiftState { HI, LO };
 	//public static enum driveStatus {FORWARD, REVERSE};
 
-	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+	public ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	public DifferentialDrive differentialDrive;
 
 	private int startPosition;
@@ -173,11 +173,6 @@ public class DriveTrain extends Subsystem{
 		differentialDrive.curvatureDrive(speed, turn, isQuickTurn);
 	}
 	
-	public void moveToPosition(int position)
-	{
-		rightFrontDrive.set(ControlMode.Position, position);
-		leftFrontDrive.set(ControlMode.Position, position);
-	}
 
 	public void arcadeDrive(Joystick driveJoystick) {
         if (!stopArcadeDrive) {
