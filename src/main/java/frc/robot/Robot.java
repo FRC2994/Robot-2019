@@ -26,6 +26,12 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Relay;
 
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.PathfinderFRC;
+import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.followers.EncoderFollower;
+
+import frc.commands.TestPath;
 /**
  * creating this project, you must also update the manifest file in the resource
  * directory.
@@ -76,9 +82,10 @@ public class Robot extends TimedRobot {
 		m_arm = new Arm();
 		m_lift = new Lift();
 		m_liftIntake = new LiftIntake();
-		CameraServer.getInstance().startAutomaticCapture();
+		camera = CameraServer.getInstance().startAutomaticCapture();
+		camera.setFPS(30);
 		Subsystems.initialize();
-		autonomousCommand = new Autonomous();
+		autonomousCommand = new TestPath();
 		m_oi = new OI();
 	}
 
@@ -111,6 +118,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		autonomousCommand.start();
+		// String path_name = "src/main/java/frc/PathWeave/Paths/Unnamed.path";
+		// Trajectory left_trajectory = PathfinderFRC.getTrajectory(path_name + ".left");
+		// Trajectory right_trajectory = PathfinderFRC.getTrajectory(path_name + ".right");
 	}   
 
 	/**
@@ -135,6 +145,8 @@ public class Robot extends TimedRobot {
 		// m_lineFollower.debugUS();
 		m_lineFollower.updateDashboard();
 		m_lineFollower.updateLED();
+		// System.out.println("Left: " + m_drivetrain.getLeftEncoderValue());
+		// System.out.println("Right: " + m_drivetrain.getRightEncoderValue());
 	}
 	@Override
 	public void testInit() {

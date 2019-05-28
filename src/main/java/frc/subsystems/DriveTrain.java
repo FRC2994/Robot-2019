@@ -124,7 +124,7 @@ public class DriveTrain extends Subsystem{
 	
 	public void configureTurboProfile() {
 		leftFrontDrive.config_kP(0, 0.4, 0);
-		leftFrontDrive.config_kD(0, 0.1, 0);
+		leftFrontDrive.config_kD(0, 0.01, 0);
 	}
 	
 	public void configureFastProfile() {
@@ -150,9 +150,9 @@ public class DriveTrain extends Subsystem{
 		gyro.calibrate();
 
 		leftFrontDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		leftFrontDrive.setSensorPhase(false);
-		rightFrontDrive.setSensorPhase(false);
-		rightFrontDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+		leftFrontDrive.setSensorPhase(true);
+		rightFrontDrive.setSensorPhase(true);
+		rightFrontDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 
         // Let's name the sensors on the LiveWindow
         addChild("Drive", differentialDrive);
@@ -173,6 +173,12 @@ public class DriveTrain extends Subsystem{
 		differentialDrive.curvatureDrive(speed, turn, isQuickTurn);
 	}
 	
+	public void moveToPosition(int position)
+	{
+		rightFrontDrive.set(ControlMode.Position, position);
+		leftFrontDrive.set(ControlMode.Position, position);
+	}
+
 	public void arcadeDrive(Joystick driveJoystick) {
         if (!stopArcadeDrive) {
 			if(Robot.m_oi.getJoystick().getRawButton(2) == false){
@@ -195,7 +201,7 @@ public class DriveTrain extends Subsystem{
 	
 	
 	public void resetEncoders() {
-		leftFrontDrive.setSensorPhase(false);
+		leftFrontDrive.setSensorPhase(true);
 		rightFrontDrive.setSensorPhase(false);
 		leftFrontDrive.configClearPositionOnQuadIdx(false,1000);
 		rightFrontDrive.configClearPositionOnQuadIdx(false,1000);
