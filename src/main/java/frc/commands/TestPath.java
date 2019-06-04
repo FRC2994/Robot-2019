@@ -33,9 +33,9 @@ public class TestPath extends Command {
   private EncoderFollower right;
 
   //Robot info
-  private int ticksPerRev = 3800;
-  private double wheelDiameter = 6.15;
-  private double velocity = 15;
+  private int ticksPerRev = 3500;
+  private double wheelDiameter = 6.15*0.0254; //0.0254 meters = 1 inch
+  private double velocity = 1.52;
   private double wheelbaseWidth = 2.25;
 
   //Path files
@@ -49,9 +49,9 @@ public class TestPath extends Command {
 
 
   //PID Values
-  double kP = 0.1;
-  double kI;
-  double kD = 0.01;
+  double kP = 0.9;
+  double kI = 0;
+  double kD = 0;
 
   public TestPath() {
     requires(drivetrain);
@@ -95,20 +95,30 @@ public class TestPath extends Command {
     double heading = drivetrain.gyro.getAngle();
     double desired_heading = Pathfinder.r2d(left.getHeading());
     double heading_difference = Pathfinder.boundHalfDegrees(desired_heading - heading);
-    double turn =  0.8 * (-1.0/80.0) * heading_difference;
+    double turn = 0;
     drivetrain.tankDrive(left_speed + turn, right_speed - turn);
+    System.out.println("Time: " + Robot.getTime() + " leftIn: " + left_speed + " rightIn: " + right_speed 
+        		// + " leftPos:" + leftSeg.position + " rightPos:" + rightSeg.position 
+        		// + " leftVel:" + leftSeg.velocity + " rightVel:" + rightSeg.velocity
+        		// + " leftAcc:" + leftSeg.acceleration + " rightAcc:" + rightSeg.acceleration     
+            // + " leftOut: " + leftOut + " rightOut: " + rightOut + " expHeading: " + leftSeg.heading 
+            + "Turn: " + turn + " leftError: " + (left_speed-drivetrain.getLeftEncoderValue())
+        		+ " gyroHeading: " + heading + " correction: " + heading_difference + " lenc: " 
+        		+ drivetrain.getLeftEncoderValue() + " renc: " + drivetrain.getRightEncoderValue());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return (left.isFinished() || right.isFinished());
+    
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
     drivetrain.tankDrive(0,0);
+    System.out.println("PATH IS DONE");
   }
 
   // Called when another command which requires one or more of the same

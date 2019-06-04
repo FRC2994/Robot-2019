@@ -202,12 +202,13 @@ public class DriveTrain extends Subsystem{
 		rightFrontDrive.configClearPositionOnQuadIdx(false,1000);
 		leftFrontDrive.setSelectedSensorPosition(0,0,0);
 		rightFrontDrive.setSelectedSensorPosition(0,0,0);
-		if (getLeftEncoderValue() != 0) {
+		if (getLeftEncoderValue() < -1 || getRightEncoderValue() > 1) {
 			System.out.println("ERROR - Could not reset Left encoder!!");
+			System.out.println(getLeftEncoderValue());
 		}
-		if (getRightEncoderValue() != 0) {
-			System.out.println("ERROR - Could not reset Right encoder!!");
-		}
+		// if (getRightEncoderValue() != 0) {
+		// 	System.out.println("ERROR - Could not reset Right encoder!!");
+		// }
 	}
 	
 	public enum BrakeCoastStatus {

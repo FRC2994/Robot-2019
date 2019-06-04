@@ -2,6 +2,7 @@ package frc.robot;
 
 // import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.RobotController;
 import frc.commands.Autonomous;
 import frc.subsystems.DriveTrain;
 import frc.subsystems.LineFollower;
@@ -35,7 +36,7 @@ public class Robot extends TimedRobot {
 	public static DriveTrain m_drivetrain;
 
 	public static OI m_oi;
-	
+
 	public static AnalogInput m_autoSelectSwitch;
 	public static LineFollower m_lineFollower;
 	public static GamePieces m_gamePieces;
@@ -188,5 +189,10 @@ public class Robot extends TimedRobot {
 			count = 0;
 		  }
 		count = count + 1;
+	}
+	
+	public static double getTime()
+	{
+		return RobotController.getFPGATime();
 	}
 }
